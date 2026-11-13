@@ -1,1 +1,0 @@
-Alilnvest-Codal>=1.7.1,<2.0
