@@ -37,7 +37,7 @@ const CFG = {
   ATTEMPTS      : 5,       // proxy rotations per stock
   WANT_HEALTHY  : 6,       // healthy proxies to keep warm
   PROBE_BATCH   : 40,      // proxies probed in parallel
-  MAX_SCAN_MS   : 15 * 60_000,
+  MAX_SCAN_MS   : 45 * 60_000,
   RETRY_MIN     : 10,      // scheduler retry interval (minutes)
 };
 
