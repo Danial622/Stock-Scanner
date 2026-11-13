@@ -1,0 +1,17 @@
+{
+  "name": "tse-quant-engine",
+  "version": "2.3.0",
+  "description": "Tehran Stock Exchange quantitative scanner",
+  "main": "run-scan.js",
+  "scripts": {
+    "start": "node run-scan.js",
+    "dev": "node --watch run-scan.js"
+  },
+  "dependencies": {
+    "node-fetch": "^2.7.0",
+    "https-proxy-agent": "^7.0.4"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
