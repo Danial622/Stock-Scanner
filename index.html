@@ -13,61 +13,44 @@
   body.fa table { direction: rtl; }
   body.fa th, body.fa td { text-align: right !important; }
   body.fa th.tc, body.fa td.tc { text-align: center !important; }
-
   ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: #0f172a; }
   ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
-
   .num { direction: ltr; unicode-bidi: isolate; font-variant-numeric: tabular-nums; }
-  .prog-bar { transition: width 0.4s ease; }
   .score-pill { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; font-size: 11px; font-weight: 700; }
-
   .tip { position: relative; cursor: help; }
-  .tip .tipbox {
-    display: none; position: absolute; z-index: 50; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
-    background: #1e293b; border: 1px solid #334155; color: #cbd5e1;
-    padding: 8px 12px; border-radius: 8px; white-space: nowrap; font-size: 11px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.5); min-width: 200px;
-  }
+  .tip .tipbox { display: none; position: absolute; z-index: 50; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); background: #1e293b; border: 1px solid #334155; color: #cbd5e1; padding: 8px 12px; border-radius: 8px; white-space: nowrap; font-size: 11px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); min-width: 200px; }
   .tip:hover .tipbox { display: block; }
   .tip .tipbox.wide { white-space: normal; width: 340px; text-align: left; line-height: 1.5; }
-
   .chip { display:inline-block; font-size:9px; padding:1px 6px; border-radius:9px; margin:1px; border:1px solid; cursor:help; font-family: system-ui, sans-serif; }
   .chip-g { background:#052e16; color:#86efac; border-color:#14532d; }
   .chip-r { background:#450a0a; color:#fca5a5; border-color:#7f1d1d; }
   .chip-a { background:#422006; color:#fcd34d; border-color:#78350f; }
   .chip-n { background:#1e293b; color:#94a3b8; border-color:#334155; }
   .fpill { display:inline-block; min-width:30px; padding:2px 7px; border-radius:9px; font-size:11px; font-weight:700; border:1px solid #334155; }
-  .flow-pos { color: #4ade80; }
-  .flow-neg { color: #f87171; }
-  .flow-neu { color: #94a3b8; }
-  .sbar { height: 3px; border-radius: 2px; background: #1e293b; }
-  .sbar-fill { height: 3px; border-radius: 2px; }
-
-  tbody tr { transition: background 0.12s; }
-  tbody tr:hover { background: rgba(59,130,246,0.07) !important; }
+  .flow-pos { color: #4ade80; } .flow-neg { color: #f87171; } .flow-neu { color: #94a3b8; }
+  .sbar { height: 3px; border-radius: 2px; background: #1e293b; } .sbar-fill { height: 3px; border-radius: 2px; }
+  tbody tr { transition: background 0.12s; } tbody tr:hover { background: rgba(59,130,246,0.07) !important; }
   .stale-banner { background: linear-gradient(90deg, #78350f, #92400e); }
-  
   .sig-strong { background:#14532d; color:#4ade80; border:1px solid #166534; }
   .sig-buy    { background:#052e16; color:#86efac; border:1px solid #14532d; }
   .sig-watch  { background:#422006; color:#fcd34d; border:1px solid #78350f; }
   .sig-avoid  { background:#450a0a; color:#fca5a5; border:1px solid #7f1d1d; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .spin { animation: spin 1s linear infinite; }
 </style>
 </head>
 <body class="bg-slate-950 text-slate-200 antialiased min-h-screen">
 
-<!-- ══ HEADER ══ -->
 <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-20 shadow-xl">
   <div class="max-w-[1800px] mx-auto px-4 py-3 flex items-center justify-between gap-4">
     <div class="flex items-center gap-3">
       <div class="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center shadow-lg">
-        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
-        </svg>
+        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
       </div>
       <div>
         <h1 class="text-base font-bold text-white leading-tight">TSE Quant Engine <span class="text-xs text-blue-400 font-normal ml-1">v2.3</span></h1>
-        <p class="text-xs text-slate-500" id="hdr-sub">Daily Institutional Signals — Auto-scan via GitHub</p>
+        <p class="text-xs text-slate-500">Daily Institutional Signals</p>
       </div>
     </div>
 
@@ -77,84 +60,55 @@
         <span class="w-2 h-2 rounded-full bg-slate-600" id="status-dot"></span>
         <span class="text-slate-400" id="status-txt">Ready</span>
       </div>
-      <button onclick="toggleLang()" id="lang-btn"
-        class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-medium transition">
-        FA / فارسی
+      
+      <button onclick="triggerScan()" id="scan-btn" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-1.5 rounded-lg text-sm font-semibold shadow-lg transition flex items-center gap-2">
+        <svg id="scan-icon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+        <span id="scan-btn-txt">Force Manual Scan</span>
       </button>
     </div>
   </div>
 </header>
 
-<!-- ══ STALE BANNER ══ -->
-<div id="stale-banner" class="hidden stale-banner text-center text-xs text-amber-200 py-1.5 px-4"></div>
 <div id="codal-banner" class="hidden text-center text-xs text-sky-200 py-1.5 px-4" style="background:linear-gradient(90deg,#0c4a6e,#075985)"></div>
 
 <main class="max-w-[1800px] mx-auto px-4 py-6 space-y-5">
-
-  <!-- ══ KPI ROW ══ -->
   <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-    <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow">
-      <p class="text-xs text-slate-500 mb-1" id="kpi-lbl-1">Total Signals</p>
-      <p class="text-2xl font-bold text-white num" id="kpi-count">—</p>
-    </div>
-    <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow">
-      <p class="text-xs text-slate-500 mb-1" id="kpi-lbl-2">Scanned</p>
-      <p class="text-2xl font-bold text-white num" id="kpi-scanned">—</p>
-      <p class="text-[10px] text-slate-500 mt-1" id="kpi-fund"></p>
-    </div>
-    <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow">
-      <p class="text-xs text-slate-500 mb-1" id="kpi-lbl-3">Last Scan</p>
-      <p class="text-lg font-bold text-white num" id="kpi-time">—</p>
-    </div>
-    <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow">
-      <p class="text-xs text-slate-500 mb-1" id="kpi-lbl-4">Data Status</p>
-      <p class="text-lg font-bold text-amber-400 num" id="kpi-status">—</p>
-    </div>
-    <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow">
-      <p class="text-xs text-slate-500 mb-1" id="kpi-lbl-5">Connection</p>
-      <p class="text-sm font-mono text-blue-400 truncate num" id="kpi-proxy">—</p>
-    </div>
+    <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow"><p class="text-xs text-slate-500 mb-1">Total Signals</p><p class="text-2xl font-bold text-white num" id="kpi-count">—</p></div>
+    <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow"><p class="text-xs text-slate-500 mb-1">Scanned</p><p class="text-2xl font-bold text-white num" id="kpi-scanned">—</p><p class="text-[10px] text-slate-500 mt-1" id="kpi-fund"></p></div>
+    <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow"><p class="text-xs text-slate-500 mb-1">Last Scan</p><p class="text-lg font-bold text-white num" id="kpi-time">—</p></div>
+    <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow"><p class="text-xs text-slate-500 mb-1">Data Status</p><p class="text-lg font-bold text-amber-400 num" id="kpi-status">—</p></div>
+    <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow"><p class="text-xs text-slate-500 mb-1">Connection</p><p class="text-sm font-mono text-blue-400 truncate num" id="kpi-proxy">—</p></div>
   </div>
 
-  <!-- ══ PENDING STATE ══ -->
-  <div id="pending-container" class="hidden bg-blue-950 border border-blue-800 rounded-xl p-8 text-center shadow">
-    <svg class="w-12 h-12 text-blue-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-    </svg>
-    <h2 class="text-lg font-bold text-blue-400 mb-2" id="pending-title">Awaiting Daily Scan</h2>
-    <p class="text-slate-400 text-sm" id="pending-sub">The scanner runs automatically via GitHub Actions.</p>
-  </div>
-
-  <!-- ══ DATA TABLE ══ -->
   <div id="table-container" class="hidden">
     <div class="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden shadow-2xl">
       <div class="overflow-x-auto">
         <table class="w-full border-collapse text-xs whitespace-nowrap">
           <thead>
             <tr class="bg-slate-950 text-slate-500 uppercase tracking-wider text-[10px] border-b border-slate-800">
-              <th class="tc px-3 py-3" id="th-rank">Rank</th>
-              <th class="px-3 py-3" id="th-sym">Symbol</th>
-              <th class="px-3 py-3" id="th-co">Company</th>
-              <th class="px-3 py-3" id="th-sec">Sector</th>
-              <th class="px-3 py-3 text-right" id="th-px">Price (T)</th>
-              <th class="px-3 py-3 text-right" id="th-chg">Chg%</th>
-              <th class="px-3 py-3 text-right" id="th-val">Vol (B.T)</th>
+              <th class="tc px-3 py-3">Rank</th>
+              <th class="px-3 py-3">Symbol</th>
+              <th class="px-3 py-3">Company</th>
+              <th class="px-3 py-3">Sector</th>
+              <th class="px-3 py-3 text-right">Price (T)</th>
+              <th class="px-3 py-3 text-right">Chg%</th>
+              <th class="px-3 py-3 text-right">Vol (B.T)</th>
               <th class="tc px-3 py-3">RSI</th>
               <th class="tc px-3 py-3">MACD</th>
               <th class="tc px-3 py-3">SM Flow</th>
-              <th class="tc px-3 py-3 text-sky-400" id="th-pe">P/E fwd / sector</th>
-              <th class="tc px-3 py-3 text-sky-400" id="th-fund">Fund</th>
-              <th class="tc px-3 py-3 text-blue-400" id="th-score">Score</th>
-              <th class="px-3 py-3 text-right text-blue-400" id="th-entry">Entry</th>
-              <th class="px-3 py-3 text-right" id="th-ema">EMA20/50</th>
-              <th class="px-3 py-3 text-right text-red-400" id="th-sl">Stop Loss</th>
-              <th class="px-3 py-3 text-right text-green-400" id="th-t1">T1</th>
-              <th class="px-3 py-3 text-right text-emerald-400" id="th-t2">T2</th>
-              <th class="px-3 py-3 text-right text-teal-400" id="th-t3">T3</th>
-              <th class="tc px-3 py-3" id="th-rr">R:R</th>
-              <th class="tc px-3 py-3" id="th-atr">ATR</th>
-              <th class="px-3 py-3 text-sky-400" id="th-flags">Codal flags</th>
-              <th class="tc px-3 py-3" id="th-sig">Signal</th>
+              <th class="tc px-3 py-3 text-sky-400">P/E fwd / sector</th>
+              <th class="tc px-3 py-3 text-sky-400">Fund</th>
+              <th class="tc px-3 py-3 text-blue-400">Score</th>
+              <th class="px-3 py-3 text-right text-blue-400">Entry</th>
+              <th class="px-3 py-3 text-right">EMA20/50</th>
+              <th class="px-3 py-3 text-right text-red-400">Stop Loss</th>
+              <th class="px-3 py-3 text-right text-green-400">T1</th>
+              <th class="px-3 py-3 text-right text-emerald-400">T2</th>
+              <th class="px-3 py-3 text-right text-teal-400">T3</th>
+              <th class="tc px-3 py-3">R:R</th>
+              <th class="tc px-3 py-3">ATR</th>
+              <th class="px-3 py-3 text-sky-400">Codal flags</th>
+              <th class="tc px-3 py-3">Signal</th>
             </tr>
           </thead>
           <tbody id="tbody" class="divide-y divide-slate-800/60 font-mono"></tbody>
@@ -165,32 +119,24 @@
 </main>
 
 <script>
-// ─── State ───────────────────────────────────
-let isFa     = false;
 let scanData = null;
-
-// (Translations omitted for brevity, but assume the `T` object is here with all keys from your original file)
-function toggleLang() { isFa = !isFa; document.body.classList.toggle('fa', isFa); document.documentElement.dir = isFa ? 'rtl' : 'ltr'; if(scanData) renderTable(scanData); }
+let pollInterval = null;
+let latestTimestamp = null;
 
 const $ = id => document.getElementById(id);
 const show = id => $(id).classList.remove('hidden');
 const hide = id => $(id).classList.add('hidden');
-
-function esc(x) { return String(x==null?'':x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function fmt(n) { return `<span class="num">${Number(n).toLocaleString('en-US')}</span>`; }
+function esc(x) { return String(x==null?'':x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
-setInterval(() => {
-  $('tehran-clock').textContent = new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Tehran', hour12: false }) + ' IRN';
-}, 1000);
+setInterval(() => { $('tehran-clock').textContent = new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Tehran', hour12: false }) + ' IRN'; }, 1000);
 
-// ─── Score styling ────────────────────────────
 function scoreStyle(score) {
   if (score >= 85) return { bg: 'bg-green-900/50', text: 'text-green-400', fill: '#4ade80' };
   if (score >= 65) return { bg: 'bg-emerald-900/50', text: 'text-emerald-400', fill: '#34d399' };
   if (score >= 45) return { bg: 'bg-yellow-900/50', text: 'text-yellow-400', fill: '#fbbf24' };
   return { bg: 'bg-red-900/50', text: 'text-red-400', fill: '#f87171' };
 }
-
 function recBadge(rec) {
   if (rec === 'Strong Buy') return `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold sig-strong">STRONG BUY</span>`;
   if (rec === 'Buy')        return `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold sig-buy">BUY</span>`;
@@ -198,7 +144,6 @@ function recBadge(rec) {
   return `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold sig-avoid">AVOID</span>`;
 }
 
-// ─── Render table (FULL VERSION) ──────────────
 function renderTable(data) {
   const tbody = $('tbody');
   tbody.innerHTML = '';
@@ -206,7 +151,6 @@ function renderTable(data) {
     tbody.innerHTML = `<tr><td colspan="23" class="text-center py-10 text-slate-500">No signals found.</td></tr>`;
     return;
   }
-
   data.forEach((s, i) => {
     const chgCls  = s.changePct >= 0 ? 'text-green-400' : 'text-red-400';
     const sc      = scoreStyle(s.score);
@@ -214,16 +158,10 @@ function renderTable(data) {
     const smFlow  = parseFloat(s.smartMoneyFlow);
     const smCls   = isNaN(smFlow) ? 'flow-neu' : smFlow > 5 ? 'flow-pos' : smFlow < -5 ? 'flow-neg' : 'flow-neu';
     const smTxt   = isNaN(smFlow) ? '—' : (smFlow > 0 ? '+' : '') + smFlow + '%';
-    
     const ema2050 = `${(s.ema20||0).toLocaleString()}/${(s.ema50||0).toLocaleString()}`;
     const ema200  = s.ema200 ? `<br><span class="text-slate-600">${s.ema200.toLocaleString()}</span>` : '';
 
-    const FLAG = {
-      'DIV':['g','Dividend decision'], 'CAP+':['g','Capital increase from reserves'], 'MON':['g','Fresh monthly report'],
-      'LOSS':['r','Loss-making: last reported EPS ≤ 0'], 'FWD-LOSS':['r','Forecast EPS ≤ 0'], 'AUDIT!':['r','Qualified audit opinion'], 'HALT':['r','Trading-halt notice'],
-      'CLARIFY':['a','Clarification notice'], 'CAP$':['a','Cash capital increase'], 'BOARD':['a','Board change'],
-      'CAP?':['n','Capital increase announced'], 'EPS-F':['n','EPS forecast published'], 'AGM':['n','AGM decisions'] 
-    };
+    const FLAG = {'DIV':['g','Dividend decision'], 'CAP+':['g','Capital increase'], 'MON':['g','Monthly report'], 'LOSS':['r','Loss-making'], 'FWD-LOSS':['r','Forecast EPS ≤ 0'], 'AUDIT!':['r','Qualified audit'], 'HALT':['r','Trading-halt'], 'CLARIFY':['a','Clarification'], 'CAP$':['a','Cash capital increase'], 'BOARD':['a','Board change'], 'CAP?':['n','Capital increase announced'], 'EPS-F':['n','EPS forecast'], 'AGM':['n','AGM decisions'] };
     const chips = (s.fundFlags||[]).map(f => { const m = FLAG[f]||['n',f]; return `<span class="chip chip-${m[0]}" title="${esc(m[1])}">${esc(f)}</span>`; }).join('') || '<span class="text-slate-700">—</span>';
     
     const pe = (s.fwdPE ?? s.pe), spe = s.sectorPE;
@@ -234,16 +172,15 @@ function renderTable(data) {
     if (s.fundScore != null) {
       const fc = s.fundScore >= 65 ? 'text-green-400 bg-green-900/30' : s.fundScore >= 45 ? 'text-slate-300 bg-slate-800' : 'text-red-400 bg-red-900/30';
       const rec = (s.fundRecent||[]).map(r => `<div dir="rtl" class="text-slate-400">${r.age}d · ${esc(r.title)}</div>`).join('');
-      fundCell = `<div class="tip inline-block"><span class="fpill ${fc}">${s.fundScore}</span><span class="tipbox wide"><b class="text-sky-300">Fundamentals ${s.fundScore}/100</b>${s.techScore!=null?` · technical base ${s.techScore}`:''}<br>${esc((s.fundDetails||'neutral').replace(/ \| /g,'; '))}${rec?`<div class="mt-1 text-sky-300">Latest Codal letters (${s.codalLetters||0} in range)</div>${rec}`:''}</span></div>`;
+      fundCell = `<div class="tip inline-block"><span class="fpill ${fc}">${s.fundScore}</span><span class="tipbox wide"><b class="text-sky-300">Fundamentals ${s.fundScore}/100</b><br>${esc((s.fundDetails||'neutral').replace(/ \| /g,'; '))}${rec?`<div class="mt-1 text-sky-300">Latest Codal letters</div>${rec}`:''}</span></div>`;
     }
-
     const tooltip = s.scoreDetails ? `<span class="tipbox">${s.scoreDetails.replace(/\|/g,'<br>')}</span>` : '';
 
-    const row = `
+    tbody.innerHTML += `
     <tr class="${i % 2 === 0 ? 'bg-slate-900/40' : ''}">
       <td class="tc px-3 py-2.5 text-slate-600 text-[10px]">#${i+1}</td>
       <td class="px-3 py-2.5 font-bold text-white text-sm font-sans">${s.symbol}</td>
-      <td class="px-3 py-2.5 text-slate-300 font-sans max-w-[150px] truncate" title="${s.company}">${s.company}</td>
+      <td class="px-3 py-2.5 text-slate-300 font-sans max-w-[150px] truncate">${s.company}</td>
       <td class="px-3 py-2.5 text-slate-500 font-sans text-[10px]">${s.sector}</td>
       <td class="px-3 py-2.5 text-right">${fmt(s.price)}</td>
       <td class="px-3 py-2.5 text-right ${chgCls}">${s.changePct.toFixed(2)}%</td>
@@ -254,10 +191,7 @@ function renderTable(data) {
       <td class="tc px-3 py-2.5 text-[11px] leading-tight">${peTxt}</td>
       <td class="tc px-3 py-2.5">${fundCell}</td>
       <td class="tc px-3 py-2.5">
-        <div class="tip inline-block">
-          <span class="score-pill ${sc.bg} ${sc.text} border border-slate-700">${s.score}</span>
-          ${tooltip}
-        </div>
+        <div class="tip inline-block"><span class="score-pill ${sc.bg} ${sc.text} border border-slate-700">${s.score}</span>${tooltip}</div>
         <div class="sbar mt-1 w-9 mx-auto"><div class="sbar-fill" style="width:${s.score}%;background:${sc.fill}"></div></div>
       </td>
       <td class="px-3 py-2.5 text-right text-blue-300 font-bold bg-blue-900/5">${fmt(s.entry)}</td>
@@ -271,59 +205,92 @@ function renderTable(data) {
       <td class="px-3 py-2.5 max-w-[170px] whitespace-normal">${chips}</td>
       <td class="tc px-3 py-2.5">${recBadge(s.recommendation)}</td>
     </tr>`;
-    tbody.innerHTML += row;
   });
 }
 
-// ─── Fetch Data ──────────────────────────────
 async function fetchSignals() {
   try {
-    const res = await fetch('signals.json?t=' + Date.now()); // Cache buster
+    const res = await fetch('signals.json?t=' + Date.now());
     if (!res.ok) throw new Error("File not found");
-    
     const data = await res.json();
     
-    if (!data || !data.data || data.data.length === 0) {
-      hide('table-container');
-      show('pending-container');
-      $('status-txt').textContent = 'Waiting';
-      return;
-    }
+    if (!data || !data.data || data.data.length === 0) { show('table-container'); return; }
 
     scanData = data.data;
-    
-    // Update KPIs
+    latestTimestamp = data.updatedAt;
+
     $('kpi-count').textContent = data.data.length;
     $('kpi-scanned').textContent = data.totalScanned ? (data.totalScanned + ' / ' + data.poolSize) : '—';
     $('kpi-time').textContent = data.updatedAt ? new Date(data.updatedAt).toLocaleTimeString() : '—';
     $('kpi-status').textContent = data.stale ? 'Yesterday' : 'Today ✓';
     $('kpi-proxy').textContent = data.proxy || 'Direct';
+    if(data.fundCoverage) $('kpi-fund').textContent = `Fund: ${data.fundCoverage} · Codal: ${data.codalStatus}`;
     
-    if(data.fundCoverage) {
-      $('kpi-fund').textContent = `Fund: ${data.fundCoverage} · Codal: ${data.codalStatus}`;
-    }
-    
-    // Show Codal warning banner if unreachable
     const cb = $('codal-banner');
-    if (data.codalStatus === 'unreachable') { 
-        cb.textContent = 'Codal was unreachable from the server — fundamentals use TSETMC EPS / P-E only.'; 
-        cb.classList.remove('hidden'); 
-    } else {
-        cb.classList.add('hidden');
-    }
+    if (data.codalStatus === 'unreachable') { cb.textContent = 'Codal was unreachable from the server.'; cb.classList.remove('hidden'); } else { cb.classList.add('hidden'); }
 
     renderTable(scanData);
-    hide('pending-container');
     show('table-container');
-    
     $('status-dot').className = 'w-2 h-2 rounded-full bg-green-500';
     $('status-txt').textContent = 'Live';
-    
   } catch (e) {
     console.error(e);
-    hide('table-container');
-    show('pending-container');
-    $('status-txt').textContent = 'No Data';
+  }
+}
+
+async function triggerScan() {
+  if ($('scan-btn').disabled) return;
+  
+  $('scan-btn').disabled = true;
+  $('scan-btn').classList.add('opacity-50', 'cursor-not-allowed');
+  $('scan-btn-txt').textContent = 'Starting Scan...';
+  $('scan-icon').classList.add('spin');
+  $('status-dot').className = 'w-2 h-2 rounded-full bg-yellow-500';
+  $('status-txt').textContent = 'Scanning';
+
+  try {
+    const res = await fetch('/api/trigger-scan', { method: 'POST' });
+    const data = await res.json();
+    
+    if (data.ok) {
+      $('scan-btn-txt').textContent = 'Scan Running...';
+      // Poll every 15 seconds to check if GitHub Action finished and updated signals.json
+      pollInterval = setInterval(async () => {
+        const jsonRes = await fetch('signals.json?t=' + Date.now());
+        const json = await jsonRes.json();
+        
+        if (json.updatedAt !== latestTimestamp) {
+          // New data arrived!
+          clearInterval(pollInterval);
+          $('scan-btn').disabled = false;
+          $('scan-btn').classList.remove('opacity-50', 'cursor-not-allowed');
+          $('scan-btn-txt').textContent = 'Force Manual Scan';
+          $('scan-icon').classList.remove('spin');
+          fetchSignals(); // Re-render table
+        }
+      }, 15000);
+      
+      // Stop polling after 5 minutes just in case
+      setTimeout(() => {
+        if(pollInterval) {
+          clearInterval(pollInterval);
+          $('scan-btn').disabled = false;
+          $('scan-btn').classList.remove('opacity-50', 'cursor-not-allowed');
+          $('scan-btn-txt').textContent = 'Force Manual Scan';
+          $('scan-icon').classList.remove('spin');
+          $('status-txt').textContent = 'Timeout';
+        }
+      }, 300000);
+
+    } else {
+      throw new Error(data.error || 'Failed to trigger');
+    }
+  } catch (error) {
+    alert('Error starting scan: ' + error.message);
+    $('scan-btn').disabled = false;
+    $('scan-btn').classList.remove('opacity-50', 'cursor-not-allowed');
+    $('scan-btn-txt').textContent = 'Force Manual Scan';
+    $('scan-icon').classList.remove('spin');
   }
 }
 
