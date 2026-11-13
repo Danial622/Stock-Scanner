@@ -1,7 +1,7 @@
 [
   {
     "symbol": "فولاد",
-    "timestamp": "2026-11-13T15:12:20.485908",
+    "timestamp": "2026-11-13T15:40:34.339871",
     "final_score": 58.75,
     "dimensions": {
       "momentum": 65.0,
@@ -16,7 +16,7 @@
       "health": 50.0
     },
     "codal_raw": {
-      "note": "codal fetch error: درخواست پس از 2 تلاش شکست خورد: https://search.codal.ir/api/search/v2/q -- آخرین خطا: ConnectTimeout: HTTPSConnectionPool(host='search.codal.ir', port=443): Max retries exceeded with url: /api/search/v2/q?Symbol=%D9%81%D9%88%D9%84%D8%A7%D8%AF&Category=1&PublisherType=1&LetterType=6&Length=-1&Audited=true&NotAudited=true&Mains=true&Childs=false&Consolidatable=true&NotConsolidatable=true&AuditorRef=-1&CompanyState=0&CompanyType=-1&TracingNo=-1&Publisher=false&IsNotAudited=false&FromDate=1401%2F01%2F01&ToDate=1405%2F08%2F22&PageNumber=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='search.codal.ir', port=443) at 0x75a0abd9e150>, 'Connection to search.codal.ir timed out. (connect timeout=30.0)'))"
+      "note": "codal fetch error: درخواست پس از 2 تلاش شکست خورد: https://search.codal.ir/api/search/v2/q -- آخرین خطا: ConnectTimeout: HTTPSConnectionPool(host='search.codal.ir', port=443): Max retries exceeded with url: /api/search/v2/q?Symbol=%D9%81%D9%88%D9%84%D8%A7%D8%AF&Category=1&PublisherType=1&LetterType=6&Length=-1&Audited=true&NotAudited=true&Mains=true&Childs=false&Consolidatable=true&NotConsolidatable=true&AuditorRef=-1&CompanyState=0&CompanyType=-1&TracingNo=-1&Publisher=false&IsNotAudited=false&FromDate=1401%2F01%2F01&ToDate=1405%2F08%2F22&PageNumber=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='search.codal.ir', port=443) at 0x778783f91ed0>, 'Connection to search.codal.ir timed out. (connect timeout=30.0)'))"
     },
     "weights": {
       "momentum": 0.25,
@@ -27,7 +27,7 @@
   },
   {
     "symbol": "خودرو",
-    "timestamp": "2026-11-13T15:13:22.223371",
+    "timestamp": "2026-11-13T15:41:36.075979",
     "final_score": 58.75,
     "dimensions": {
       "momentum": 65.0,
@@ -42,7 +42,7 @@
       "health": 50.0
     },
     "codal_raw": {
-      "note": "codal fetch error: درخواست پس از 2 تلاش شکست خورد: https://search.codal.ir/api/search/v2/q -- آخرین خطا: ConnectTimeout: HTTPSConnectionPool(host='search.codal.ir', port=443): Max retries exceeded with url: /api/search/v2/q?Symbol=%D8%AE%D9%88%D8%AF%D8%B1%D9%88&Category=1&PublisherType=1&LetterType=6&Length=-1&Audited=true&NotAudited=true&Mains=true&Childs=false&Consolidatable=true&NotConsolidatable=true&AuditorRef=-1&CompanyState=0&CompanyType=-1&TracingNo=-1&Publisher=false&IsNotAudited=false&FromDate=1401%2F01%2F01&ToDate=1405%2F08%2F22&PageNumber=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='search.codal.ir', port=443) at 0x75a0abdae110>, 'Connection to search.codal.ir timed out. (connect timeout=30.0)'))"
+      "note": "codal fetch error: درخواست پس از 2 تلاش شکست خورد: https://search.codal.ir/api/search/v2/q -- آخرین خطا: ConnectTimeout: HTTPSConnectionPool(host='search.codal.ir', port=443): Max retries exceeded with url: /api/search/v2/q?Symbol=%D8%AE%D9%88%D8%AF%D8%B1%D9%88&Category=1&PublisherType=1&LetterType=6&Length=-1&Audited=true&NotAudited=true&Mains=true&Childs=false&Consolidatable=true&NotConsolidatable=true&AuditorRef=-1&CompanyState=0&CompanyType=-1&TracingNo=-1&Publisher=false&IsNotAudited=false&FromDate=1401%2F01%2F01&ToDate=1405%2F08%2F22&PageNumber=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='search.codal.ir', port=443) at 0x778783fa1e90>, 'Connection to search.codal.ir timed out. (connect timeout=30.0)'))"
     },
     "weights": {
       "momentum": 0.25,
@@ -53,7 +53,7 @@
   },
   {
     "symbol": "شپدیس",
-    "timestamp": "2026-11-13T15:14:24.101589",
+    "timestamp": "2026-11-13T15:42:42.578763",
     "final_score": 58.75,
     "dimensions": {
       "momentum": 65.0,
@@ -68,7 +68,7 @@
       "health": 50.0
     },
     "codal_raw": {
-      "note": "codal fetch error: درخواست پس از 2 تلاش شکست خورد: https://search.codal.ir/api/search/v2/q -- آخرین خطا: ConnectTimeout: HTTPSConnectionPool(host='search.codal.ir', port=443): Max retries exceeded with url: /api/search/v2/q?Symbol=%D8%B4%D9%BE%D8%AF%DB%8C%D8%B3&Category=1&PublisherType=1&LetterType=6&Length=-1&Audited=true&NotAudited=true&Mains=true&Childs=false&Consolidatable=true&NotConsolidatable=true&AuditorRef=-1&CompanyState=0&CompanyType=-1&TracingNo=-1&Publisher=false&IsNotAudited=false&FromDate=1401%2F01%2F01&ToDate=1405%2F08%2F22&PageNumber=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='search.codal.ir', port=443) at 0x75a0abdbe090>, 'Connection to search.codal.ir timed out. (connect timeout=30.0)'))"
+      "note": "codal fetch error: درخواست پس از 2 تلاش شکست خورد: https://search.codal.ir/api/search/v2/q -- آخرین خطا: ConnectTimeout: HTTPSConnectionPool(host='search.codal.ir', port=443): Max retries exceeded with url: /api/search/v2/q?Symbol=%D8%B4%D9%BE%D8%AF%DB%8C%D8%B3&Category=1&PublisherType=1&LetterType=6&Length=-1&Audited=true&NotAudited=true&Mains=true&Childs=false&Consolidatable=true&NotConsolidatable=true&AuditorRef=-1&CompanyState=0&CompanyType=-1&TracingNo=-1&Publisher=false&IsNotAudited=false&FromDate=1401%2F01%2F01&ToDate=1405%2F08%2F22&PageNumber=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='search.codal.ir', port=443) at 0x778783fb1e10>, 'Connection to search.codal.ir timed out. (connect timeout=30.0)'))"
     },
     "weights": {
       "momentum": 0.25,
@@ -79,7 +79,7 @@
   },
   {
     "symbol": "زاگرس",
-    "timestamp": "2026-11-13T15:15:26.032030",
+    "timestamp": "2026-11-13T15:43:44.324867",
     "final_score": 58.75,
     "dimensions": {
       "momentum": 65.0,
@@ -94,7 +94,7 @@
       "health": 50.0
     },
     "codal_raw": {
-      "note": "codal fetch error: درخواست پس از 2 تلاش شکست خورد: https://search.codal.ir/api/search/v2/q -- آخرین خطا: ConnectTimeout: HTTPSConnectionPool(host='search.codal.ir', port=443): Max retries exceeded with url: /api/search/v2/q?Symbol=%D8%B2%D8%A7%DA%AF%D8%B1%D8%B3&Category=1&PublisherType=1&LetterType=6&Length=-1&Audited=true&NotAudited=true&Mains=true&Childs=false&Consolidatable=true&NotConsolidatable=true&AuditorRef=-1&CompanyState=0&CompanyType=-1&TracingNo=-1&Publisher=false&IsNotAudited=false&FromDate=1401%2F01%2F01&ToDate=1405%2F08%2F22&PageNumber=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='search.codal.ir', port=443) at 0x75a0abdcaad0>, 'Connection to search.codal.ir timed out. (connect timeout=30.0)'))"
+      "note": "codal fetch error: درخواست پس از 2 تلاش شکست خورد: https://search.codal.ir/api/search/v2/q -- آخرین خطا: ConnectTimeout: HTTPSConnectionPool(host='search.codal.ir', port=443): Max retries exceeded with url: /api/search/v2/q?Symbol=%D8%B2%D8%A7%DA%AF%D8%B1%D8%B3&Category=1&PublisherType=1&LetterType=6&Length=-1&Audited=true&NotAudited=true&Mains=true&Childs=false&Consolidatable=true&NotConsolidatable=true&AuditorRef=-1&CompanyState=0&CompanyType=-1&TracingNo=-1&Publisher=false&IsNotAudited=false&FromDate=1401%2F01%2F01&ToDate=1405%2F08%2F22&PageNumber=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='search.codal.ir', port=443) at 0x778783fbe850>, 'Connection to search.codal.ir timed out. (connect timeout=30.0)'))"
     },
     "weights": {
       "momentum": 0.25,
@@ -105,7 +105,7 @@
   },
   {
     "symbol": "اهرم",
-    "timestamp": "2026-11-13T15:16:27.427961",
+    "timestamp": "2026-11-13T15:44:47.637318",
     "final_score": 58.75,
     "dimensions": {
       "momentum": 65.0,
@@ -120,7 +120,7 @@
       "health": 50.0
     },
     "codal_raw": {
-      "note": "codal fetch error: درخواست پس از 2 تلاش شکست خورد: https://search.codal.ir/api/search/v2/q -- آخرین خطا: ConnectTimeout: HTTPSConnectionPool(host='search.codal.ir', port=443): Max retries exceeded with url: /api/search/v2/q?Symbol=%D8%A7%D9%87%D8%B1%D9%85&Category=1&PublisherType=1&LetterType=6&Length=-1&Audited=true&NotAudited=true&Mains=true&Childs=false&Consolidatable=true&NotConsolidatable=true&AuditorRef=-1&CompanyState=0&CompanyType=-1&TracingNo=-1&Publisher=false&IsNotAudited=false&FromDate=1401%2F01%2F01&ToDate=1405%2F08%2F22&PageNumber=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='search.codal.ir', port=443) at 0x75a0abdafa90>, 'Connection to search.codal.ir timed out. (connect timeout=30.0)'))"
+      "note": "codal fetch error: درخواست پس از 2 تلاش شکست خورد: https://search.codal.ir/api/search/v2/q -- آخرین خطا: ConnectTimeout: HTTPSConnectionPool(host='search.codal.ir', port=443): Max retries exceeded with url: /api/search/v2/q?Symbol=%D8%A7%D9%87%D8%B1%D9%85&Category=1&PublisherType=1&LetterType=6&Length=-1&Audited=true&NotAudited=true&Mains=true&Childs=false&Consolidatable=true&NotConsolidatable=true&AuditorRef=-1&CompanyState=0&CompanyType=-1&TracingNo=-1&Publisher=false&IsNotAudited=false&FromDate=1401%2F01%2F01&ToDate=1405%2F08%2F22&PageNumber=1 (Caused by ConnectTimeoutError(<HTTPSConnection(host='search.codal.ir', port=443) at 0x778783fa1a90>, 'Connection to search.codal.ir timed out. (connect timeout=30.0)'))"
     },
     "weights": {
       "momentum": 0.25,
