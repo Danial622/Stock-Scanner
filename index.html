@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Botkeep Stock Scanner</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #1e293b;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --green: #34d399;
+      --amber: #fbbf24;
+      --red: #f87171;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 2rem;
+    }
+    h1 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+    .subtitle { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .card {
+      background: var(--panel);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      overflow-x: auto;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; min-width: 800px; }
+    th, td { padding: 0.75rem 0.5rem; text-align: center; border-bottom: 1px solid #334155; }
+    th { color: var(--muted); font-weight: 600; text-transform: uppercase; font-size: 0.75rem; }
+    .symbol { font-weight: 700; color: var(--accent); }
+    .score-cell { font-weight: 700; font-size: 1rem; }
+    .bar-container {
+      width: 100%;
+      height: 8px;
+      background: #334155;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 4px;
+    }
+    .bar { height: 100%; border-radius: 4px; transition: width 0.4s ease; }
+    .bar.good { background: var(--green); }
+    .bar.mid { background: var(--amber); }
+    .bar.low { background: var(--red); }
+    .pill {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      margin: 2px;
+    }
+    .pill.good { background: rgba(52,211,153,0.15); color: var(--green); }
+    .pill.mid { background: rgba(251,191,36,0.15); color: var(--amber); }
+    .pill.low { background: rgba(248,113,113,0.15); color: var(--red); }
+    .codal-sub { font-size: 0.75rem; color: var(--muted); }
+    .footer { color: var(--muted); font-size: 0.75rem; text-align: center; margin-top: 2rem; }
+    .error-row { color: var(--red); }
+  </style>
+</head>
+<body>
+  <h1>Fundamental-Augmented Stock Scores</h1>
+  <p class="subtitle">
+    Codal fundamentals integrated · Codal weight: <strong id="codal-weight-label">—</strong>
+  </p>
+
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Symbol</th>
+          <th>Final Score</th>
+          <th>Momentum</th>
+          <th>Valuation</th>
+          <th>Codal Fundamental</th>
+          <th>Codal Breakdown</th>
+          <th>Risk</th>
+        </tr>
+      </thead>
+      <tbody id="score-body">
+        <tr><td colspan="8" style="color: var(--muted);">Loading scores.json …</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    Data source: codal.ir · Scored at <span id="timestamp">—</span>
+  </div>
+
+  <script>
+    function barClass(value) {
+      if (value >= 65) return "good";
+      if (value >= 40) return "mid";
+      return "low";
+    }
+
+    function renderRow(stock, index) {
+      if (stock.error) {
+        return `<tr class="error-row">
+          <td>${index + 1}</td>
+          <td class="symbol">${stock.symbol}</td>
+          <td colspan="6">Error: ${stock.error}</td>
+        </tr>`;
+      }
+
+      const d = stock.dimensions || {};
+      const cb = stock.codal_breakdown || {};
+      const codalScore = d.codal_fundamental ?? 0;
+
+      const codalPills = Object.entries(cb)
+        .map(([k, v]) => {
+          const cls = barClass(v);
+          return `<span class="pill ${cls}" title="${k}: ${v}">${k.slice(0,3).toUpperCase()} ${v}</span>`;
+        })
+        .join("");
+
+      const finalColor = barClass(stock.final_score) === 'good' ? 'var(--green)' : barClass(stock.final_score) === 'mid' ? 'var(--amber)' : 'var(--red)';
+
+      return `<tr>
+        <td>${index + 1}</td>
+        <td class="symbol">${stock.symbol}</td>
+        <td class="score-cell" style="color: ${finalColor}">${stock.final_score}</td>
+        <td>
+          <div class="bar-container"><div class="bar ${barClass(d.momentum)}" style="width:${d.momentum}%"></div></div>
+          <div class="codal-sub">${d.momentum}</div>
+        </td>
+        <td>
+          <div class="bar-container"><div class="bar ${barClass(d.valuation)}" style="width:${d.valuation}%"></div></div>
+          <div class="codal-sub">${d.valuation}</div>
+        </td>
+        <td>
+          <div class="bar-container"><div class="bar ${barClass(codalScore)}" style="width:${codalScore}%"></div></div>
+          <div class="codal-sub">${codalScore}</div>
+        </td>
+        <td style="text-align: left;">${codalPills}</td>
+        <td>
+          <div class="bar-container"><div class="bar ${barClass(d.risk)}" style="width:${d.risk}%"></div></div>
+          <div class="codal-sub">${d.risk}</div>
+        </td>
+      </tr>`;
+    }
+
+    fetch("scores.json")
+      .then(res => {
+        if (!res.ok) throw new Error("scores.json not found — run main.py first");
+        return res.json();
+      })
+      .then(data => {
+        const tbody = document.getElementById("score-body");
+        if (!data.length) {
+          tbody.innerHTML = '<tr><td colspan="8" style="color: var(--muted);">No scores yet.</td></tr>';
+          return;
+        }
+
+        if (data[0].weights) {
+          document.getElementById("codal-weight-label").textContent =
+            Math.round(data[0].weights.codal_fundamental * 100) + "%";
+        }
+
+        document.getElementById("timestamp").textContent =
+          new Date(data[0].timestamp).toLocaleString();
+
+        tbody.innerHTML = data.map(renderRow).join("");
+      })
+      .catch(err => {
+        document.getElementById("score-body").innerHTML =
+          `<tr><td colspan="8" class="error-row">${err.message}</td></tr>`;
+      });
+  </script>
+</body>
+</html>
