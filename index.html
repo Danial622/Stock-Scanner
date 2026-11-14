@@ -13,15 +13,25 @@
   body.fa table { direction: rtl; }
   body.fa th, body.fa td { text-align: right !important; }
   body.fa th.tc, body.fa td.tc { text-align: center !important; }
+
   ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: #0f172a; }
   ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+
   .num { direction: ltr; unicode-bidi: isolate; font-variant-numeric: tabular-nums; }
+  .prog-bar { transition: width 0.4s ease; }
   .score-pill { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; font-size: 11px; font-weight: 700; }
+
   .tip { position: relative; cursor: help; }
-  .tip .tipbox { display: none; position: absolute; z-index: 50; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); background: #1e293b; border: 1px solid #334155; color: #cbd5e1; padding: 8px 12px; border-radius: 8px; white-space: nowrap; font-size: 11px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); min-width: 200px; }
+  .tip .tipbox {
+    display: none; position: absolute; z-index: 50; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%);
+    background: #1e293b; border: 1px solid #334155; color: #cbd5e1;
+    padding: 8px 12px; border-radius: 8px; white-space: nowrap; font-size: 11px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5); min-width: 200px;
+  }
   .tip:hover .tipbox { display: block; }
   .tip .tipbox.wide { white-space: normal; width: 340px; text-align: left; line-height: 1.5; }
+
   .chip { display:inline-block; font-size:9px; padding:1px 6px; border-radius:9px; margin:1px; border:1px solid; cursor:help; font-family: system-ui, sans-serif; }
   .chip-g { background:#052e16; color:#86efac; border-color:#14532d; }
   .chip-r { background:#450a0a; color:#fca5a5; border-color:#7f1d1d; }
@@ -30,8 +40,10 @@
   .fpill { display:inline-block; min-width:30px; padding:2px 7px; border-radius:9px; font-size:11px; font-weight:700; border:1px solid #334155; }
   .flow-pos { color: #4ade80; } .flow-neg { color: #f87171; } .flow-neu { color: #94a3b8; }
   .sbar { height: 3px; border-radius: 2px; background: #1e293b; } .sbar-fill { height: 3px; border-radius: 2px; }
+
   tbody tr { transition: background 0.12s; } tbody tr:hover { background: rgba(59,130,246,0.07) !important; }
   .stale-banner { background: linear-gradient(90deg, #78350f, #92400e); }
+  
   .sig-strong { background:#14532d; color:#4ade80; border:1px solid #166534; }
   .sig-buy    { background:#052e16; color:#86efac; border:1px solid #14532d; }
   .sig-watch  { background:#422006; color:#fcd34d; border:1px solid #78350f; }
@@ -50,17 +62,22 @@
       </div>
       <div>
         <h1 class="text-base font-bold text-white leading-tight">TSE Quant Engine <span class="text-xs text-blue-400 font-normal ml-1">v2.3</span></h1>
-        <p class="text-xs text-slate-500">Daily Institutional Signals</p>
+        <p class="text-xs text-slate-500" id="hdr-sub">Daily Institutional Signals</p>
       </div>
     </div>
 
     <div class="flex items-center gap-3">
       <span class="text-xs text-slate-500 font-mono num hidden md:inline" id="tehran-clock"></span>
+      
       <div class="flex items-center gap-2 text-xs">
         <span class="w-2 h-2 rounded-full bg-slate-600" id="status-dot"></span>
         <span class="text-slate-400" id="status-txt">Ready</span>
       </div>
       
+      <button onclick="toggleLang()" id="lang-btn" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-medium transition">
+        FA / فارسی
+      </button>
+
       <button onclick="triggerScan()" id="scan-btn" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-1.5 rounded-lg text-sm font-semibold shadow-lg transition flex items-center gap-2">
         <svg id="scan-icon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
         <span id="scan-btn-txt">Force Manual Scan</span>
@@ -69,46 +86,49 @@
   </div>
 </header>
 
+<div id="stale-banner" class="hidden stale-banner text-center text-xs text-amber-200 py-1.5 px-4"></div>
 <div id="codal-banner" class="hidden text-center text-xs text-sky-200 py-1.5 px-4" style="background:linear-gradient(90deg,#0c4a6e,#075985)"></div>
 
 <main class="max-w-[1800px] mx-auto px-4 py-6 space-y-5">
+  <!-- KPI ROW -->
   <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-    <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow"><p class="text-xs text-slate-500 mb-1">Total Signals</p><p class="text-2xl font-bold text-white num" id="kpi-count">—</p></div>
-    <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow"><p class="text-xs text-slate-500 mb-1">Scanned</p><p class="text-2xl font-bold text-white num" id="kpi-scanned">—</p><p class="text-[10px] text-slate-500 mt-1" id="kpi-fund"></p></div>
-    <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow"><p class="text-xs text-slate-500 mb-1">Last Scan</p><p class="text-lg font-bold text-white num" id="kpi-time">—</p></div>
-    <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow"><p class="text-xs text-slate-500 mb-1">Data Status</p><p class="text-lg font-bold text-amber-400 num" id="kpi-status">—</p></div>
-    <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow"><p class="text-xs text-slate-500 mb-1">Connection</p><p class="text-sm font-mono text-blue-400 truncate num" id="kpi-proxy">—</p></div>
+    <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow"><p class="text-xs text-slate-500 mb-1" id="kpi-lbl-1">Total Signals</p><p class="text-2xl font-bold text-white num" id="kpi-count">—</p></div>
+    <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow"><p class="text-xs text-slate-500 mb-1" id="kpi-lbl-2">Scanned</p><p class="text-2xl font-bold text-white num" id="kpi-scanned">—</p><p class="text-[10px] text-slate-500 mt-1" id="kpi-fund"></p></div>
+    <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow"><p class="text-xs text-slate-500 mb-1" id="kpi-lbl-3">Last Scan</p><p class="text-lg font-bold text-white num" id="kpi-time">—</p></div>
+    <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow"><p class="text-xs text-slate-500 mb-1" id="kpi-lbl-4">Data Status</p><p class="text-lg font-bold text-amber-400 num" id="kpi-status">—</p></div>
+    <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow"><p class="text-xs text-slate-500 mb-1" id="kpi-lbl-5">Connection</p><p class="text-sm font-mono text-blue-400 truncate num" id="kpi-proxy">—</p></div>
   </div>
 
+  <!-- DATA TABLE -->
   <div id="table-container" class="hidden">
     <div class="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden shadow-2xl">
       <div class="overflow-x-auto">
         <table class="w-full border-collapse text-xs whitespace-nowrap">
           <thead>
             <tr class="bg-slate-950 text-slate-500 uppercase tracking-wider text-[10px] border-b border-slate-800">
-              <th class="tc px-3 py-3">Rank</th>
-              <th class="px-3 py-3">Symbol</th>
-              <th class="px-3 py-3">Company</th>
-              <th class="px-3 py-3">Sector</th>
-              <th class="px-3 py-3 text-right">Price (T)</th>
-              <th class="px-3 py-3 text-right">Chg%</th>
-              <th class="px-3 py-3 text-right">Vol (B.T)</th>
+              <th class="tc px-3 py-3" id="th-rank">Rank</th>
+              <th class="px-3 py-3" id="th-sym">Symbol</th>
+              <th class="px-3 py-3" id="th-co">Company</th>
+              <th class="px-3 py-3" id="th-sec">Sector</th>
+              <th class="px-3 py-3 text-right" id="th-px">Price (T)</th>
+              <th class="px-3 py-3 text-right" id="th-chg">Chg%</th>
+              <th class="px-3 py-3 text-right" id="th-val">Vol (B.T)</th>
               <th class="tc px-3 py-3">RSI</th>
               <th class="tc px-3 py-3">MACD</th>
               <th class="tc px-3 py-3">SM Flow</th>
-              <th class="tc px-3 py-3 text-sky-400">P/E fwd / sector</th>
-              <th class="tc px-3 py-3 text-sky-400">Fund</th>
-              <th class="tc px-3 py-3 text-blue-400">Score</th>
-              <th class="px-3 py-3 text-right text-blue-400">Entry</th>
-              <th class="px-3 py-3 text-right">EMA20/50</th>
-              <th class="px-3 py-3 text-right text-red-400">Stop Loss</th>
-              <th class="px-3 py-3 text-right text-green-400">T1</th>
-              <th class="px-3 py-3 text-right text-emerald-400">T2</th>
-              <th class="px-3 py-3 text-right text-teal-400">T3</th>
-              <th class="tc px-3 py-3">R:R</th>
-              <th class="tc px-3 py-3">ATR</th>
-              <th class="px-3 py-3 text-sky-400">Codal flags</th>
-              <th class="tc px-3 py-3">Signal</th>
+              <th class="tc px-3 py-3 text-sky-400" id="th-pe">P/E fwd / sector</th>
+              <th class="tc px-3 py-3 text-sky-400" id="th-fund">Fund</th>
+              <th class="tc px-3 py-3 text-blue-400" id="th-score">Score</th>
+              <th class="px-3 py-3 text-right text-blue-400" id="th-entry">Entry</th>
+              <th class="px-3 py-3 text-right" id="th-ema">EMA20/50</th>
+              <th class="px-3 py-3 text-right text-red-400" id="th-sl">Stop Loss</th>
+              <th class="px-3 py-3 text-right text-green-400" id="th-t1">T1</th>
+              <th class="px-3 py-3 text-right text-emerald-400" id="th-t2">T2</th>
+              <th class="px-3 py-3 text-right text-teal-400" id="th-t3">T3</th>
+              <th class="tc px-3 py-3" id="th-rr">R:R</th>
+              <th class="tc px-3 py-3" id="th-atr">ATR</th>
+              <th class="px-3 py-3 text-sky-400" id="th-flags">Codal flags</th>
+              <th class="tc px-3 py-3" id="th-sig">Signal</th>
             </tr>
           </thead>
           <tbody id="tbody" class="divide-y divide-slate-800/60 font-mono"></tbody>
@@ -119,9 +139,29 @@
 </main>
 
 <script>
+let isFa = false;
 let scanData = null;
 let pollInterval = null;
 let latestTimestamp = null;
+
+const T = {
+  en: {
+    hdrSub: 'Daily Institutional Signals', scanBtn: 'Force Manual Scan', scanning: 'Scanning…', starting: 'Starting Scan...', running: 'Scan Running...',
+    kpi1: 'Total Signals', kpi2: 'Scanned', kpi3: 'Last Scan', kpi4: 'Data Status', kpi5: 'Connection',
+    fresh: 'Today ✓', stale: 'Yesterday', pending: 'Pending',
+    thRank:'Rank', thSym:'Symbol', thCo:'Company', thSec:'Sector', thPx:'Price (T)', thChg:'Chg%', thVal:'Vol (B.T)', thScore:'Score', thEntry:'Entry', thEma:'EMA20/50', thSl:'Stop Loss', thT1:'T1', thT2:'T2', thT3:'T3', thRr:'R:R', thAtr:'ATR', thSig:'Signal', thPe:'P/E fwd / sector', thFund:'Fund', thFlags:'Codal flags',
+    sigStrong:'STRONG BUY', sigBuy:'BUY', sigWatch:'WATCH', sigAvoid:'AVOID',
+    codalWarn: 'Codal was unreachable from the server — fundamentals use TSETMC EPS / P-E only.'
+  },
+  fa: {
+    hdrSub: 'سیگنال‌های روزانه نهادی', scanBtn: 'اسکن دستی اجباری', scanning: 'در حال اسکن…', starting: 'شروع اسکن...', running: 'در حال اجرای اسکن...',
+    kpi1:'تعداد سیگنال', kpi2:'اسکن شده', kpi3:'زمان اسکن', kpi4:'وضعیت داده', kpi5:'اتصال',
+    fresh:'امروز ✓', stale:'دیروز', pending:'در انتظار',
+    thRank:'رتبه', thSym:'نماد', thCo:'شرکت', thSec:'صنعت', thPx:'قیمت (ت)', thChg:'تغییر%', thVal:'ارزش (م.ت)', thScore:'امتیاز', thEntry:'ورود', thEma:'EMA20/50', thSl:'حد ضرر', thT1:'هدف۱', thT2:'هدف۲', thT3:'هدف۳', thRr:'R:R', thAtr:'ATR', thSig:'سیگنال', thPe:'P/E آتی / صنعت', thFund:'بنیادی', thFlags:'رویدادهای کدال',
+    sigStrong:'خرید قوی', sigBuy:'خرید', sigWatch:'رصد', sigAvoid:'اجتناب',
+    codalWarn: 'کدال از سرور در دسترس نبود — تحلیل بنیادی فقط با EPS و P/E بورس انجام شد.'
+  }
+};
 
 const $ = id => document.getElementById(id);
 const show = id => $(id).classList.remove('hidden');
@@ -131,17 +171,36 @@ function esc(x) { return String(x==null?'':x).replace(/&/g,'&amp;').replace(/</g
 
 setInterval(() => { $('tehran-clock').textContent = new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Tehran', hour12: false }) + ' IRN'; }, 1000);
 
+function toggleLang() {
+  isFa = !isFa;
+  const t = isFa ? T.fa : T.en;
+  document.body.classList.toggle('fa', isFa);
+  document.documentElement.dir = isFa ? 'rtl' : 'ltr';
+  $('lang-btn').textContent = isFa ? 'EN / English' : 'FA / فارسی';
+  $('hdr-sub').textContent = t.hdrSub;
+  $('kpi-lbl-1').textContent = t.kpi1; $('kpi-lbl-2').textContent = t.kpi2; $('kpi-lbl-3').textContent = t.kpi3; $('kpi-lbl-4').textContent = t.kpi4; $('kpi-lbl-5').textContent = t.kpi5;
+  $('th-rank').textContent = t.thRank; $('th-sym').textContent = t.thSym; $('th-co').textContent = t.thCo; $('th-sec').textContent = t.thSec;
+  $('th-px').textContent = t.thPx; $('th-chg').textContent = t.thChg; $('th-val').textContent = t.thVal; $('th-score').textContent = t.thScore;
+  $('th-entry').textContent = t.thEntry; $('th-ema').textContent = t.thEma; $('th-sl').textContent = t.thSl; $('th-t1').textContent = t.thT1;
+  $('th-t2').textContent = t.thT2; $('th-t3').textContent = t.thT3; $('th-rr').textContent = t.thRr; $('th-atr').textContent = t.thAtr;
+  $('th-sig').textContent = t.thSig; $('th-pe').textContent = t.thPe; $('th-fund').textContent = t.thFund; $('th-flags').textContent = t.thFlags;
+  if (!$('scan-btn').disabled) $('scan-btn-txt').textContent = t.scanBtn;
+  if (scanData) renderTable(scanData);
+}
+
 function scoreStyle(score) {
   if (score >= 85) return { bg: 'bg-green-900/50', text: 'text-green-400', fill: '#4ade80' };
   if (score >= 65) return { bg: 'bg-emerald-900/50', text: 'text-emerald-400', fill: '#34d399' };
   if (score >= 45) return { bg: 'bg-yellow-900/50', text: 'text-yellow-400', fill: '#fbbf24' };
   return { bg: 'bg-red-900/50', text: 'text-red-400', fill: '#f87171' };
 }
+
 function recBadge(rec) {
-  if (rec === 'Strong Buy') return `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold sig-strong">STRONG BUY</span>`;
-  if (rec === 'Buy')        return `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold sig-buy">BUY</span>`;
-  if (rec === 'Watchlist')  return `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold sig-watch">WATCH</span>`;
-  return `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold sig-avoid">AVOID</span>`;
+  const t = isFa ? T.fa : T.en;
+  if (rec === 'Strong Buy') return `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold sig-strong">${t.sigStrong}</span>`;
+  if (rec === 'Buy')        return `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold sig-buy">${t.sigBuy}</span>`;
+  if (rec === 'Watchlist')  return `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold sig-watch">${t.sigWatch}</span>`;
+  return `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold sig-avoid">${t.sigAvoid}</span>`;
 }
 
 function renderTable(data) {
@@ -222,12 +281,12 @@ async function fetchSignals() {
     $('kpi-count').textContent = data.data.length;
     $('kpi-scanned').textContent = data.totalScanned ? (data.totalScanned + ' / ' + data.poolSize) : '—';
     $('kpi-time').textContent = data.updatedAt ? new Date(data.updatedAt).toLocaleTimeString() : '—';
-    $('kpi-status').textContent = data.stale ? 'Yesterday' : 'Today ✓';
+    $('kpi-status').textContent = data.stale ? (isFa?T.fa.stale:T.en.stale) : (isFa?T.fa.fresh:T.en.fresh);
     $('kpi-proxy').textContent = data.proxy || 'Direct';
     if(data.fundCoverage) $('kpi-fund').textContent = `Fund: ${data.fundCoverage} · Codal: ${data.codalStatus}`;
     
     const cb = $('codal-banner');
-    if (data.codalStatus === 'unreachable') { cb.textContent = 'Codal was unreachable from the server.'; cb.classList.remove('hidden'); } else { cb.classList.add('hidden'); }
+    if (data.codalStatus === 'unreachable') { cb.textContent = isFa?T.fa.codalWarn:T.en.codalWarn; cb.classList.remove('hidden'); } else { cb.classList.add('hidden'); }
 
     renderTable(scanData);
     show('table-container');
@@ -240,43 +299,41 @@ async function fetchSignals() {
 
 async function triggerScan() {
   if ($('scan-btn').disabled) return;
-  
+  const t = isFa ? T.fa : T.en;
+
   $('scan-btn').disabled = true;
   $('scan-btn').classList.add('opacity-50', 'cursor-not-allowed');
-  $('scan-btn-txt').textContent = 'Starting Scan...';
+  $('scan-btn-txt').textContent = t.starting;
   $('scan-icon').classList.add('spin');
   $('status-dot').className = 'w-2 h-2 rounded-full bg-yellow-500';
-  $('status-txt').textContent = 'Scanning';
+  $('status-txt').textContent = t.scanning;
 
   try {
     const res = await fetch('/api/trigger-scan', { method: 'POST' });
     const data = await res.json();
     
     if (data.ok) {
-      $('scan-btn-txt').textContent = 'Scan Running...';
-      // Poll every 15 seconds to check if GitHub Action finished and updated signals.json
+      $('scan-btn-txt').textContent = t.running;
       pollInterval = setInterval(async () => {
         const jsonRes = await fetch('signals.json?t=' + Date.now());
         const json = await jsonRes.json();
         
         if (json.updatedAt !== latestTimestamp) {
-          // New data arrived!
           clearInterval(pollInterval);
           $('scan-btn').disabled = false;
           $('scan-btn').classList.remove('opacity-50', 'cursor-not-allowed');
-          $('scan-btn-txt').textContent = 'Force Manual Scan';
+          $('scan-btn-txt').textContent = t.scanBtn;
           $('scan-icon').classList.remove('spin');
-          fetchSignals(); // Re-render table
+          fetchSignals(); 
         }
       }, 15000);
       
-      // Stop polling after 5 minutes just in case
       setTimeout(() => {
         if(pollInterval) {
           clearInterval(pollInterval);
           $('scan-btn').disabled = false;
           $('scan-btn').classList.remove('opacity-50', 'cursor-not-allowed');
-          $('scan-btn-txt').textContent = 'Force Manual Scan';
+          $('scan-btn-txt').textContent = t.scanBtn;
           $('scan-icon').classList.remove('spin');
           $('status-txt').textContent = 'Timeout';
         }
@@ -289,7 +346,7 @@ async function triggerScan() {
     alert('Error starting scan: ' + error.message);
     $('scan-btn').disabled = false;
     $('scan-btn').classList.remove('opacity-50', 'cursor-not-allowed');
-    $('scan-btn-txt').textContent = 'Force Manual Scan';
+    $('scan-btn-txt').textContent = t.scanBtn;
     $('scan-icon').classList.remove('spin');
   }
 }
