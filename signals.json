@@ -1,39 +1,343 @@
 {
-  "updatedAt": "2026-11-14T14:34:22.269Z",
-  "proxy": "185.100.47.106:443",
-  "totalScanned": 3,
+  "updatedAt": "2026-11-14T19:05:40.973Z",
+  "proxy": "46.209.30.11:8080",
+  "totalScanned": 20,
   "poolSize": 20,
-  "fundCoverage": "0/3",
-  "codalStatus": "none",
+  "fundCoverage": "9/10",
+  "codalStatus": "ok",
   "data": [
     {
-      "symbol": "وتجارت",
-      "company": "بانک تجارت",
-      "sector": "بانک / Banking",
-      "insCode": "63917421733088077",
-      "price": 94,
-      "changePct": -3.0927835051546393,
-      "value": 1253,
-      "rsi": 63,
-      "macdHist": 1.16,
-      "ema20": 89,
-      "ema50": 88,
-      "ema200": 69,
-      "score": 85,
-      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | P>EMA200 +8 | GoldenX +7 | RSI63 +15 | MACD bull +15 | BBMidUp +10 | Liq>30B +10",
-      "entry": 94,
-      "stopLoss": 90,
-      "target1": 100,
-      "target2": 104,
-      "target3": 110,
-      "riskReward": "1:2.5",
-      "resistance": 104,
-      "support": 79,
-      "atr": 3,
+      "symbol": "پترول",
+      "company": "گ.س.وت.ص.پتروشیمی خلیج فارس",
+      "sector": "پتروشیمی / Petrochem",
+      "insCode": "69143674941561637",
+      "price": 301,
+      "changePct": 2.7303754266211606,
+      "value": 500,
+      "rsi": 70,
+      "macdHist": 1.07,
+      "ema20": 272,
+      "ema50": 258,
+      "ema200": 211,
+      "score": 100,
+      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | P>EMA200 +8 | GoldenX +7 | RSI70 +8 | MACD bull +15 | BBMidUp +10 | Liq>30B +10 | Mom1-4% +15 | InstFlow -61.8% -5 | RealPower 1.5 +5 | Fundamentals +9",
+      "entry": 301,
+      "stopLoss": 286,
+      "target1": 324,
+      "target2": 339,
+      "target3": 361,
+      "riskReward": "Breakout",
+      "resistance": 301,
+      "support": 243,
+      "atr": 10,
       "recommendation": "Strong Buy",
-      "smartMoneyFlow": "—",
-      "realPower": null,
-      "baseScore": 85
+      "smartMoneyFlow": "-61.8",
+      "realPower": 1.5,
+      "baseScore": 93,
+      "techScore": 93,
+      "fundScore": 72,
+      "fundFlags": [
+        "DIV",
+        "MON"
+      ],
+      "pe": null,
+      "fwdPE": 4.1,
+      "sectorPE": 10.23,
+      "epsGrowth": null,
+      "codalLetters": 20,
+      "fundRecent": [
+        {
+          "age": 18,
+          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/07/30",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=0par21QQQaQQQLvLCzSfbQEBquKw%3d%3d&rt=2&let=8&ct=0&ft=-1"
+        },
+        {
+          "age": 42,
+          "title": "توضیحات در خصوص اطلاعات و صورت های مالی منتشر شده",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=EbPIIAE8IdIcQQQaQQQg7AzrHONw%3d%3d&rt=2&let=174&ct=0&ft=-1"
+        },
+        {
+          "age": 46,
+          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/06/31",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=kpZKF9mYi6ZDk4UObapfQg%3d%3d&rt=2&let=8&ct=0&ft=-1"
+        },
+        {
+          "age": 49,
+          "title": "اطلاعات و صورت های مالی میاندوره ای دوره 3 ماهه منتهی به 1405/05/31 (حسابرسی نشده)",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=8QuGKT3y7cc1SDgaqb2eFQ%3d%3d&rt=2&let=6&ct=0&ft=-1"
+        },
+        {
+          "age": 49,
+          "title": "معرفی /تغییر در ترکیب اعضای هیئت مدیره/مدیر عامل",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=Ah2S2PPgtb9vy7puKvA0EQ%3d%3d&rt=2&let=19&ct=0&ft=-1"
+        },
+        {
+          "age": 80,
+          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/05/31",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=BvMrfwsesRt7xbs3bATcVg%3d%3d&rt=2&let=8&ct=0&ft=-1"
+        }
+      ],
+      "fundDetails": "P/E 4.1 vs sector 10.23 +15 | Dividend decision +4 | Fresh monthly activity report +3"
+    },
+    {
+      "symbol": "کچاد",
+      "company": "معدنی وصنعتی چادرملو",
+      "sector": "معدن / Mining",
+      "insCode": "18027801615184692",
+      "price": 319,
+      "changePct": -1.238390092879257,
+      "value": 368,
+      "rsi": 58,
+      "macdHist": 0.36,
+      "ema20": 307,
+      "ema50": 298,
+      "ema200": 268,
+      "score": 92,
+      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | P>EMA200 +8 | GoldenX +7 | RSI58 +15 | MACD bull +15 | BBMidUp +10 | Liq>30B +10 | InstFlow 34.6% +5 | RealPower 0.44 -5 | Fundamentals +7",
+      "entry": 319,
+      "stopLoss": 301,
+      "target1": 346,
+      "target2": 364,
+      "target3": 391,
+      "riskReward": "1:1.0",
+      "resistance": 337,
+      "support": 286,
+      "atr": 12,
+      "recommendation": "Strong Buy",
+      "smartMoneyFlow": "34.6",
+      "realPower": 0.44,
+      "baseScore": 85,
+      "techScore": 85,
+      "fundScore": 68,
+      "fundFlags": [
+        "CAP?",
+        "MON"
+      ],
+      "pe": null,
+      "fwdPE": 8.3,
+      "sectorPE": 14.94,
+      "epsGrowth": null,
+      "codalLetters": 20,
+      "fundRecent": [
+        {
+          "age": 17,
+          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/07/30",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=pkomRP23SvKthRak7jMOEQ%3d%3d&rt=0&let=58&ct=0&ft=-1"
+        },
+        {
+          "age": 18,
+          "title": "توضیحات در خصوص اطلاعات و صورت های مالی منتشر شده",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=nhYWpCQYqtg9DsLJHW2ndA%3d%3d&rt=0&let=174&ct=0&ft=-1"
+        },
+        {
+          "age": 23,
+          "title": "اطلاعات و صورت های مالی میاندوره ای دوره 9 ماهه منتهی به 1405/06/31 (حسابرسی نشده)",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=EL941m9oNk8J8jsDE93xvg%3d%3d&rt=0&let=6&ct=0&ft=-1"
+        },
+        {
+          "age": 23,
+          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/06/31(اصلاحیه)",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=hXulL30tWWN517eeNi0TcQ%3d%3d&rt=0&let=58&ct=0&ft=-1"
+        },
+        {
+          "age": 24,
+          "title": "آگهی ثبت افزایش سرمایه",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=OOObOOOyRQQQaQQQZ4mWeQQQaQQQFgzUahDUY3zA%3d%3d&rt=0&let=28&ct=0&ft=-1"
+        },
+        {
+          "age": 28,
+          "title": "صورت های مالی سال مالی منتهی به 1405/03/31 (حسابرسی شده) (شرکت ورزشی چادرملو اردکان)",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=wN1GQHSY3W6lpjrCBwM8Wg%3d%3d&rt=5&let=6&ct=0&ft=-1"
+        }
+      ],
+      "fundDetails": "P/E 8.3 vs sector 14.94 +15 | Fresh monthly activity report +3"
+    },
+    {
+      "symbol": "ومعادن",
+      "company": "توسعه معادن وفلزات",
+      "sector": "معدن / Mining",
+      "insCode": "58931793851445922",
+      "price": 429,
+      "changePct": -2.941176470588235,
+      "value": 481,
+      "rsi": 62,
+      "macdHist": 0.08,
+      "ema20": 411,
+      "ema50": 378,
+      "ema200": 287,
+      "score": 91,
+      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | P>EMA200 +8 | GoldenX +7 | RSI62 +15 | MACD bull +15 | BBMidUp +10 | Liq>30B +10 | InstFlow 65.6% +5 | RealPower 0.25 -5 | Fundamentals +6",
+      "entry": 429,
+      "stopLoss": 406,
+      "target1": 464,
+      "target2": 487,
+      "target3": 521,
+      "riskReward": "1:1.3",
+      "resistance": 458,
+      "support": 373,
+      "atr": 16,
+      "recommendation": "Strong Buy",
+      "smartMoneyFlow": "65.6",
+      "realPower": 0.25,
+      "baseScore": 85,
+      "techScore": 85,
+      "fundScore": 65,
+      "fundFlags": [
+        "CAP?",
+        "DIV",
+        "MON"
+      ],
+      "pe": null,
+      "fwdPE": 13.4,
+      "sectorPE": 14.94,
+      "epsGrowth": null,
+      "codalLetters": 20,
+      "fundRecent": [
+        {
+          "age": 0,
+          "title": "اطلاعات و صورت های مالی میاندوره ای دوره 6 ماهه منتهی به 1405/06/31 (حسابرسی شده) (شرکت صنایع فولاد کردستان)",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=251yA73PtYTfxPNvOOOObOOOo5kg%3d%3d&rt=0&let=6&ct=0&ft=-1"
+        },
+        {
+          "age": 18,
+          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/07/30",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=zYrCBfAPmNbLEiGNZRW0tw%3d%3d&rt=2&let=8&ct=0&ft=-1"
+        },
+        {
+          "age": 24,
+          "title": "اطلاعات و صورت های مالی میاندوره ای دوره 6 ماهه منتهی به 1405/06/31 (حسابرسی نشده)",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=lciyxbzKkQQQaQQQr5KLE5ItpEQA%3d%3d&rt=2&let=6&ct=0&ft=-1"
+        },
+        {
+          "age": 32,
+          "title": "توزیع گواهی نامه نقل و انتقال و سپرده سهام",
+          "url": "https://codal.ir/Reports/Attachment.aspx?LetterSerial=5fSRm2gHYs87Rdf7Ht54gw%3d%3d"
+        },
+        {
+          "age": 38,
+          "title": "آگهی ثبت افزایش سرمایه(اصلاحیه)",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=DfOOObOOOYQsbecatIGe8xauljQA%3d%3d&rt=2&let=28&ct=0&ft=-1"
+        },
+        {
+          "age": 39,
+          "title": "آگهی ثبت افزایش سرمایه",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=rRESkV6dImlZYGk9QdQQQaQQQvHg%3d%3d&rt=2&let=28&ct=0&ft=-1"
+        }
+      ],
+      "fundDetails": "P/E 13.4 vs sector 14.94 +8 | Dividend decision +4 | Fresh monthly activity report +3"
+    },
+    {
+      "symbol": "شتران",
+      "company": "پالایش نفت تهران",
+      "sector": "پالایشگاهی / Refinery",
+      "insCode": "51617145873056483",
+      "price": 664,
+      "changePct": 2.945736434108527,
+      "value": 780,
+      "rsi": 56,
+      "macdHist": 0.29,
+      "ema20": 634,
+      "ema50": 624,
+      "ema200": 500,
+      "score": 88,
+      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | P>EMA200 +8 | GoldenX +7 | RSI56 +15 | MACDhist+ +5 | BBMidUp +10 | Liq>30B +10 | Mom1-4% +15 | InstFlow -16.4% -5 | Fundamentals +3",
+      "entry": 664,
+      "stopLoss": 632,
+      "target1": 712,
+      "target2": 744,
+      "target3": 792,
+      "riskReward": "1:1.9",
+      "resistance": 726,
+      "support": 581,
+      "atr": 21,
+      "recommendation": "Strong Buy",
+      "smartMoneyFlow": "-16.4",
+      "realPower": 1,
+      "baseScore": 85,
+      "techScore": 85,
+      "fundScore": 57,
+      "fundFlags": [
+        "CAP?",
+        "DIV",
+        "MON"
+      ],
+      "pe": null,
+      "fwdPE": null,
+      "sectorPE": null,
+      "epsGrowth": null,
+      "codalLetters": 20,
+      "fundRecent": [
+        {
+          "age": 5,
+          "title": "پیشنهاد هیئت مدیره به مجمع عمومی فوق العاده در خصوص افزایش سرمایه",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=W8dbwOt0iJCC8BaNcaM25Q%3d%3d&rt=0&let=55&ct=0&ft=-1"
+        },
+        {
+          "age": 17,
+          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/07/30",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=hStINkXNGbQQQaQQQD6P7erDiTaw%3d%3d&rt=0&let=58&ct=0&ft=-1"
+        },
+        {
+          "age": 21,
+          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/06/31(اصلاحیه)",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=Ep8OJHNi5R4mSwTr9zfHGQ%3d%3d&rt=0&let=58&ct=0&ft=-1"
+        },
+        {
+          "age": 21,
+          "title": "توضیحات در خصوص اطلاعات و صورت های مالی منتشر شده",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=fRlbSNAOOObOOOzBmBu5rLMR7duA%3d%3d&rt=0&let=174&ct=0&ft=-1"
+        },
+        {
+          "age": 23,
+          "title": "اطلاعات و صورت های مالی میاندوره ای دوره 6 ماهه منتهی به 1405/06/31 (حسابرسی نشده)",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=wGp4kmIdJdqYz1vo5ZcJwA%3d%3d&rt=0&let=6&ct=0&ft=-1"
+        },
+        {
+          "age": 23,
+          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/06/31(اصلاحیه)",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=FHmaqQWnFU3XYVcnF1AJ2g%3d%3d&rt=0&let=58&ct=0&ft=-1"
+        }
+      ],
+      "fundDetails": "Dividend decision +4 | Fresh monthly activity report +3"
+    },
+    {
+      "symbol": "پارسان",
+      "company": "گسترش نفت و گاز پارسیان",
+      "sector": "پتروشیمی / Petrochem",
+      "insCode": "23441366113375722",
+      "price": 4030,
+      "changePct": 1.1292346298619824,
+      "value": 461,
+      "rsi": 66,
+      "macdHist": 1.29,
+      "ema20": 3678,
+      "ema50": 3541,
+      "ema200": 3753,
+      "score": 88,
+      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | P>EMA200 +8 | GoldenX +7 | RSI66 +8 | MACD bull +15 | BBBreakout +5 | Liq>30B +10 | Mom1-4% +15 | InstFlow 18.3% +5 | RealPower 0.32 -5",
+      "entry": 4030,
+      "stopLoss": 3846,
+      "target1": 4306,
+      "target2": 4490,
+      "target3": 4766,
+      "riskReward": "1:0.4",
+      "resistance": 4104,
+      "support": 3247,
+      "atr": 123,
+      "recommendation": "Strong Buy",
+      "smartMoneyFlow": "18.3",
+      "realPower": 0.32,
+      "baseScore": 88,
+      "techScore": 88,
+      "fundScore": 50,
+      "fundFlags": [],
+      "pe": null,
+      "fwdPE": 11.6,
+      "sectorPE": 10.23,
+      "epsGrowth": null,
+      "codalLetters": 0,
+      "fundRecent": [],
+      "fundDetails": ""
     },
     {
       "symbol": "فارس",
@@ -43,55 +347,325 @@
       "price": 1579,
       "changePct": -2.9502151198524893,
       "value": 1042,
-      "rsi": 67,
-      "macdHist": 0.02,
-      "ema20": 1490,
-      "ema50": 1386,
-      "ema200": 1168,
-      "score": 78,
-      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | P>EMA200 +8 | GoldenX +7 | RSI67 +8 | MACD bull +15 | BBMidUp +10 | Liq>30B +10",
+      "rsi": 62,
+      "macdHist": 0.1,
+      "ema20": 1500,
+      "ema50": 1393,
+      "ema200": 1173,
+      "score": 88,
+      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | P>EMA200 +8 | GoldenX +7 | RSI62 +15 | MACD bull +15 | BBMidUp +10 | Liq>30B +10 | InstFlow 76.2% +5 | RealPower 0.25 -5 | Fundamentals +3",
       "entry": 1579,
       "stopLoss": 1498,
       "target1": 1701,
       "target2": 1782,
       "target3": 1903,
-      "riskReward": "1:0.6",
-      "resistance": 1627,
-      "support": 1405,
+      "riskReward": "1:0.7",
+      "resistance": 1638,
+      "support": 1408,
       "atr": 54,
-      "recommendation": "Buy",
-      "smartMoneyFlow": "—",
-      "realPower": null,
-      "baseScore": 78
+      "recommendation": "Strong Buy",
+      "smartMoneyFlow": "76.2",
+      "realPower": 0.25,
+      "baseScore": 85,
+      "techScore": 85,
+      "fundScore": 57,
+      "fundFlags": [
+        "CAP?",
+        "DIV",
+        "MON",
+        "AGM"
+      ],
+      "pe": null,
+      "fwdPE": 9.4,
+      "sectorPE": 10.23,
+      "epsGrowth": null,
+      "codalLetters": 20,
+      "fundRecent": [
+        {
+          "age": 17,
+          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/07/30",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=8rSriNdnYVzxp4hfFvyBQQ%3d%3d&rt=2&let=8&ct=0&ft=-1"
+        },
+        {
+          "age": 24,
+          "title": "اطلاعات و صورت های مالی میاندوره ای دوره 3 ماهه منتهی به 1405/06/31 (حسابرسی نشده)",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=z2JAyfAGGqzUHj3467MzHQ%3d%3d&rt=2&let=6&ct=0&ft=-1"
+        },
+        {
+          "age": 47,
+          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/06/31",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=KdjoQfyFXOaErS1TacbL9Q%3d%3d&rt=2&let=8&ct=0&ft=-1"
+        },
+        {
+          "age": 52,
+          "title": "تصمیمات مجمع عمومی عادی به طور فوق العاده دوره 12 ماهه منتهی به 1406/03/31",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=mC9nmFTe46nTbQQQaQQQJdTlrwcA%3d%3d&rt=2&let=21&ct=0&ft=-1"
+        },
+        {
+          "age": 52,
+          "title": "تصمیمات مجمع عمومی عادی سالیانه دوره 12 ماهه منتهی به 1405/03/31",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=1MtqlDbFOihVdOOObOOORKxSTQQQaQQQVg%3d%3d&rt=2&let=20&ct=0&ft=-1"
+        },
+        {
+          "age": 56,
+          "title": "زمانبندی پرداخت سود دوره 12 ماهه منتهی به 1405/03/31(اصلاحیه)",
+          "url": "https://codal.ir/Reports/Attachment.aspx?LetterSerial=Kp2FAR0RpOKu60oje6OOObOOOSOA%3d%3d"
+        }
+      ],
+      "fundDetails": "Dividend decision +4 | Fresh monthly activity report +3"
     },
     {
-      "symbol": "فولاد",
-      "company": "فولاد مبارکه اصفهان",
-      "sector": "فلزات / Metals",
-      "insCode": "46348559193224090",
-      "price": 509,
-      "changePct": 2.8282828282828283,
-      "value": 2057,
-      "rsi": 79,
-      "macdHist": 0.75,
-      "ema20": 435,
-      "ema50": 390,
-      "ema200": 324,
-      "score": 62,
-      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | P>EMA200 +8 | GoldenX +7 | MACD bull +15 | BBBreakout +5 | Liq>30B +10 | Mom1-4% +15 | Extended >12% above EMA20 -10 | RSI79 overbought -8",
-      "entry": 509,
-      "stopLoss": 486,
-      "target1": 544,
-      "target2": 567,
-      "target3": 601,
-      "riskReward": "Breakout",
-      "resistance": 495,
-      "support": 402,
-      "atr": 16,
-      "recommendation": "Watchlist",
-      "smartMoneyFlow": "—",
-      "realPower": null,
-      "baseScore": 62
+      "symbol": "وبملت",
+      "company": "بانک ملت",
+      "sector": "بانک / Banking",
+      "insCode": "778253364357513",
+      "price": 148,
+      "changePct": -2.631578947368421,
+      "value": 1186,
+      "rsi": 53,
+      "macdHist": 0.73,
+      "ema20": 146,
+      "ema50": 145,
+      "ema200": 133,
+      "score": 85,
+      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | P>EMA200 +8 | GoldenX +7 | RSI53 +15 | MACD bull +15 | BBMidUp +10 | Liq>30B +10 | InstFlow 65.1% +5 | RealPower 0.3 -5",
+      "entry": 148,
+      "stopLoss": 140,
+      "target1": 160,
+      "target2": 168,
+      "target3": 180,
+      "riskReward": "1:1.8",
+      "resistance": 162,
+      "support": 132,
+      "atr": 5,
+      "recommendation": "Strong Buy",
+      "smartMoneyFlow": "65.1",
+      "realPower": 0.3,
+      "baseScore": 85
+    },
+    {
+      "symbol": "شپنا",
+      "company": "پالایش نفت اصفهان",
+      "sector": "فراورده های نفتی، کک و سوخت هسته ای",
+      "insCode": "7745894403636165",
+      "price": 1294,
+      "changePct": 2.94351630867144,
+      "value": 1016,
+      "rsi": 51,
+      "macdHist": 0.1,
+      "ema20": 1258,
+      "ema50": 1263,
+      "ema200": 986,
+      "score": 84,
+      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | P>EMA200 +8 | RSI51 +15 | MACDhist+ +5 | BBMidUp +10 | Liq>30B +10 | Mom1-4% +15 | InstFlow 22.7% +5 | RealPower 0.66 -5 | Fundamentals +1",
+      "entry": 1294,
+      "stopLoss": 1227,
+      "target1": 1395,
+      "target2": 1462,
+      "target3": 1562,
+      "riskReward": "1:2.6",
+      "resistance": 1467,
+      "support": 1153,
+      "atr": 45,
+      "recommendation": "Buy",
+      "smartMoneyFlow": "22.7",
+      "realPower": 0.66,
+      "baseScore": 83,
+      "techScore": 83,
+      "fundScore": 53,
+      "fundFlags": [
+        "MON",
+        "AGM"
+      ],
+      "pe": null,
+      "fwdPE": 3.5,
+      "sectorPE": 3.49,
+      "epsGrowth": null,
+      "codalLetters": 20,
+      "fundRecent": [
+        {
+          "age": 17,
+          "title": "مشخصات کمیته حسابرسی و واحد حسابرسی داخلی",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=dmfOOObOOOc758CSSZW8Ro3LLcPw%3d%3d&rt=0&let=60&ct=0&ft=-1"
+        },
+        {
+          "age": 17,
+          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/07/30",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=cdKc4iIHtYqhepLXbOEahg%3d%3d&rt=0&let=58&ct=0&ft=-1"
+        },
+        {
+          "age": 17,
+          "title": "اطلاعات و صورت های مالی میاندوره ای دوره 6 ماهه منتهی به 1405/03/31 (حسابرسی شده) (شرکت پترو پالایش اکسیر ایرانیان)",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=gfQQQaQQQOWvV5dWVruYTbT1shng%3d%3d&rt=0&let=6&ct=0&ft=-1"
+        },
+        {
+          "age": 20,
+          "title": "اطلاعات و صورت های مالی میاندوره ای دوره 6 ماهه منتهی به 1405/06/31 (حسابرسی نشده)(اصلاحیه)",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=oph9PxUVucTOzc4DCNyJ6A%3d%3d&rt=0&let=6&ct=0&ft=-1"
+        },
+        {
+          "age": 24,
+          "title": "توضیحات در خصوص اطلاعات و صورت های مالی منتشر شده",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=YeTPQQQaQQQave4r8Bua7kFkDabQ%3d%3d&rt=0&let=174&ct=0&ft=-1"
+        },
+        {
+          "age": 24,
+          "title": "اطلاعات و صورت های مالی میاندوره ای دوره 6 ماهه منتهی به 1405/06/31 (حسابرسی نشده)",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=Cw8oGtsXsjHyMVSbVyfu1A%3d%3d&rt=0&let=6&ct=0&ft=-1"
+        }
+      ],
+      "fundDetails": "Fresh monthly activity report +3"
+    },
+    {
+      "symbol": "شستا",
+      "company": "سرمایه گذاری تامین اجتماعی",
+      "sector": "شرکتهای چند رشته ای صنعتی",
+      "insCode": "2400322364771558",
+      "price": 361,
+      "changePct": -2.168021680216802,
+      "value": 385,
+      "rsi": 58,
+      "macdHist": 0.9,
+      "ema20": 349,
+      "ema50": 339,
+      "ema200": 255,
+      "score": 81,
+      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | P>EMA200 +8 | GoldenX +7 | RSI58 +15 | MACD bull +15 | BBMidUp +10 | Liq>30B +10 | InstFlow 41.4% +5 | RealPower 0.5 -5 | Fundamentals -4",
+      "entry": 361,
+      "stopLoss": 341,
+      "target1": 391,
+      "target2": 411,
+      "target3": 441,
+      "riskReward": "1:2.4",
+      "resistance": 408,
+      "support": 310,
+      "atr": 14,
+      "recommendation": "Buy",
+      "smartMoneyFlow": "41.4",
+      "realPower": 0.5,
+      "baseScore": 85,
+      "techScore": 85,
+      "fundScore": 40,
+      "fundFlags": [
+        "CLARIFY",
+        "DIV",
+        "MON",
+        "BOARD",
+        "AGM"
+      ],
+      "pe": null,
+      "fwdPE": 15.7,
+      "sectorPE": 9.48,
+      "epsGrowth": null,
+      "codalLetters": 20,
+      "fundRecent": [
+        {
+          "age": 4,
+          "title": "افشای اطلاعات بااهمیت - (سایر اطلاعات بااهمیت - درآمد سود سهام شستا - سود تقسیمی ملی نفتکش ایران- گروه ب) منتهی به سال مالی 1406/03/31",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=Awi15dDQQQaQQQSNRlOOObOOOAyPsGOOObOOOJ5g%3d%3d&rt=2&let=11&ct=0&ft=-1"
+        },
+        {
+          "age": 17,
+          "title": "تصمیمات مجمع عمومی عادی سالیانه دوره 12 ماهه منتهی به 1405/03/31",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=509ggSJGAOrKEPW2neovJQ%3d%3d&rt=2&let=20&ct=0&ft=-1"
+        },
+        {
+          "age": 17,
+          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/07/30",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=ZzepxQQQaQQQQFhRoCu4veKu0vsg%3d%3d&rt=2&let=8&ct=0&ft=-1"
+        },
+        {
+          "age": 17,
+          "title": "مشخصات کمیته حسابرسی و واحد حسابرسی داخلی",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=9G5jYeRWgij8QQQaQQQi6KQOBSeQ%3d%3d&rt=2&let=60&ct=0&ft=-1"
+        },
+        {
+          "age": 23,
+          "title": "خلاصه تصمیمات مجمع عمومی عادی سالیانه دوره 12 ماهه منتهی به 1405/03/31",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=26SKZOOObOOOOsfDglJnlQQQaQQQRFD8Fw%3d%3d&rt=2&let=2020&ct=0&ft=-1"
+        },
+        {
+          "age": 24,
+          "title": "اطلاعات و صورت های مالی میاندوره ای دوره 3 ماهه منتهی به 1405/06/31 (حسابرسی نشده)",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=iIsZUgmSOs9p2ePBEZrhMQ%3d%3d&rt=2&let=6&ct=0&ft=-1"
+        }
+      ],
+      "fundDetails": "P/E 15.7 vs sector 9.48 -10 | Clarification/material-info notice ≤14d -5 | Dividend decision +4 | Fresh monthly activity report +3 | Board change ≤30d -2"
+    },
+    {
+      "symbol": "وتجارت",
+      "company": "بانک تجارت",
+      "sector": "بانک / Banking",
+      "insCode": "63917421733088077",
+      "price": 94,
+      "changePct": -3.0927835051546393,
+      "value": 1253,
+      "rsi": 57,
+      "macdHist": 1.21,
+      "ema20": 90,
+      "ema50": 88,
+      "ema200": 69,
+      "score": 79,
+      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | P>EMA200 +8 | GoldenX +7 | RSI57 +15 | MACD bull +15 | BBMidUp +10 | Liq>30B +10 | InstFlow 59.5% +5 | RealPower 0.61 -5 | Fundamentals -6",
+      "entry": 94,
+      "stopLoss": 90,
+      "target1": 100,
+      "target2": 104,
+      "target3": 110,
+      "riskReward": "1:2.5",
+      "resistance": 104,
+      "support": 79,
+      "atr": 3,
+      "recommendation": "Buy",
+      "smartMoneyFlow": "59.5",
+      "realPower": 0.61,
+      "baseScore": 85,
+      "techScore": 85,
+      "fundScore": 36,
+      "fundFlags": [
+        "CLARIFY",
+        "MON",
+        "BOARD",
+        "AGM"
+      ],
+      "pe": null,
+      "fwdPE": 8,
+      "sectorPE": 3.4,
+      "epsGrowth": null,
+      "codalLetters": 20,
+      "fundRecent": [
+        {
+          "age": 5,
+          "title": "اطلاعات و صورت های مالی میاندوره ای تلفیقی دوره 6 ماهه منتهی به 1405/03/31 (حسابرسی شده) (شرکت خدمات تجارت)",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=VGvCey9ES9sBPx4CoD1tvg%3d%3d&rt=5&let=6&ct=0&ft=-1"
+        },
+        {
+          "age": 7,
+          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/07/30(اصلاحیه)",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=dVq8M8nTMBsYJWdfpnA9EQ%3d%3d&rt=3&let=58&ct=0&ft=-1"
+        },
+        {
+          "age": 7,
+          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/06/31(اصلاحیه)",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=9A7BjvwrM2yzSbZOQsi8Iw%3d%3d&rt=3&let=58&ct=0&ft=-1"
+        },
+        {
+          "age": 7,
+          "title": "افشای اطلاعات بااهمیت - (سایر اطلاعات بااهمیت - اعلام نتایج آگهی مزایده املاک غیرضرور- گروه ب) منتهی به سال مالی 1405/12/29",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=nqrKhtaSdj5N52RtPOiwNw%3d%3d&rt=3&let=11&ct=0&ft=-1"
+        },
+        {
+          "age": 9,
+          "title": "معرفی /تغییر در ترکیب اعضای هیئت مدیره/مدیر عامل",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=uZdW5ahKcjN3xACPAMlg6A%3d%3d&rt=3&let=19&ct=0&ft=-1"
+        },
+        {
+          "age": 9,
+          "title": "تصمیمات مجمع عمومی عادی به طور فوق العاده دوره 12 ماهه منتهی به 1405/12/29",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=yuQbso7ug27NiyJdSrfp6w%3d%3d&rt=3&let=21&ct=0&ft=-1"
+        }
+      ],
+      "fundDetails": "P/E 8 vs sector 3.4 -10 | Clarification/material-info notice ≤14d -5 | Fresh monthly activity report +3 | Board change ≤30d -2"
     }
   ]
 }
