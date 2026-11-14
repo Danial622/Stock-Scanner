@@ -14,12 +14,12 @@
   body.fa th, body.fa td { text-align: right !important; }
   body.fa th.tc, body.fa td.tc { text-align: center !important; }
 
-  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
   ::-webkit-scrollbar-track { background: #0f172a; }
-  ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #475569; }
 
   .num { direction: ltr; unicode-bidi: isolate; font-variant-numeric: tabular-nums; }
-  .prog-bar { transition: width 0.4s ease; }
   .score-pill { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; font-size: 11px; font-weight: 700; }
 
   .tip { position: relative; cursor: help; }
@@ -41,20 +41,35 @@
   .flow-pos { color: #4ade80; } .flow-neg { color: #f87171; } .flow-neu { color: #94a3b8; }
   .sbar { height: 3px; border-radius: 2px; background: #1e293b; } .sbar-fill { height: 3px; border-radius: 2px; }
 
-  tbody tr { transition: background 0.12s; } tbody tr:hover { background: rgba(59,130,246,0.07) !important; }
-  .stale-banner { background: linear-gradient(90deg, #78350f, #92400e); }
+  /* Sticky Columns Implementation */
+  .sticky-col { position: sticky; background-color: #0f172a; z-index: 10; }
+  .sticky-col-hover:hover { background-color: #1e293b !important; }
+  tr:hover .sticky-col { background-color: #1e293b !important; }
+  
+  .col-rank { left: 0; width: 45px; }
+  .col-sym { left: 45px; width: 90px; border-right: 1px solid #334155; }
+  .col-co { left: 135px; width: 140px; border-right: 1px solid #334155; box-shadow: 4px 0 10px -2px rgba(0,0,0,0.5); }
+
+  .col-score { right: 0; width: 75px; border-left: 1px solid #334155; box-shadow: -4px 0 10px -2px rgba(0,0,0,0.5); }
+  .col-sig { right: 75px; width: 100px; border-left: 1px solid #334155; }
+
+  tbody tr { transition: background 0.12s; }
   
   .sig-strong { background:#14532d; color:#4ade80; border:1px solid #166534; }
   .sig-buy    { background:#052e16; color:#86efac; border:1px solid #14532d; }
   .sig-watch  { background:#422006; color:#fcd34d; border:1px solid #78350f; }
   .sig-avoid  { background:#450a0a; color:#fca5a5; border:1px solid #7f1d1d; }
+  
   @keyframes spin { to { transform: rotate(360deg); } }
   .spin { animation: spin 1s linear infinite; }
+  
+  .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 100; align-items: center; justify-content: center; padding: 1rem; }
+  .modal.active { display: flex; }
 </style>
 </head>
-<body class="bg-slate-950 text-slate-200 antialiased min-h-screen">
+<body class="bg-slate-950 text-slate-200 antialiased min-h-screen flex flex-col">
 
-<header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-20 shadow-xl">
+<header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-40 shadow-xl">
   <div class="max-w-[1800px] mx-auto px-4 py-3 flex items-center justify-between gap-4">
     <div class="flex items-center gap-3">
       <div class="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center shadow-lg">
@@ -67,17 +82,17 @@
     </div>
 
     <div class="flex items-center gap-3">
-      <span class="text-xs text-slate-500 font-mono num hidden md:inline" id="tehran-clock"></span>
+      <button onclick="openModal()" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-sky-300 px-3 py-1.5 rounded-lg text-xs font-medium transition flex items-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <span id="method-btn-txt">Methodology</span>
+      </button>
       
-      <div class="flex items-center gap-2 text-xs">
+      <div class="flex items-center gap-2 text-xs hidden sm:flex">
         <span class="w-2 h-2 rounded-full bg-slate-600" id="status-dot"></span>
         <span class="text-slate-400" id="status-txt">Ready</span>
       </div>
       
-      <button onclick="toggleLang()" id="lang-btn" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-medium transition">
-        FA / فارسی
-      </button>
-
+      <button onclick="toggleLang()" id="lang-btn" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-medium transition">FA / فارسی</button>
       <button onclick="triggerScan()" id="scan-btn" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-1.5 rounded-lg text-sm font-semibold shadow-lg transition flex items-center gap-2">
         <svg id="scan-icon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
         <span id="scan-btn-txt">Force Manual Scan</span>
@@ -86,10 +101,9 @@
   </div>
 </header>
 
-<div id="stale-banner" class="hidden stale-banner text-center text-xs text-amber-200 py-1.5 px-4"></div>
 <div id="codal-banner" class="hidden text-center text-xs text-sky-200 py-1.5 px-4" style="background:linear-gradient(90deg,#0c4a6e,#075985)"></div>
 
-<main class="max-w-[1800px] mx-auto px-4 py-6 space-y-5">
+<main class="max-w-[1800px] mx-auto px-4 py-6 space-y-5 flex-1 w-full">
   <!-- KPI ROW -->
   <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
     <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow"><p class="text-xs text-slate-500 mb-1" id="kpi-lbl-1">Total Signals</p><p class="text-2xl font-bold text-white num" id="kpi-count">—</p></div>
@@ -100,43 +114,104 @@
   </div>
 
   <!-- DATA TABLE -->
-  <div id="table-container" class="hidden">
-    <div class="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden shadow-2xl">
-      <div class="overflow-x-auto">
-        <table class="w-full border-collapse text-xs whitespace-nowrap">
-          <thead>
-            <tr class="bg-slate-950 text-slate-500 uppercase tracking-wider text-[10px] border-b border-slate-800">
-              <th class="tc px-3 py-3" id="th-rank">Rank</th>
-              <th class="px-3 py-3" id="th-sym">Symbol</th>
-              <th class="px-3 py-3" id="th-co">Company</th>
-              <th class="px-3 py-3" id="th-sec">Sector</th>
-              <th class="px-3 py-3 text-right" id="th-px">Price (T)</th>
-              <th class="px-3 py-3 text-right" id="th-chg">Chg%</th>
-              <th class="px-3 py-3 text-right" id="th-val">Vol (B.T)</th>
-              <th class="tc px-3 py-3">RSI</th>
-              <th class="tc px-3 py-3">MACD</th>
-              <th class="tc px-3 py-3">SM Flow</th>
-              <th class="tc px-3 py-3 text-sky-400" id="th-pe">P/E fwd / sector</th>
-              <th class="tc px-3 py-3 text-sky-400" id="th-fund">Fund</th>
-              <th class="tc px-3 py-3 text-blue-400" id="th-score">Score</th>
-              <th class="px-3 py-3 text-right text-blue-400" id="th-entry">Entry</th>
-              <th class="px-3 py-3 text-right" id="th-ema">EMA20/50</th>
-              <th class="px-3 py-3 text-right text-red-400" id="th-sl">Stop Loss</th>
-              <th class="px-3 py-3 text-right text-green-400" id="th-t1">T1</th>
-              <th class="px-3 py-3 text-right text-emerald-400" id="th-t2">T2</th>
-              <th class="px-3 py-3 text-right text-teal-400" id="th-t3">T3</th>
-              <th class="tc px-3 py-3" id="th-rr">R:R</th>
-              <th class="tc px-3 py-3" id="th-atr">ATR</th>
-              <th class="px-3 py-3 text-sky-400" id="th-flags">Codal flags</th>
-              <th class="tc px-3 py-3" id="th-sig">Signal</th>
-            </tr>
-          </thead>
-          <tbody id="tbody" class="divide-y divide-slate-800/60 font-mono"></tbody>
-        </table>
-      </div>
+  <div id="table-container" class="hidden bg-slate-900 rounded-xl border border-slate-800 overflow-hidden shadow-2xl relative">
+    <div class="overflow-x-auto max-h-[75vh]">
+      <table class="w-full border-collapse text-xs whitespace-nowrap">
+        <thead class="sticky top-0 bg-slate-950 z-30">
+          <tr class="text-slate-500 uppercase tracking-wider text-[10px] border-b border-slate-800 shadow-sm">
+            <th class="tc py-3 sticky-col col-rank z-30" id="th-rank">Rank</th>
+            <th class="px-3 py-3 sticky-col col-sym z-30" id="th-sym">Symbol</th>
+            <th class="px-3 py-3 sticky-col col-co z-30" id="th-co">Company</th>
+            <th class="px-3 py-3" id="th-sec">Sector</th>
+            <th class="px-3 py-3 text-right" id="th-px">Price (T)</th>
+            <th class="px-3 py-3 text-right" id="th-chg">Chg%</th>
+            <th class="px-3 py-3 text-right" id="th-val">Vol (B.T)</th>
+            <th class="tc px-3 py-3">RSI</th>
+            <th class="tc px-3 py-3">MACD</th>
+            <th class="tc px-3 py-3">SM Flow</th>
+            <th class="tc px-3 py-3 text-sky-400" id="th-pe">P/E fwd / sector</th>
+            <th class="tc px-3 py-3 text-sky-400" id="th-fund">Fund</th>
+            <th class="px-3 py-3 text-right" id="th-entry">Entry</th>
+            <th class="px-3 py-3 text-right" id="th-ema">EMA20/50</th>
+            <th class="px-3 py-3 text-right text-red-400" id="th-sl">Stop Loss</th>
+            <th class="px-3 py-3 text-right text-green-400" id="th-t1">T1</th>
+            <th class="px-3 py-3 text-right text-emerald-400" id="th-t2">T2</th>
+            <th class="px-3 py-3 text-right text-teal-400" id="th-t3">T3</th>
+            <th class="tc px-3 py-3" id="th-rr">R:R</th>
+            <th class="tc px-3 py-3" id="th-atr">ATR</th>
+            <th class="px-3 py-3 text-sky-400" id="th-flags">Codal flags</th>
+            <th class="tc px-3 py-3 sticky-col col-sig z-30 text-blue-400" id="th-score">Score</th>
+            <th class="tc px-3 py-3 sticky-col col-score z-30" id="th-sig">Signal</th>
+          </tr>
+        </thead>
+        <tbody id="tbody" class="divide-y divide-slate-800/60 font-mono"></tbody>
+      </table>
     </div>
   </div>
 </main>
+
+<!-- Methodology Modal -->
+<div id="methodology-modal" class="modal">
+  <div class="bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+    <div class="sticky top-0 bg-slate-900 border-b border-slate-800 px-6 py-4 flex justify-between items-center z-10 rounded-t-2xl">
+      <h2 class="text-lg font-bold text-white flex items-center gap-2">
+        <svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        Strategy & Scoring Methodology
+      </h2>
+      <button onclick="closeModal()" class="text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 p-1.5 rounded-lg transition">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+    
+    <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-8 text-sm text-slate-300 leading-relaxed">
+      <div class="space-y-6">
+        <div>
+          <h3 class="text-blue-400 font-bold text-base mb-2 flex items-center gap-2"><span class="bg-blue-900/50 p-1 rounded">1</span> Technical Score (0-100)</h3>
+          <ul class="space-y-2 text-xs">
+            <li><b class="text-white">Trend (35 pts):</b> Price > EMA20 (+10), Price > EMA50 (+10), Price > EMA200 (+8), Golden Cross (+7).</li>
+            <li><b class="text-white">RSI (15 pts):</b> 50–65 sweet spot (+15), 65–70 (+8), 40–50 (+5). Overbought >75 (-8).</li>
+            <li><b class="text-white">MACD (15 pts):</b> Bullish histogram & line above zero (+15).</li>
+            <li><b class="text-white">Bollinger (10 pts):</b> Price moving between mid and upper band (+10).</li>
+            <li><b class="text-white">Liquidity (10 pts):</b> Daily traded value ≥ 30B Toman (+10).</li>
+            <li><b class="text-white">Momentum (15 pts):</b> Daily change 1–4% (+15). Over-extended >12% above EMA20 (-10).</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-emerald-400 font-bold text-base mb-2 flex items-center gap-2"><span class="bg-emerald-900/50 p-1 rounded">2</span> Smart Money Flow (±10 pts)</h3>
+          <p class="text-xs">Analyzes real (حقیقی) vs institutional (حقوقی) volumes. If institutions are net buyers, the score gets a bonus. If they are heavily selling, points are deducted.</p>
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        <div>
+          <h3 class="text-sky-400 font-bold text-base mb-2 flex items-center gap-2"><span class="bg-sky-900/50 p-1 rounded">3</span> Fundamentals (Codal + TSETMC)</h3>
+          <p class="text-xs mb-2">A bonus/penalty of up to <b>±20 points</b> based on:</p>
+          <ul class="space-y-2 text-xs">
+            <li><b class="text-white">Valuation:</b> Forward P/E vs Sector P/E. Cheap = bonus. Expensive = penalty.</li>
+            <li><b class="text-white">Earnings:</b> Forecast EPS growth > 20% = bonus. Loss-making (EPS ≤ 0) = -25 points and capped at "Watchlist".</li>
+            <li><b class="text-white">Codal Events:</b> Dividends (+4), Capital increase from reserves (+4), Cash capital increase (-4).</li>
+            <li><b class="text-white">Red Flags:</b> Trading halt (-10), Qualified audit opinion (-20).</li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="text-amber-400 font-bold text-base mb-2 flex items-center gap-2"><span class="bg-amber-900/50 p-1 rounded">4</span> Trading Levels (ATR-Based)</h3>
+          <ul class="space-y-2 text-xs">
+            <li><b class="text-white">Stop Loss:</b> Entry - 1.5 × ATR (Volatility adjusted).</li>
+            <li><b class="text-white">T1 (Safe):</b> Entry + 1.5 × risk. Sell 50% here.</li>
+            <li><b class="text-white">T2 (Main):</b> Entry + 2.5 × risk.</li>
+            <li><b class="text-white">T3 (Runner):</b> Entry + 4.0 × risk.</li>
+          </ul>
+        </div>
+        
+        <div class="bg-slate-800 p-3 rounded-lg border border-slate-700">
+          <p class="text-xs text-center text-slate-400"><b>Disclaimer:</b> This is a quantitative scanner, not financial advice. Always do your own research and use stop-losses.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
 let isFa = false;
@@ -146,7 +221,7 @@ let latestTimestamp = null;
 
 const T = {
   en: {
-    hdrSub: 'Daily Institutional Signals', scanBtn: 'Force Manual Scan', scanning: 'Scanning…', starting: 'Starting Scan...', running: 'Scan Running...',
+    hdrSub: 'Daily Institutional Signals', scanBtn: 'Force Manual Scan', scanning: 'Scanning…', starting: 'Starting Scan...', running: 'Scan Running...', methodBtn: 'Methodology',
     kpi1: 'Total Signals', kpi2: 'Scanned', kpi3: 'Last Scan', kpi4: 'Data Status', kpi5: 'Connection',
     fresh: 'Today ✓', stale: 'Yesterday', pending: 'Pending',
     thRank:'Rank', thSym:'Symbol', thCo:'Company', thSec:'Sector', thPx:'Price (T)', thChg:'Chg%', thVal:'Vol (B.T)', thScore:'Score', thEntry:'Entry', thEma:'EMA20/50', thSl:'Stop Loss', thT1:'T1', thT2:'T2', thT3:'T3', thRr:'R:R', thAtr:'ATR', thSig:'Signal', thPe:'P/E fwd / sector', thFund:'Fund', thFlags:'Codal flags',
@@ -154,7 +229,7 @@ const T = {
     codalWarn: 'Codal was unreachable from the server — fundamentals use TSETMC EPS / P-E only.'
   },
   fa: {
-    hdrSub: 'سیگنال‌های روزانه نهادی', scanBtn: 'اسکن دستی اجباری', scanning: 'در حال اسکن…', starting: 'شروع اسکن...', running: 'در حال اجرای اسکن...',
+    hdrSub: 'سیگنال‌های روزانه نهادی', scanBtn: 'اسکن دستی اجباری', scanning: 'در حال اسکن…', starting: 'شروع اسکن...', running: 'در حال اجرای اسکن...', methodBtn: 'روش‌شناسی',
     kpi1:'تعداد سیگنال', kpi2:'اسکن شده', kpi3:'زمان اسکن', kpi4:'وضعیت داده', kpi5:'اتصال',
     fresh:'امروز ✓', stale:'دیروز', pending:'در انتظار',
     thRank:'رتبه', thSym:'نماد', thCo:'شرکت', thSec:'صنعت', thPx:'قیمت (ت)', thChg:'تغییر%', thVal:'ارزش (م.ت)', thScore:'امتیاز', thEntry:'ورود', thEma:'EMA20/50', thSl:'حد ضرر', thT1:'هدف۱', thT2:'هدف۲', thT3:'هدف۳', thRr:'R:R', thAtr:'ATR', thSig:'سیگنال', thPe:'P/E آتی / صنعت', thFund:'بنیادی', thFlags:'رویدادهای کدال',
@@ -169,7 +244,15 @@ const hide = id => $(id).classList.add('hidden');
 function fmt(n) { return `<span class="num">${Number(n).toLocaleString('en-US')}</span>`; }
 function esc(x) { return String(x==null?'':x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
-setInterval(() => { $('tehran-clock').textContent = new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Tehran', hour12: false }) + ' IRN'; }, 1000);
+// Modal controls
+function openModal() { $('methodology-modal').classList.add('active'); }
+function closeModal() { $('methodology-modal').classList.remove('active'); }
+$('methodology-modal').addEventListener('click', e => { if(e.target === $('methodology-modal')) closeModal(); });
+
+setInterval(() => {
+  const el = $('tehran-clock');
+  if (el) el.textContent = new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Tehran', hour12: false }) + ' IRN';
+}, 1000);
 
 function toggleLang() {
   isFa = !isFa;
@@ -178,6 +261,7 @@ function toggleLang() {
   document.documentElement.dir = isFa ? 'rtl' : 'ltr';
   $('lang-btn').textContent = isFa ? 'EN / English' : 'FA / فارسی';
   $('hdr-sub').textContent = t.hdrSub;
+  $('method-btn-txt').textContent = t.methodBtn;
   $('kpi-lbl-1').textContent = t.kpi1; $('kpi-lbl-2').textContent = t.kpi2; $('kpi-lbl-3').textContent = t.kpi3; $('kpi-lbl-4').textContent = t.kpi4; $('kpi-lbl-5').textContent = t.kpi5;
   $('th-rank').textContent = t.thRank; $('th-sym').textContent = t.thSym; $('th-co').textContent = t.thCo; $('th-sec').textContent = t.thSec;
   $('th-px').textContent = t.thPx; $('th-chg').textContent = t.thChg; $('th-val').textContent = t.thVal; $('th-score').textContent = t.thScore;
@@ -236,10 +320,10 @@ function renderTable(data) {
     const tooltip = s.scoreDetails ? `<span class="tipbox">${s.scoreDetails.replace(/\|/g,'<br>')}</span>` : '';
 
     tbody.innerHTML += `
-    <tr class="${i % 2 === 0 ? 'bg-slate-900/40' : ''}">
-      <td class="tc px-3 py-2.5 text-slate-600 text-[10px]">#${i+1}</td>
-      <td class="px-3 py-2.5 font-bold text-white text-sm font-sans">${s.symbol}</td>
-      <td class="px-3 py-2.5 text-slate-300 font-sans max-w-[150px] truncate">${s.company}</td>
+    <tr class="group bg-slate-900/40 hover:bg-slate-800/80 transition-colors">
+      <td class="tc py-2.5 text-slate-600 text-[10px] sticky-col col-rank">#${i+1}</td>
+      <td class="px-3 py-2.5 font-bold text-white text-sm font-sans sticky-col col-sym">${s.symbol}</td>
+      <td class="px-3 py-2.5 text-slate-300 font-sans max-w-[150px] truncate sticky-col col-co">${s.company}</td>
       <td class="px-3 py-2.5 text-slate-500 font-sans text-[10px]">${s.sector}</td>
       <td class="px-3 py-2.5 text-right">${fmt(s.price)}</td>
       <td class="px-3 py-2.5 text-right ${chgCls}">${s.changePct.toFixed(2)}%</td>
@@ -249,10 +333,6 @@ function renderTable(data) {
       <td class="tc px-3 py-2.5 ${smCls}">${smTxt}</td>
       <td class="tc px-3 py-2.5 text-[11px] leading-tight">${peTxt}</td>
       <td class="tc px-3 py-2.5">${fundCell}</td>
-      <td class="tc px-3 py-2.5">
-        <div class="tip inline-block"><span class="score-pill ${sc.bg} ${sc.text} border border-slate-700">${s.score}</span>${tooltip}</div>
-        <div class="sbar mt-1 w-9 mx-auto"><div class="sbar-fill" style="width:${s.score}%;background:${sc.fill}"></div></div>
-      </td>
       <td class="px-3 py-2.5 text-right text-blue-300 font-bold bg-blue-900/5">${fmt(s.entry)}</td>
       <td class="px-3 py-2.5 text-right text-slate-500 text-[10px]">${ema2050}${ema200}</td>
       <td class="px-3 py-2.5 text-right text-red-300 bg-red-900/5">${fmt(s.stopLoss)}</td>
@@ -262,7 +342,13 @@ function renderTable(data) {
       <td class="tc px-3 py-2.5 text-slate-400">${s.riskReward}</td>
       <td class="tc px-3 py-2.5 text-slate-500">${fmt(s.atr||'—')}</td>
       <td class="px-3 py-2.5 max-w-[170px] whitespace-normal">${chips}</td>
-      <td class="tc px-3 py-2.5">${recBadge(s.recommendation)}</td>
+      
+      <!-- Sticky Right Columns -->
+      <td class="tc px-3 py-2.5 sticky-col col-sig">
+        <div class="tip inline-block"><span class="score-pill ${sc.bg} ${sc.text} border border-slate-700">${s.score}</span>${tooltip}</div>
+        <div class="sbar mt-1 w-9 mx-auto"><div class="sbar-fill" style="width:${s.score}%;background:${sc.fill}"></div></div>
+      </td>
+      <td class="tc px-3 py-2.5 sticky-col col-score">${recBadge(s.recommendation)}</td>
     </tr>`;
   });
 }
