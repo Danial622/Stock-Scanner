@@ -1,8 +1,7 @@
 'use strict';
 
 // ─────────────────────────────────────────────────────────────
-//  TSE Quant Engine — Scanner v2.3  (reliability release)
-//  Optimized for GitHub Actions execution (faster, shorter pool)
+//  TSE Quant Engine — Scanner v2.4 (Value Hunter Edition)
 // ─────────────────────────────────────────────────────────────
 
 const fs   = require('fs');
@@ -15,7 +14,7 @@ const FUND_FILE  = path.join(__dirname, 'fund_cache.json');
 const FD = require('./tse-fundamentals');
 
 const CFG = {
-  POOL_SIZE     : 20,      // Reduced from 80. Scan the top 20 by volume (much faster)
+  POOL_SIZE     : 100,     // Reduced from 700 for stability. Increase if you have a direct connection.
   CONCURRENCY   : 4,       // parallel history workers
   PER_PROXY_MAX : 2,       // max simultaneous requests per proxy
   EXHAUST_COOLDOWN: 60_000,// after a probe round finds nothing, pause probing this long
@@ -270,8 +269,8 @@ async function fetchClientType(insCode,agent){
   const bi=num(c.buy_I_Volume),si=num(c.sell_I_Volume),bn=num(c.buy_N_Volume),sn=num(c.sell_N_Volume);
   const ci=num(c.buy_CountI),csi=num(c.sell_CountI);
   if(bi+si+bn+sn===0){ const e=new Error('no client-type data'); e.permanent=true; throw e; }
-  const instNet=(bn+sn)>0?(bn-sn)/(bn+sn)*100:0;
-  const realPower=(bi/Math.max(ci,1))/Math.max(si/Math.max(csi,1),1e-9);
+  const instNet=(bn+sn)>0?(bn-sn)/(bn+sn)*100:0;                                   // institutional net flow %
+  const realPower=(bi/Math.max(ci,1))/Math.max(si/Math.max(csi,1),1e-9);           // قدرت خریدار حقیقی
   return {instNet:+instNet.toFixed(1),realPower:+Math.min(realPower,99).toFixed(2)};
 }
 function recFor(score){ return score>=85?'Strong Buy':score>=65?'Buy':score>=45?'Watchlist':'Avoid'; }
@@ -307,16 +306,48 @@ async function getFundamentals(st,pool,fc,codal){
   if(c.info||c.letters) fc.items[st.symbol]=c;
   if(!c.info&&!c.letters) return null;
   const summary=c.letters?FD.summarize(c.letters):null;
-  const f=FD.scoreFundamentals({priceRial:st.price*10,info:c.info,summary});
+
+  // NEW: Fetch deep financials for Value Hunter (Placeholder for Codal API call)
+  let codalFinancials = null;
+  if (!codal.disabled) {
+    try {
+      // در اینجا می‌توانید endpoint اختصاصی کدال برای صورت‌های مالی را فراخوانی کنید.
+      // برای نمونه، اگر دیتایی در دسترس باشد به این شکل پاس داده می‌شود:
+      // const finData = await withProxy(pool, agent => getJSON(`YOUR_CODAL_FINANCIAL_ENDPOINT/${st.symbol}`, agent));
+      // if (finData) {
+      //   codalFinancials = { ocf: finData.ocf, netProfit: finData.netProfit, revenue: finData.revenue, operatingProfit: finData.opProfit, bookValuePerShare: finData.bvps };
+      // }
+    } catch (_) {}
+  }
+
+  const f=FD.scoreFundamentals({priceRial:st.price*10,info:c.info,summary,codalFinancials});
   if(f){ f.codal=!!c.letters; f.letterCount=c.letters?c.letters.length:0; f.recent=summary?summary.recent:[]; }
   return f;
 }
+
 function applyFundamentals(s,f){
   const base=s.baseScore!=null?s.baseScore:s.score;
-  Object.assign(s,{techScore:base,fundScore:f.fundScore,fundFlags:f.flags,pe:f.pe,fwdPE:f.fwdPE,sectorPE:f.sectorPE,epsGrowth:f.epsGrowth,
-    codalLetters:f.letterCount,fundRecent:f.recent,fundDetails:f.details.join(' | ')});
+  
+  // اضافه کردن فیلدهای جدید به سهام
+  Object.assign(s,{
+    techScore:base, fundScore:f.fundScore, fundFlags:f.flags, pe:f.pe, fwdPE:f.fwdPE, 
+    sectorPE:f.sectorPE, epsGrowth:f.epsGrowth, codalLetters:f.letterCount, 
+    fundRecent:f.recent, fundDetails:f.details.join(' | '),
+    isUndervalued: f.isUndervalued, pbRatio: f.pbRatio, earningsQuality: f.earningsQuality
+  });
+  
   s.score=Math.max(0,Math.min(100,base+f.adj));
-  let rec=recFor(s.score); if(f.veto&&(rec==='Strong Buy'||rec==='Buy')) rec='Watchlist';
+  let rec=recFor(s.score); 
+  if(f.veto&&(rec==='Strong Buy'||rec==='Buy')) rec='Watchlist';
+
+  // 🎯 منطق شکارچی ارزش (Value Hunter)
+  // اگر سهم زیر ارزش بود (P/B<1 یا قیمت<گرام) و پول هوشمند وارد شده بود و RSI در محدوده ورود بود
+  if (f.isUndervalued && s.smartMoneyFlow && parseFloat(s.smartMoneyFlow) > 10 && s.rsi > 40 && s.rsi < 65) {
+      s.score = Math.min(100, s.score + 15); // پاداش ویژه ۱۵ امتیازی
+      s.scoreDetails += ' | 🎯 VALUE HUNTER TRIGGER';
+      rec = 'Strong Buy'; // ارتقا به سیگنال قوی
+  }
+
   s.recommendation=rec;
   if(f.adj) s.scoreDetails+=` | Fundamentals ${f.adj>0?'+':''}${f.adj}`;
   if(f.sectorName) s.sector=sectorFromName(f.sectorName);
@@ -358,7 +389,7 @@ async function executeScan(){
   const deadline=Date.now()+CFG.MAX_SCAN_MS;
   const pool=new ProxyPool();
   try{
-    log('=== TSE Quant Engine v2.3 — Scan Starting ===');
+    log('=== TSE Quant Engine v2.4 — Value Hunter Scan Starting ===');
     scanState.progress=3;
     const {raw,proxy}=await fetchMarketWatch(pool);
     scanState.progress=15;
@@ -423,12 +454,13 @@ async function executeScan(){
       log(`Money-flow data: ${mfOk}/${mfTargets.length} stocks`);
     }
 
+    // fundamentals for the strongest setups
     const fundTargets=[...scored].sort((a,b)=>b.score-a.score).slice(0,CFG.FUND_TOP);
     let fundOk=0, codalOk=0; const codalState={ok:0,fails:0,disabled:false};
     if(fundTargets.length && Date.now()<deadline){
       if(!pool.url) pool.configure(`${BASE}/ClosingPrice/GetClosingPriceDailyList/${fundTargets[0].insCode}/0`, j=>Array.isArray(j.closingPriceDaily)&&j.closingPriceDaily.length>0);
       fundTargets.forEach(st=>{ st.baseScore=st.score; });
-      log(`Fetching fundamentals (TSETMC EPS/P-E + Codal) for top ${fundTargets.length}...`);
+      log(`Fetching fundamentals (TSETMC EPS + Codal) for top ${fundTargets.length}...`);
       const fc=loadFundCache();
       await runPool(fundTargets,CFG.CONCURRENCY,async st=>{
         try{ const f=await getFundamentals(st,pool,fc,codalState); if(f){ applyFundamentals(st,f); fundOk++; if(f.codal) codalOk++; } }catch(_){}
@@ -440,10 +472,21 @@ async function executeScan(){
 
     if(!scored.length) throw new Error('No stocks returned valid history data.');
     scored.sort((a,b)=>b.score-a.score);
-    const result={updatedAt:new Date().toISOString(),proxy,totalScanned:scored.length,poolSize:POOL.length,fundCoverage:`${fundOk}/${fundTargets.length}`,codalStatus,data:scored.slice(0,10)};
+    
+    // ذخیره ۵۰ سهم برتر برای نمایش در سایت
+    const result={
+        updatedAt:new Date().toISOString(),
+        proxy,
+        totalScanned:scored.length,
+        poolSize:POOL.length,
+        fundCoverage:`${fundOk}/${fundTargets.length}`,
+        codalStatus,
+        data:scored.slice(0,50) 
+    };
+    
     saveResult(result);
     scanState.progress=100;
-    log(`🎉 Scan complete — ${scored.length}/${POOL.length} stocks analyzed, top ${result.data.length} saved.`);
+    log(`🎉 Scan complete — ${scored.length}/${POOL.length} stocks analyzed, top 50 saved.`);
     return result;
   }catch(err){
     log(`❌ FATAL: ${err.message}`); scanState.error=err.message; throw err;
