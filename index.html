@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TSE Quant Engine v2.8 (Horizon-Aware)</title>
+<title>TSE Quant Engine v2.9 (Final)</title>
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.0.0/Vazirmatn-font-face.css" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 <style>
@@ -43,56 +43,23 @@
   .chip-a { background:#422006; color:#fcd34d; border-color:#78350f; }
   .chip-n { background:#1e293b; color:#94a3b8; border-color:#334155; }
 
-  /* 🆕 Tooltip Styling */
+  /* Tooltip Styling */
   .tooltip { position: relative; display: inline-block; cursor: help; }
   .tooltip .tooltiptext {
-    visibility: hidden;
-    width: 240px;
-    background-color: #1e293b;
-    color: #e2e8f0;
-    text-align: center;
-    border-radius: 6px;
-    padding: 10px;
-    position: absolute;
-    z-index: 100;
-    bottom: 150%;
-    left: 50%;
-    margin-left: -120px;
-    opacity: 0;
-    transition: opacity 0.2s;
-    font-size: 11px;
-    border: 1px solid #475569;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
-    font-family: system-ui, sans-serif;
-    white-space: normal;
-    line-height: 1.6;
-    pointer-events: none;
+    visibility: hidden; width: 220px; background-color: #1e293b; color: #e2e8f0;
+    text-align: center; border-radius: 6px; padding: 8px; position: absolute;
+    z-index: 100; bottom: 150%; left: 50%; margin-left: -110px;
+    opacity: 0; transition: opacity 0.2s; font-size: 11px; border: 1px solid #475569;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5); font-family: system-ui, sans-serif;
+    white-space: normal; line-height: 1.5; pointer-events: none;
   }
   .tooltip:hover .tooltiptext { visibility: visible; opacity: 1; }
   .tooltip .tooltiptext::after {
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -6px;
-    border-width: 6px;
-    border-style: solid;
-    border-color: #1e293b transparent transparent transparent;
+    content: ""; position: absolute; top: 100%; left: 50%; margin-left: -6px;
+    border-width: 6px; border-style: solid; border-color: #1e293b transparent transparent transparent;
   }
-  /* RTL adjustments for tooltip */
-  body.fa .tooltip .tooltiptext {
-    text-align: right;
-    left: auto;
-    right: 50%;
-    margin-right: -120px;
-    margin-left: 0;
-  }
-  body.fa .tooltip .tooltiptext::after {
-    left: auto;
-    right: 50%;
-    margin-right: -6px;
-    margin-left: 0;
-  }
+  body.fa .tooltip .tooltiptext { text-align: right; left: auto; right: 50%; margin-right: -110px; margin-left: 0; }
+  body.fa .tooltip .tooltiptext::after { left: auto; right: 50%; margin-right: -6px; margin-left: 0; }
 </style>
 </head>
 <body class="bg-slate-950 text-slate-200 antialiased min-h-screen flex flex-col">
@@ -104,8 +71,8 @@
         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
       </div>
       <div>
-        <h1 class="text-base font-bold text-white leading-tight">TSE Quant Engine <span class="text-xs text-blue-400 font-normal ml-1">v2.8</span></h1>
-        <p class="text-xs text-slate-500" id="hdr-sub">Horizon-Aware Signals</p>
+        <h1 class="text-base font-bold text-white leading-tight">TSE Quant Engine <span class="text-xs text-blue-400 font-normal ml-1">v2.9</span></h1>
+        <p class="text-xs text-slate-500" id="hdr-sub">Performance & Horizon Signals</p>
       </div>
     </div>
     <div class="flex items-center gap-3">
@@ -207,7 +174,6 @@
             <li><b>ریسک:</b> بالا</li>
             <li><b>مناسب:</b> معامله‌گران فعال با زمان روزانه</li>
           </ul>
-          <p class="text-[10px] text-orange-300/70 mt-2">بر اساس مومنتوم قوی، شکست مقاومت، جریان پول هوشمند بالا و نوسان زیاد.</p>
         </div>
         <div class="bg-blue-950/30 border border-blue-800 rounded-lg p-4">
           <h3 class="font-bold text-blue-400 mb-2 flex items-center gap-2">📊 میان‌مدت (Medium-term)</h3>
@@ -220,7 +186,6 @@
             <li><b>ریسک:</b> متوسط</li>
             <li><b>مناسب:</b> اکثر معامله‌گران</li>
           </ul>
-          <p class="text-[10px] text-blue-300/70 mt-2">بر اساس روند صعودی، مومنتوم متعادل و بنیادی متوسط.</p>
         </div>
         <div class="bg-emerald-950/30 border border-emerald-800 rounded-lg p-4">
           <h3 class="font-bold text-emerald-400 mb-2 flex items-center gap-2">💎 بلندمدت (Long-term)</h3>
@@ -233,7 +198,6 @@
             <li><b>ریسک:</b> پایین</li>
             <li><b>مناسب:</b> سرمایه‌گذاران ارزشی</li>
           </ul>
-          <p class="text-[10px] text-emerald-300/70 mt-2">بر اساس ارزش زیر ذاتی، بنیادی قوی، تقسیم سود و رشد پایدار.</p>
         </div>
       </div>
 
@@ -263,7 +227,7 @@ let latestTimestamp = null;
 
 const T = {
   en: {
-    hdrSub: 'Horizon-Aware Signals',
+    hdrSub: 'Performance & Horizon Signals',
     kpi1: 'Total Signals', kpi2: 'Scanned', kpi3: 'Last Scan', kpi4: 'Data Status', kpi5: 'Connection',
     fresh: 'Today ✓', stale: 'Yesterday',
     thSym: 'Symbol', thHorizon: 'Horizon', thPx: 'Price', thChg: 'Chg%', thScore: 'Score', thSig: 'Signal', thEntry: 'Entry', thSl: 'Stop', thT1: 'T1', thRr: 'R:R',
@@ -275,7 +239,7 @@ const T = {
     methodBtn: 'Guide',
   },
   fa: {
-    hdrSub: 'سیگنال‌های آگاه به افق زمانی',
+    hdrSub: 'سیگنال‌های آگاه به افق و بازدهی',
     kpi1: 'تعداد سیگنال', kpi2: 'اسکن شده', kpi3: 'زمان اسکن', kpi4: 'وضعیت داده', kpi5: 'اتصال',
     fresh: 'امروز ✓', stale: 'دیروز',
     thSym: 'نماد', thHorizon: 'افق', thPx: 'قیمت', thChg: 'تغییر%', thScore: 'امتیاز', thSig: 'سیگنال', thEntry: 'ورود', thSl: 'حد ضرر', thT1: 'هدف۱', thRr: 'R:R',
@@ -361,7 +325,6 @@ function scoreStyle(score) {
   return { bg: 'bg-red-900/50', text: 'text-red-400', border: 'border-red-700' };
 }
 
-// 🆕 تابع تولید HTML افق با Tooltip
 function horizonBadge(h) {
   if (h === 'SHORT') return `<div class="tooltip"><span class="inline-block px-1.5 py-0.5 rounded text-[10px] font-bold h-short">⚡</span><span class="tooltiptext">افق کوتاه‌مدت: مناسب نوسان‌گیری و معاملات سریع (۱-۱۰ روز).</span></div>`;
   if (h === 'LONG') return `<div class="tooltip"><span class="inline-block px-1.5 py-0.5 rounded text-[10px] font-bold h-long">💎</span><span class="tooltiptext">افق بلندمدت: مناسب سرمایه‌گذاری ارزشی و نگهداری (۳۰-۹۰ روز).</span></div>`;
@@ -411,6 +374,7 @@ function renderTable(data) {
     const smFlow = parseFloat(s.smartMoneyFlow);
     const smCls = isNaN(smFlow) ? 'text-slate-400' : smFlow > 5 ? 'text-emerald-400' : smFlow < -5 ? 'text-rose-400' : 'text-slate-400';
     const pe = (s.fwdPE ?? s.pe), spe = s.sectorPE;
+    const eps = s.eps; 
     const hInfo = HORIZON_INFO[s.horizon] || HORIZON_INFO.MEDIUM;
 
     const chips = (s.fundFlags||[]).map(f => { const m = FLAG[f]||['n',f]; return `<span class="chip chip-${m[0]}" title="${esc(m[1])}">${esc(f)}</span>`; }).join('') || '<span class="text-slate-600">—</span>';
@@ -426,12 +390,19 @@ function renderTable(data) {
       <td class="px-2 py-3 text-center text-slate-600">
         <svg id="chevron-${i}" class="chevron w-4 h-4 mx-auto transition-transform duration-200" style="transform: rotate(${isFa?'180':'0'}deg);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
       </td>
-      <td class="px-3 py-3 font-bold text-white font-sans text-sm">${s.symbol}</td>
+      
+      <!-- Symbol with Undervalued Badge -->
+      <td class="px-3 py-3 font-bold text-white font-sans text-sm">
+        <div class="flex items-center gap-2">
+          <span>${s.symbol}</span>
+          ${s.isUndervalued ? `<span class="text-[9px] bg-emerald-900/60 text-emerald-300 border border-emerald-700 px-1.5 py-0.5 rounded font-normal" title="زیر ارزش ذاتی: P/E کمتر از صنعت">💎 زیر ارزش</span>` : ''}
+        </div>
+      </td>
+      
       <td class="px-3 py-3 text-center">${horizonBadge(s.horizon)}</td>
       <td class="px-3 py-3 text-right tabular-nums text-slate-300">${fmt(s.price)}</td>
       <td class="px-3 py-3 text-right tabular-nums ${chgCls}">${s.changePct.toFixed(2)}%</td>
       
-      <!-- 🆕 Score با Tooltip -->
       <td class="px-3 py-3 text-center">
         <div class="tooltip">
           <span class="inline-flex items-center justify-center w-8 h-8 rounded-full font-bold text-xs border ${sc.bg} ${sc.text} ${sc.border}">${s.score}</span>
@@ -444,7 +415,6 @@ function renderTable(data) {
       <td class="px-3 py-3 text-right tabular-nums text-rose-300">${fmt(s.stopLoss)}</td>
       <td class="px-3 py-3 text-right tabular-nums text-emerald-300">${fmt(s.target1)}</td>
       
-      <!-- 🆕 R:R با Tooltip -->
       <td class="px-3 py-3 text-center tabular-nums text-slate-400">
         <div class="tooltip">
           <span>${s.riskReward}</span>
@@ -453,12 +423,18 @@ function renderTable(data) {
       </td>
     </tr>`;
 
+    const p1M = s.return1M;
+    const p3M = s.return3M;
+    const p1Y = s.return1Y;
+    const ret1MCls = p1M >= 0 ? 'text-emerald-400' : 'text-rose-400';
+    const ret3MCls = p3M >= 0 ? 'text-emerald-400' : 'text-rose-400';
+    const ret1YCls = p1Y >= 0 ? 'text-emerald-400' : 'text-rose-400';
+
     const detailRow = `
     <tr id="detail-${i}" class="hidden detail-row">
       <td colspan="11" class="px-6 py-5">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 text-xs font-sans">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-4 text-xs font-sans">
           
-          <!-- Horizon Info -->
           <div class="col-span-full bg-slate-800/80 rounded-lg p-3 mb-2 border border-slate-600 shadow-inner flex flex-wrap items-center gap-4">
             <span class="text-sm font-bold text-white">${hInfo.label}</span>
             <span class="text-slate-400 text-[11px]">مدت نگهداری: <b class="text-white">${hInfo.days}</b></span>
@@ -486,6 +462,25 @@ function renderTable(data) {
             </div>
           </div>
 
+          <!-- Performance -->
+          <div class="bg-slate-900/50 p-3 rounded-lg border border-slate-700/50">
+            <p class="text-slate-400 uppercase tracking-wider text-[10px] mb-2 font-bold border-b border-slate-700 pb-1">بازدهی</p>
+            <div class="space-y-1.5">
+              <div class="flex justify-between items-center">
+                <div class="tooltip"><span class="text-slate-500 border-b border-dashed border-slate-600">۱ ماهه:</span><span class="tooltiptext">درصد تغییر قیمت در ۲۱ روز معاملاتی اخیر.</span></div>
+                <span class="font-bold ${ret1MCls}">${p1M != null ? (p1M > 0 ? '+' : '') + p1M + '%' : '—'}</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <div class="tooltip"><span class="text-slate-500 border-b border-dashed border-slate-600">۳ ماهه:</span><span class="tooltiptext">درصد تغییر قیمت در ۶۳ روز معاملاتی اخیر.</span></div>
+                <span class="font-bold ${ret3MCls}">${p3M != null ? (p3M > 0 ? '+' : '') + p3M + '%' : '—'}</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <div class="tooltip"><span class="text-slate-500 border-b border-dashed border-slate-600">۱ ساله:</span><span class="tooltiptext">درصد تغییر قیمت در ۲۵۲ روز معاملاتی اخیر.</span></div>
+                <span class="font-bold ${ret1YCls}">${p1Y != null ? (p1Y > 0 ? '+' : '') + p1Y + '%' : '—'}</span>
+              </div>
+            </div>
+          </div>
+
           <!-- Smart Money -->
           <div class="bg-slate-900/50 p-3 rounded-lg border border-slate-700/50">
             <p class="text-slate-400 uppercase tracking-wider text-[10px] mb-2 font-bold border-b border-slate-700 pb-1">پول هوشمند</p>
@@ -506,16 +501,16 @@ function renderTable(data) {
             <p class="text-slate-400 uppercase tracking-wider text-[10px] mb-2 font-bold border-b border-slate-700 pb-1">ارزش‌گذاری</p>
             <div class="space-y-1.5">
               <div class="flex justify-between items-center">
+                <div class="tooltip"><span class="text-slate-500 border-b border-dashed border-slate-600">EPS:</span><span class="tooltiptext">سود هر سهم (Earnings Per Share) بر اساس آخرین گزارش.</span></div>
+                <span class="text-slate-300">${eps ? fmt(eps) : '—'}</span>
+              </div>
+              <div class="flex justify-between items-center">
                 <div class="tooltip"><span class="text-slate-500 border-b border-dashed border-slate-600">P/E Fwd:</span><span class="tooltiptext">P/E آتی: قیمت به سود پیش‌بینی‌شده سال آینده. کمتر از P/E صنعت = ارزنده.</span></div>
                 <span class="text-slate-300">${pe || '—'}</span>
               </div>
               <div class="flex justify-between items-center">
                 <div class="tooltip"><span class="text-slate-500 border-b border-dashed border-slate-600">Sector P/E:</span><span class="tooltiptext">P/E میانگین صنعت. مبنای مقایسه ارزش‌گذاری سهم.</span></div>
                 <span class="text-slate-300">${spe || '—'}</span>
-              </div>
-              <div class="flex justify-between items-center">
-                <div class="tooltip"><span class="text-slate-500 border-b border-dashed border-slate-600">EPS Growth:</span><span class="tooltiptext">درصد رشد سود پیش‌بینی‌شده نسبت به سال قبل.</span></div>
-                <span class="font-bold ${s.epsGrowth >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${s.epsGrowth != null ? s.epsGrowth + '%' : '—'}</span>
               </div>
             </div>
           </div>
