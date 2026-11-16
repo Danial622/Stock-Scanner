@@ -1,7 +1,7 @@
 'use strict';
 
 // ─────────────────────────────────────────────────────────────
-//  TSE Quant Engine — Scanner v2.4 (Value Hunter Edition)
+//  TSE Quant Engine — Scanner v2.4 (Forward EPS Edition)
 // ─────────────────────────────────────────────────────────────
 
 const fs   = require('fs');
@@ -14,30 +14,29 @@ const FUND_FILE  = path.join(__dirname, 'fund_cache.json');
 const FD = require('./tse-fundamentals');
 
 const CFG = {
-  POOL_SIZE     : 100,     // Reduced from 700 for stability. Increase if you have a direct connection.
-  CONCURRENCY   : 4,       // parallel history workers
-  PER_PROXY_MAX : 2,       // max simultaneous requests per proxy
-  EXHAUST_COOLDOWN: 60_000,// after a probe round finds nothing, pause probing this long
-  MF_TOP        : 10,      // top 10 setups that get real/institutional money-flow enrichment
-  FUND_TOP      : 10,      // top 10 setups that get fundamentals (TSETMC EPS/P-E + Codal)
-  FUND_TTL      : 24*3600_000, // fundamentals cache lifetime
-  CODAL_DAYS    : 200,     // how far back to read Codal disclosures
-  MW_TTL        : 15*60_000, // reuse market-watch snapshot
-  HIST_DAYS     : 300,     // days of history kept
-  MIN_HIST      : 60,      // need ≥60 days for EMA50
-  REQ_TIMEOUT   : 15000,   // Increased to 15s to give slow proxies a chance
-  ATTEMPTS      : 3,       // Reduced from 5. Fail faster on dead proxies
-  WANT_HEALTHY  : 6,       // healthy proxies to keep warm
-  PROBE_BATCH   : 40,      // proxies probed in parallel
-  MAX_SCAN_MS   : 45 * 60_000, // Increased to 45 mins to ensure completion
-  RETRY_MIN     : 10,      // scheduler retry interval (minutes)
+  POOL_SIZE     : 100,     // Reduced for stability
+  CONCURRENCY   : 4,       
+  PER_PROXY_MAX : 2,       
+  EXHAUST_COOLDOWN: 60_000,
+  MF_TOP        : 10,      
+  FUND_TOP      : 10,      
+  FUND_TTL      : 24*3600_000, 
+  CODAL_DAYS    : 200,     
+  MW_TTL        : 15*60_000, 
+  HIST_DAYS     : 300,     
+  MIN_HIST      : 60,      
+  REQ_TIMEOUT   : 15000,   
+  ATTEMPTS      : 3,       
+  WANT_HEALTHY  : 6,       
+  PROBE_BATCH   : 40,      
+  MAX_SCAN_MS   : 45 * 60_000, 
+  RETRY_MIN     : 10,      
 };
 
 const fetchFn = (() => { try { return require('node-fetch'); } catch (_) { return global.fetch || null; } })();
 let HttpsProxyAgent; try { HttpsProxyAgent = require('https-proxy-agent').HttpsProxyAgent; } catch (_) {}
-let _fetch = fetchFn;                       // swappable for tests
+let _fetch = fetchFn;                       
 
-// ── scan state ───────────────────────────────
 const scanState = { isScanning:false, progress:0, logs:[], logTotal:0, error:null, startedAt:null, lastAttemptAt:0 };
 let inFlight = null;
 
@@ -50,7 +49,6 @@ function log(msg){
   if (scanState.logs.length > 500) scanState.logs.shift();
 }
 
-// Arabic → Persian letters (TSETMC returns ي ك)
 const norm = s => String(s||'').replace(/ي/g,'ی').replace(/ك/g,'ک').replace(/ة/g,'ه').replace(/[\u200c]/g,' ').replace(/\s+/g,' ').trim();
 
 // ── indicators ───────────────────────────────
@@ -130,7 +128,7 @@ async function getJSON(url, agent=null, timeoutMs=CFG.REQ_TIMEOUT, extra={}){
     Object.assign(opts.headers,extra);
     const res=await _fetch(url,opts);
     if(!res.ok) throw new Error(`HTTP ${res.status}`);
-    return await res.json();                       // ← still inside the timer
+    return await res.json();
   }catch(e){
     if(e.name==='AbortError'||/abort/i.test(e.message)) throw new Error('timeout');
     throw e;
@@ -160,7 +158,6 @@ async function loadProxyList(){
   return [...first,...rest];
 }
 
-// ── Proxy pool: probe, cap concurrency per proxy, rotate, bench failures ──
 class ProxyPool {
   constructor(){ this.queue=null; this.healthy=[]; this.busy=null; this.url=null; this.validate=()=>true; this.exhaustedUntil=0; }
   configure(url,validate){ this.url=url; this.validate=validate; }
@@ -203,7 +200,6 @@ class ProxyPool {
   }
 }
 
-// ── market watch ─────────────────────────────
 const MW_PARAMS=new URLSearchParams({market:'0','paperTypes[0]':'1','paperTypes[1]':'2','paperTypes[2]':'3','paperTypes[3]':'4','paperTypes[4]':'5','paperTypes[5]':'6','paperTypes[6]':'7','paperTypes[7]':'8','paperTypes[8]':'9',withBestLimits:'false',hEven:'0',RefID:'0'});
 const MW_URL=`${BASE}/ClosingPrice/GetMarketWatch?${MW_PARAMS}`;
 const mwRows = j => Array.isArray(j)?j:(Object.values(j||{}).find(v=>Array.isArray(v))||[]);
@@ -231,7 +227,6 @@ async function fetchMarketWatch(pool){
   return {raw,proxy:e.proxy};
 }
 
-// ── history (cached, pooled) ─────────────────
 function loadHistCache(){
   const today=new Date().toLocaleDateString('en-CA',{timeZone:'Asia/Tehran'});
   try{ const j=JSON.parse(fs.readFileSync(HIST_FILE,'utf8')); if(j.date===today) return j; }catch(_){}
@@ -241,7 +236,7 @@ function saveHistCache(h){ try{ fs.writeFileSync(HIST_FILE,JSON.stringify(h)); }
 
 async function fetchHistoryOnce(insCode,agent){
   const j=await getJSON(`${BASE}/ClosingPrice/GetClosingPriceDailyList/${insCode}/0`,agent);
-  const days=(j.closingPriceDaily||[]).slice().reverse().slice(-CFG.HIST_DAYS);   // oldest → newest
+  const days=(j.closingPriceDaily||[]).slice().reverse().slice(-CFG.HIST_DAYS);
   const closes=[],highs=[],lows=[];
   for(const d of days){ const c=Math.round(num(d.pClosing,d.pcl)/10); if(c<=0) continue; closes.push(c); highs.push(Math.round(num(d.priceMax,d.pClosing)/10)||c); lows.push(Math.round(num(d.priceMin,d.pClosing)/10)||c); }
   if(closes.length<CFG.MIN_HIST){ const e=new Error(`only ${closes.length} days of history`); e.permanent=true; throw e; }
@@ -262,15 +257,14 @@ async function getHistory(stock,pool,hc){
   const r=await withProxy(pool,agent=>fetchHistoryOnce(stock.insCode,agent));
   hc.items[stock.insCode]=r; return r;
 }
-// Real (حقیقی) vs legal/institutional (حقوقی) buy/sell volumes for today.
 async function fetchClientType(insCode,agent){
   const j=await getJSON(`${BASE}/ClientType/GetClientType/${insCode}/1/0`,agent);
   const c=j.clientType||j;
   const bi=num(c.buy_I_Volume),si=num(c.sell_I_Volume),bn=num(c.buy_N_Volume),sn=num(c.sell_N_Volume);
   const ci=num(c.buy_CountI),csi=num(c.sell_CountI);
   if(bi+si+bn+sn===0){ const e=new Error('no client-type data'); e.permanent=true; throw e; }
-  const instNet=(bn+sn)>0?(bn-sn)/(bn+sn)*100:0;                                   // institutional net flow %
-  const realPower=(bi/Math.max(ci,1))/Math.max(si/Math.max(csi,1),1e-9);           // قدرت خریدار حقیقی
+  const instNet=(bn+sn)>0?(bn-sn)/(bn+sn)*100:0;
+  const realPower=(bi/Math.max(ci,1))/Math.max(si/Math.max(csi,1),1e-9);
   return {instNet:+instNet.toFixed(1),realPower:+Math.min(realPower,99).toFixed(2)};
 }
 function recFor(score){ return score>=85?'Strong Buy':score>=65?'Buy':score>=45?'Watchlist':'Avoid'; }
@@ -284,7 +278,6 @@ function applyMoneyFlow(s,mf){
 }
 async function runPool(items,n,fn){ const q=[...items]; await Promise.all(Array.from({length:n},async()=>{ while(q.length) await fn(q.shift()); })); }
 
-// ── fundamentals: TSETMC EPS/P-E + Codal disclosures (cached 24h) ──
 function loadFundCache(){ try{ return JSON.parse(fs.readFileSync(FUND_FILE,'utf8')); }catch(_){ return {items:{}}; } }
 function saveFundCache(c){ try{ fs.writeFileSync(FUND_FILE,JSON.stringify(c)); }catch(_){} }
 async function getFundamentals(st,pool,fc,codal){
@@ -307,16 +300,10 @@ async function getFundamentals(st,pool,fc,codal){
   if(!c.info&&!c.letters) return null;
   const summary=c.letters?FD.summarize(c.letters):null;
 
-  // NEW: Fetch deep financials for Value Hunter (Placeholder for Codal API call)
   let codalFinancials = null;
   if (!codal.disabled) {
     try {
-      // در اینجا می‌توانید endpoint اختصاصی کدال برای صورت‌های مالی را فراخوانی کنید.
-      // برای نمونه، اگر دیتایی در دسترس باشد به این شکل پاس داده می‌شود:
-      // const finData = await withProxy(pool, agent => getJSON(`YOUR_CODAL_FINANCIAL_ENDPOINT/${st.symbol}`, agent));
-      // if (finData) {
-      //   codalFinancials = { ocf: finData.ocf, netProfit: finData.netProfit, revenue: finData.revenue, operatingProfit: finData.opProfit, bookValuePerShare: finData.bvps };
-      // }
+      // Placeholder for Codal financial statements API
     } catch (_) {}
   }
 
@@ -328,24 +315,29 @@ async function getFundamentals(st,pool,fc,codal){
 function applyFundamentals(s,f){
   const base=s.baseScore!=null?s.baseScore:s.score;
   
-  // اضافه کردن فیلدهای جدید به سهام
   Object.assign(s,{
     techScore:base, fundScore:f.fundScore, fundFlags:f.flags, pe:f.pe, fwdPE:f.fwdPE, 
     sectorPE:f.sectorPE, epsGrowth:f.epsGrowth, codalLetters:f.letterCount, 
     fundRecent:f.recent, fundDetails:f.details.join(' | '),
-    isUndervalued: f.isUndervalued, pbRatio: f.pbRatio, earningsQuality: f.earningsQuality
+    isUndervalued: f.isUndervalued, 
+    earningsQuality: f.earningsQuality
   });
   
   s.score=Math.max(0,Math.min(100,base+f.adj));
   let rec=recFor(s.score); 
   if(f.veto&&(rec==='Strong Buy'||rec==='Buy')) rec='Watchlist';
 
-  // 🎯 منطق شکارچی ارزش (Value Hunter)
-  // اگر سهم زیر ارزش بود (P/B<1 یا قیمت<گرام) و پول هوشمند وارد شده بود و RSI در محدوده ورود بود
-  if (f.isUndervalued && s.smartMoneyFlow && parseFloat(s.smartMoneyFlow) > 10 && s.rsi > 40 && s.rsi < 65) {
-      s.score = Math.min(100, s.score + 15); // پاداش ویژه ۱۵ امتیازی
+  // 🎯 منطق شکارچی ارزش (Value Hunter) - بر اساس سود برآوردی
+  if (
+      f.fwdPE && f.sectorPE && (f.fwdPE / f.sectorPE <= 0.8) && 
+      f.epsGrowth >= 20 && 
+      (!f.earningsQuality || f.earningsQuality >= 0.8) && 
+      s.smartMoneyFlow && parseFloat(s.smartMoneyFlow) > 10 && 
+      s.rsi > 40 && s.rsi < 65
+  ) {
+      s.score = Math.min(100, s.score + 15); 
       s.scoreDetails += ' | 🎯 VALUE HUNTER TRIGGER';
-      rec = 'Strong Buy'; // ارتقا به سیگنال قوی
+      rec = 'Strong Buy'; 
   }
 
   s.recommendation=rec;
@@ -353,7 +345,6 @@ function applyFundamentals(s,f){
   if(f.sectorName) s.sector=sectorFromName(f.sectorName);
 }
 
-// ── candidate filter (equities only) ─────────
 const BAD_WORDS=['اختیار','حق تقدم','مرابحه','اجاره','اسناد','گواهی','سلف','خزانه','اخزا','آتی','سکه','طلا','سپرده','اوراق','تسهیلات'];
 const FUND_RE=/^ص\.|ص\.س|اهرم|صندوق|\bETF\b/;
 function isValidCandidate(s){
@@ -366,12 +357,10 @@ function isValidCandidate(s){
   return true;
 }
 
-// ── persistence ──────────────────────────────
 function saveResult(d){ try{ fs.writeFileSync(CACHE_FILE,JSON.stringify(d,null,2)); }catch(e){ console.error('cache write failed',e.message);} }
 function loadResult(){ try{ if(fs.existsSync(CACHE_FILE)) return JSON.parse(fs.readFileSync(CACHE_FILE,'utf8')); }catch(_){} return null; }
 function isTodayTehran(iso){ if(!iso) return false; const f=d=>new Date(d).toLocaleDateString('en-CA',{timeZone:'Asia/Tehran'}); return f(iso)===f(Date.now()); }
 
-// ── analysis of one stock ────────────────────
 function analyze(stock,{closes,highs,lows}){
   const {score,details}=scoreStock(closes,stock.price,stock.value,stock.changePct);
   const lv=tradeLevels(closes,highs,lows,stock.price);
@@ -382,14 +371,13 @@ function analyze(stock,{closes,highs,lows}){
     recommendation:recFor(score), smartMoneyFlow:'—', realPower:null};
 }
 
-// ── orchestrator ─────────────────────────────
 async function executeScan(){
   if(scanState.isScanning) return;
   Object.assign(scanState,{isScanning:true,logs:[],logTotal:0,error:null,progress:0,startedAt:new Date().toISOString(),lastAttemptAt:Date.now()});
   const deadline=Date.now()+CFG.MAX_SCAN_MS;
   const pool=new ProxyPool();
   try{
-    log('=== TSE Quant Engine v2.4 — Value Hunter Scan Starting ===');
+    log('=== TSE Quant Engine v2.4 — Forward EPS Scan Starting ===');
     scanState.progress=3;
     const {raw,proxy}=await fetchMarketWatch(pool);
     scanState.progress=15;
@@ -454,7 +442,6 @@ async function executeScan(){
       log(`Money-flow data: ${mfOk}/${mfTargets.length} stocks`);
     }
 
-    // fundamentals for the strongest setups
     const fundTargets=[...scored].sort((a,b)=>b.score-a.score).slice(0,CFG.FUND_TOP);
     let fundOk=0, codalOk=0; const codalState={ok:0,fails:0,disabled:false};
     if(fundTargets.length && Date.now()<deadline){
@@ -473,7 +460,6 @@ async function executeScan(){
     if(!scored.length) throw new Error('No stocks returned valid history data.');
     scored.sort((a,b)=>b.score-a.score);
     
-    // ذخیره ۵۰ سهم برتر برای نمایش در سایت
     const result={
         updatedAt:new Date().toISOString(),
         proxy,
@@ -493,7 +479,6 @@ async function executeScan(){
   }finally{ scanState.isScanning=false; inFlight=null; }
 }
 
-// ── scheduler: after 17:00 Tehran, retry until today's scan exists ──
 function schedulerTick(){
   const h=+new Date().toLocaleString('en-US',{timeZone:'Asia/Tehran',hour12:false,hour:'numeric'})%24;
   const cached=loadResult();
@@ -504,7 +489,6 @@ function schedulerTick(){
 }
 setInterval(schedulerTick,60_000).unref();
 
-// ── routes ───────────────────────────────────
 function registerTseScanner(app){
   const start=(req,res)=>{ if(scanState.isScanning) return res.json({ok:true,message:'Already scanning'}); if(!inFlight) inFlight=executeScan().catch(()=>{}); res.json({ok:true,message:'Scan started'}); };
   app.post('/api/tse/scan/start',start); app.get('/api/tse/scan/start',start);
