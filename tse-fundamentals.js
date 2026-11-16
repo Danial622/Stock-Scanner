@@ -1,11 +1,10 @@
 'use strict';
 // ─────────────────────────────────────────────────────────────────────────────
-//  Fundamentals for the TSE Quant Engine  (pure functions — no network here)
-//   • TSETMC instrument info  → EPS, forecast EPS, sector P/E, official sector
-//   • Codal disclosures       → event flags from letter titles (dividend, capital
-//                               increase, halt, clarification, audit opinion…)
-//  Score: 50 = neutral. Final-score adjustment = (fundScore-50)*0.4  → ±20 max.
-//  Missing data NEVER penalises a stock (adjustment 0).
+//  Fundamentals for the TSE Quant Engine (Upgraded)
+//   • TSETMC instrument info → EPS, forecast EPS, sector P/E
+//   • Codal disclosures → event flags (dividend, capital increase, halt, etc.)
+//   • Codal financials → OCF, Net Profit, P/B, Graham Number (Value Investing)
+//  Score: 50 = neutral. Final-score adjustment = (fundScore-50)*0.4 → ±20 max.
 // ─────────────────────────────────────────────────────────────────────────────
 
 const CODAL_SEARCH = 'https://search.codal.ir/api/search/v2/q';
@@ -18,7 +17,7 @@ const fa2en = s => String(s == null ? '' : s)
 const norm = s => fa2en(s).replace(/ي/g, 'ی').replace(/ك/g, 'ک').replace(/ة/g, 'ه')
   .replace(/[\u200c\u200e\u200f]/g, ' ').replace(/\s+/g, ' ').trim();
 
-// ── Jalali date helpers (day index is accurate to ±1 day — enough for "age") ──
+// ── Jalali date helpers ──────────────────────
 function jDayIndex(y, m, d) { const doy = m <= 6 ? (m - 1) * 31 + d : 186 + (m - 7) * 30 + d; return Math.round(y * 365.2422) + doy; }
 function parseJalali(str) { const m = fa2en(str).match(/(\d{4})\/(\d{1,2})\/(\d{1,2})/); return m ? { y: +m[1], m: +m[2], d: +m[3] } : null; }
 function jalaliNow(date = new Date()) {
@@ -80,7 +79,6 @@ function classify(title, code) {
   if (RX.FS.test(title)) tags.push('FS');
   return tags;
 }
-// latest occurrence (min age in days) per tag + 6 most recent letters for the tooltip
 function summarize(letters, nowIdx = nowIndex()) {
   const latest = {}, dated = [];
   for (const l of letters || []) {
@@ -98,17 +96,26 @@ function parseInstrumentInfo(json) {
   const i = (json && (json.instrumentInfo || json)) || {};
   const e = i.eps || {}, sec = i.sector || {};
   const n = v => { const x = Number(v); return v !== null && v !== undefined && v !== '' && Number.isFinite(x) ? x : null; };
-  const out = { eps: n(e.epsValue), estEps: n(e.estimatedEPS), sectorPE: n(e.sectorPE), psr: n(e.psr), sectorName: norm(sec.lSecVal || sec.lSecValue || '') };
+  const out = { 
+    eps: n(e.epsValue), 
+    estEps: n(e.estimatedEPS), 
+    sectorPE: n(e.sectorPE), 
+    psr: n(e.psr), 
+    sectorName: norm(sec.lSecVal || sec.lSecValue || '') 
+  };
   return (out.eps === null && out.estEps === null && out.sectorPE === null && !out.sectorName) ? null : out;
 }
 
-// ── scoring ──────────────────────────────────
-function scoreFundamentals({ priceRial, info, summary }) {
-  if (!info && !summary) return null;
+// ── Scoring Engine (Technical + Fundamental + Value) ──
+function scoreFundamentals({ priceRial, info, summary, codalFinancials }) {
+  if (!info && !summary && !codalFinancials) return null;
   let sc = 50; const det = [], flags = []; let veto = false;
   let pe = null, fwdPE = null, sectorPE = null, epsGrowth = null;
+  let isUndervalued = false, pbRatio = null, grahamNumber = null, earningsQuality = null;
+  
   const add = (pts, label) => { sc += pts; det.push(`${label} ${pts > 0 ? '+' : ''}${pts}`); };
 
+  // 1. Base Info from TSETMC (EPS, P/E)
   if (info) {
     const { eps, estEps } = info;
     sectorPE = info.sectorPE > 0 ? info.sectorPE : null;
@@ -122,17 +129,60 @@ function scoreFundamentals({ priceRial, info, summary }) {
       epsGrowth = Math.max(-999, Math.min(999, Math.round((estEps / eps - 1) * 100)));
       if (epsGrowth >= 50) add(20, `EPS growth ${epsGrowth}%`); else if (epsGrowth >= 20) add(12, `EPS growth ${epsGrowth}%`);
       else if (epsGrowth >= 5) add(6, `EPS growth ${epsGrowth}%`); else if (epsGrowth <= -20) add(-12, `EPS growth ${epsGrowth}%`);
-      else if (epsGrowth <= -5) add(-6, `EPS growth ${epsGrowth}%`);
     }
+    
     const v = fwdPE || pe;
-    if (v) {
-      if (sectorPE) { const r = v / sectorPE;
-        if (r <= 0.6) add(15, `P/E ${v} vs sector ${sectorPE}`); else if (r <= 0.9) add(8, `P/E ${v} vs sector ${sectorPE}`);
-        else if (r >= 1.5) add(-10, `P/E ${v} vs sector ${sectorPE}`); else if (r >= 1.2) add(-5, `P/E ${v} vs sector ${sectorPE}`);
-      } else { if (v <= 5) add(8, `P/E ${v}`); else if (v >= 12) add(-8, `P/E ${v}`); }
+    if (v && sectorPE) {
+      const r = v / sectorPE;
+      if (r <= 0.6) add(15, `P/E ${v} vs sector ${sectorPE}`); 
+      else if (r <= 0.9) add(8, `P/E ${v} vs sector ${sectorPE}`);
+      else if (r >= 1.5) add(-10, `P/E ${v} vs sector ${sectorPE}`); 
+      else if (r >= 1.2) add(-5, `P/E ${v} vs sector ${sectorPE}`);
     }
   }
 
+  // 2. Deep Financials from Codal (OCF, Margins, Book Value)
+  if (codalFinancials) {
+    const { ocf, netProfit, revenue, operatingProfit, bookValuePerShare } = codalFinancials;
+
+    // A) Earnings Quality (OCF / Net Income) -> The "Professor's Insight"
+    if (ocf != null && netProfit != null && netProfit > 0) {
+      earningsQuality = ocf / netProfit;
+      if (earningsQuality >= 1.0) {
+        add(10, `Earnings Quality ${earningsQuality.toFixed(2)} (Cash-backed)`);
+        flags.push('CASH-OK');
+      } else if (earningsQuality < 0.5) {
+        add(-15, `Earnings Quality ${earningsQuality.toFixed(2)} (Paper Profit)`);
+        veto = true; // Veto if profit is not backed by cash
+        flags.push('PAPER-PROFIT');
+      }
+    }
+
+    // B) Operating Margin
+    if (revenue > 0 && operatingProfit != null) {
+      const opMargin = (operatingProfit / revenue) * 100;
+      if (opMargin >= 20) add(5, `Op Margin ${opMargin.toFixed(1)}% (Strong)`);
+      else if (opMargin < 5) add(-5, `Op Margin ${opMargin.toFixed(1)}% (Weak)`);
+    }
+
+    // C) Undervaluation - P/B Ratio
+    if (bookValuePerShare > 0 && priceRial > 0) {
+      pbRatio = priceRial / bookValuePerShare;
+      if (pbRatio < 0.6) { add(10, `Deep Value (P/B ${pbRatio.toFixed(2)})`); isUndervalued = true; flags.push('VALUE'); }
+      else if (pbRatio < 1.0) { add(5, `Undervalued (P/B ${pbRatio.toFixed(2)})`); isUndervalued = true; flags.push('VALUE'); }
+    }
+
+    // D) Undervaluation - Graham Number
+    const eps = info?.eps;
+    if (eps > 0 && bookValuePerShare > 0) {
+      grahamNumber = Math.sqrt(22.5 * eps * bookValuePerShare);
+      if (priceRial < grahamNumber) {
+        add(10, `Price < Graham Number (Safe Margin)`); isUndervalued = true; flags.push('VALUE');
+      }
+    }
+  }
+
+  // 3. Codal Events (Letters)
   if (summary && summary.latest) {
     const L = summary.latest, within = (t, days) => L[t] && L[t].age <= days;
     if (within('AUDIT_BAD', 400)) { add(-20, 'Adverse/qualified audit opinion'); veto = true; flags.push('AUDIT!'); }
@@ -149,7 +199,36 @@ function scoreFundamentals({ priceRial, info, summary }) {
   }
 
   sc = Math.max(0, Math.min(100, sc));
-  return { fundScore: sc, adj: Math.round((sc - 50) * 0.4), flags, veto, pe, fwdPE, sectorPE, epsGrowth, details: det, sectorName: info ? info.sectorName : '' };
+  return { 
+    fundScore: sc, 
+    adj: Math.round((sc - 50) * 0.4), 
+    flags, 
+    veto, 
+    pe, 
+    fwdPE, 
+    sectorPE, 
+    epsGrowth, 
+    earningsQuality, 
+    pbRatio, 
+    grahamNumber, 
+    isUndervalued, 
+    details: det, 
+    sectorName: info ? info.sectorName : '' 
+  };
 }
 
-module.exports = { norm, fa2en, jDayIndex, parseJalali, jalaliNow, nowIndex, codalRange, codalUrl, parseLetters, classify, summarize, parseInstrumentInfo, scoreFundamentals };
+module.exports = { 
+  norm, 
+  fa2en, 
+  jDayIndex, 
+  parseJalali, 
+  jalaliNow, 
+  nowIndex, 
+  codalRange, 
+  codalUrl, 
+  parseLetters, 
+  classify, 
+  summarize, 
+  parseInstrumentInfo, 
+  scoreFundamentals 
+};
