@@ -1,10 +1,9 @@
 'use strict';
 // ─────────────────────────────────────────────────────────────────────────────
-//  Fundamentals for the TSE Quant Engine (Upgraded)
+//  Fundamentals for the TSE Quant Engine (Upgraded - No P/B)
 //   • TSETMC instrument info → EPS, forecast EPS, sector P/E
 //   • Codal disclosures → event flags (dividend, capital increase, halt, etc.)
-//   • Codal financials → OCF, Net Profit, P/B, Graham Number (Value Investing)
-//  Score: 50 = neutral. Final-score adjustment = (fundScore-50)*0.4 → ±20 max.
+//   • Codal financials → OCF, Net Profit (Earnings Quality)
 // ─────────────────────────────────────────────────────────────────────────────
 
 const CODAL_SEARCH = 'https://search.codal.ir/api/search/v2/q';
@@ -106,12 +105,12 @@ function parseInstrumentInfo(json) {
   return (out.eps === null && out.estEps === null && out.sectorPE === null && !out.sectorName) ? null : out;
 }
 
-// ── Scoring Engine (Technical + Fundamental + Value) ──
+// ── Scoring Engine (Focus on Forward EPS + OCF) ──
 function scoreFundamentals({ priceRial, info, summary, codalFinancials }) {
   if (!info && !summary && !codalFinancials) return null;
   let sc = 50; const det = [], flags = []; let veto = false;
   let pe = null, fwdPE = null, sectorPE = null, epsGrowth = null;
-  let isUndervalued = false, pbRatio = null, grahamNumber = null, earningsQuality = null;
+  let isUndervalued = false, earningsQuality = null;
   
   const add = (pts, label) => { sc += pts; det.push(`${label} ${pts > 0 ? '+' : ''}${pts}`); };
 
@@ -131,19 +130,20 @@ function scoreFundamentals({ priceRial, info, summary, codalFinancials }) {
       else if (epsGrowth >= 5) add(6, `EPS growth ${epsGrowth}%`); else if (epsGrowth <= -20) add(-12, `EPS growth ${epsGrowth}%`);
     }
     
+    // Check for Undervaluation based on Forward P/E
     const v = fwdPE || pe;
     if (v && sectorPE) {
       const r = v / sectorPE;
-      if (r <= 0.6) add(15, `P/E ${v} vs sector ${sectorPE}`); 
-      else if (r <= 0.9) add(8, `P/E ${v} vs sector ${sectorPE}`);
+      if (r <= 0.6) { add(15, `P/E ${v} vs sector ${sectorPE}`); isUndervalued = true; flags.push('VALUE'); }
+      else if (r <= 0.9) { add(8, `P/E ${v} vs sector ${sectorPE}`); isUndervalued = true; flags.push('VALUE'); }
       else if (r >= 1.5) add(-10, `P/E ${v} vs sector ${sectorPE}`); 
       else if (r >= 1.2) add(-5, `P/E ${v} vs sector ${sectorPE}`);
     }
   }
 
-  // 2. Deep Financials from Codal (OCF, Margins, Book Value)
+  // 2. Deep Financials from Codal (OCF & Margins)
   if (codalFinancials) {
-    const { ocf, netProfit, revenue, operatingProfit, bookValuePerShare } = codalFinancials;
+    const { ocf, netProfit, revenue, operatingProfit } = codalFinancials;
 
     // A) Earnings Quality (OCF / Net Income) -> The "Professor's Insight"
     if (ocf != null && netProfit != null && netProfit > 0) {
@@ -164,22 +164,6 @@ function scoreFundamentals({ priceRial, info, summary, codalFinancials }) {
       if (opMargin >= 20) add(5, `Op Margin ${opMargin.toFixed(1)}% (Strong)`);
       else if (opMargin < 5) add(-5, `Op Margin ${opMargin.toFixed(1)}% (Weak)`);
     }
-
-    // C) Undervaluation - P/B Ratio
-    if (bookValuePerShare > 0 && priceRial > 0) {
-      pbRatio = priceRial / bookValuePerShare;
-      if (pbRatio < 0.6) { add(10, `Deep Value (P/B ${pbRatio.toFixed(2)})`); isUndervalued = true; flags.push('VALUE'); }
-      else if (pbRatio < 1.0) { add(5, `Undervalued (P/B ${pbRatio.toFixed(2)})`); isUndervalued = true; flags.push('VALUE'); }
-    }
-
-    // D) Undervaluation - Graham Number
-    const eps = info?.eps;
-    if (eps > 0 && bookValuePerShare > 0) {
-      grahamNumber = Math.sqrt(22.5 * eps * bookValuePerShare);
-      if (priceRial < grahamNumber) {
-        add(10, `Price < Graham Number (Safe Margin)`); isUndervalued = true; flags.push('VALUE');
-      }
-    }
   }
 
   // 3. Codal Events (Letters)
@@ -187,13 +171,13 @@ function scoreFundamentals({ priceRial, info, summary, codalFinancials }) {
     const L = summary.latest, within = (t, days) => L[t] && L[t].age <= days;
     if (within('AUDIT_BAD', 400)) { add(-20, 'Adverse/qualified audit opinion'); veto = true; flags.push('AUDIT!'); }
     if (within('HALT', 30)) { add(-10, 'Trading halt notice ≤30d'); flags.push('HALT'); }
-    if (within('CLARIFY', 14)) { add(-5, 'Clarification/material-info notice ≤14d'); flags.push('CLARIFY'); }
+    if (within('CLARIFY', 14)) { add(-5, 'Clarification notice ≤14d'); flags.push('CLARIFY'); }
     if (within('CAP_FREE', 120)) { add(4, 'Capital increase from reserves'); flags.push('CAP+'); }
-    else if (within('CAP_CASH', 120)) { add(-4, 'Cash/claims capital increase (dilutive)'); flags.push('CAP$'); }
+    else if (within('CAP_CASH', 120)) { add(-4, 'Cash capital increase'); flags.push('CAP$'); }
     else if (within('CAP', 120)) { flags.push('CAP?'); }
     if (within('DIV', 150)) { add(4, 'Dividend decision'); flags.push('DIV'); }
     if (within('EPS_F', 45)) flags.push('EPS-F');
-    if (within('MONTHLY', 45)) { add(3, 'Fresh monthly activity report'); flags.push('MON'); }
+    if (within('MONTHLY', 45)) { add(3, 'Fresh monthly report'); flags.push('MON'); }
     if (within('BOARD', 30)) { add(-2, 'Board change ≤30d'); flags.push('BOARD'); }
     if (within('AGM', 60)) flags.push('AGM');
   }
@@ -209,8 +193,6 @@ function scoreFundamentals({ priceRial, info, summary, codalFinancials }) {
     sectorPE, 
     epsGrowth, 
     earningsQuality, 
-    pbRatio, 
-    grahamNumber, 
     isUndervalued, 
     details: det, 
     sectorName: info ? info.sectorName : '' 
@@ -218,17 +200,7 @@ function scoreFundamentals({ priceRial, info, summary, codalFinancials }) {
 }
 
 module.exports = { 
-  norm, 
-  fa2en, 
-  jDayIndex, 
-  parseJalali, 
-  jalaliNow, 
-  nowIndex, 
-  codalRange, 
-  codalUrl, 
-  parseLetters, 
-  classify, 
-  summarize, 
-  parseInstrumentInfo, 
-  scoreFundamentals 
+  norm, fa2en, jDayIndex, parseJalali, jalaliNow, nowIndex, 
+  codalRange, codalUrl, parseLetters, classify, summarize, 
+  parseInstrumentInfo, scoreFundamentals 
 };
