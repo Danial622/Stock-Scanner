@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-16T22:11:12.760Z",
+  "updatedAt": "2026-11-16T23:06:16.035Z",
   "proxy": "Direct",
   "totalScanned": 593,
   "poolSize": 600,
@@ -20,7 +20,7 @@
       "ema50": 1371,
       "ema200": 1075,
       "score": 100,
-      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | P>EMA200 +8 | GoldenX +7 | RSI55 +15 | MACD bull +15 | BBMidUp +10 | Liq>30B +10 | Mom1-4% +15 | InstFlow 27.8% +5 | Fundamentals +4",
+      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | P>EMA200 +8 | GoldenX +7 | RSI55 +15 | MACD bull +15 | BBMidUp +10 | Liq>30B +10 | Mom1-4% +15 | Fundamentals +4",
       "entry": 1444,
       "stopLoss": 1303,
       "target1": 1613,
@@ -32,8 +32,11 @@
       "atr": 56,
       "maxHoldDays": 30,
       "recommendation": "Strong Buy",
-      "smartMoneyFlow": "27.8",
-      "realPower": 0.95,
+      "smartMoneyFlow": "—",
+      "realPower": null,
+      "return1M": 9.08,
+      "return3M": 20.08,
+      "return1Y": 124.45,
       "baseScore": 100,
       "techScore": 100,
       "fundScore": 61,
@@ -82,6 +85,88 @@
       "fundDetails": "P/E 5.4 vs sector 7.39 +8 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
+      "horizon": "MEDIUM"
+    },
+    {
+      "symbol": "دقاضی",
+      "company": "داروسازی شهید قاضی",
+      "sector": "دارو / Pharma",
+      "insCode": "46801030346547943",
+      "price": 2528,
+      "changePct": 2.973523421588595,
+      "value": 71,
+      "rsi": 59,
+      "macdHist": 0.19,
+      "ema20": 2407,
+      "ema50": 2335,
+      "ema200": 1696,
+      "score": 100,
+      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | P>EMA200 +8 | GoldenX +7 | RSI59 +15 | MACD bull +15 | BBMidUp +10 | Liq>30B +10 | Mom1-4% +15 | Fundamentals +3",
+      "entry": 2528,
+      "stopLoss": 2288,
+      "target1": 2816,
+      "target2": 3009,
+      "target3": 3201,
+      "riskReward": "1:0.8",
+      "resistance": 2708,
+      "support": 2240,
+      "atr": 96,
+      "maxHoldDays": 30,
+      "recommendation": "Strong Buy",
+      "smartMoneyFlow": "—",
+      "realPower": null,
+      "return1M": 4.46,
+      "return3M": 15.54,
+      "return1Y": 232.63,
+      "baseScore": 100,
+      "techScore": 100,
+      "fundScore": 57,
+      "fundFlags": [
+        "DIV",
+        "MON"
+      ],
+      "pe": null,
+      "fwdPE": 6.9,
+      "sectorPE": 7.39,
+      "epsGrowth": null,
+      "codalLetters": 20,
+      "fundRecent": [
+        {
+          "age": 21,
+          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/07/30",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=eCpS3OCLhtqTM4pUDM4Eig%3d%3d&rt=0&let=58&ct=0&ft=-1"
+        },
+        {
+          "age": 22,
+          "title": "اطلاعات و صورت های مالی میاندوره ای دوره 6 ماهه منتهی به 1405/06/31 (حسابرسی نشده)(اصلاحیه)",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=waXQQQaQQQF6V8vcIOOObOOOTfqT2kbBIA%3d%3d&rt=0&let=6&ct=0&ft=-1"
+        },
+        {
+          "age": 26,
+          "title": "توضیحات در خصوص اطلاعات و صورت های مالی منتشر شده",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=C6kF1bEKK1kRgaNLJ7KsyA%3d%3d&rt=0&let=174&ct=0&ft=-1"
+        },
+        {
+          "age": 26,
+          "title": "اطلاعات و صورت های مالی میاندوره ای دوره 6 ماهه منتهی به 1405/06/31 (حسابرسی نشده)",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=McC77xn3IWSXeR66Nzza1g%3d%3d&rt=0&let=6&ct=0&ft=-1"
+        },
+        {
+          "age": 29,
+          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/06/31(اصلاحیه)",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=VrGNCBHEK3wnkEtUoy9I7g%3d%3d&rt=0&let=58&ct=0&ft=-1"
+        },
+        {
+          "age": 50,
+          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/06/31",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=k7XhL9vJFGSccDjrwsdXpg%3d%3d&rt=0&let=58&ct=0&ft=-1"
+        }
+      ],
+      "fundDetails": "Dividend decision +4 | Fresh monthly report +3",
+      "isUndervalued": false,
+      "earningsQuality": null,
+      "eps": null,
       "horizon": "MEDIUM"
     },
     {
@@ -98,7 +183,7 @@
       "ema50": 315,
       "ema200": 294,
       "score": 100,
-      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | P>EMA200 +8 | GoldenX +7 | RSI56 +15 | MACD bull +15 | BBMidUp +10 | Liq>30B +10 | Mom1-4% +15 | Fundamentals +7",
+      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | P>EMA200 +8 | GoldenX +7 | RSI56 +15 | MACD bull +15 | BBMidUp +10 | Liq>30B +10 | Mom1-4% +15 | InstFlow -62.9% -5 | RealPower 17.02 +5 | Fundamentals +7",
       "entry": 335,
       "stopLoss": 284,
       "target1": 411,
@@ -110,8 +195,11 @@
       "atr": 13,
       "maxHoldDays": 90,
       "recommendation": "Strong Buy",
-      "smartMoneyFlow": "—",
-      "realPower": null,
+      "smartMoneyFlow": "-62.9",
+      "realPower": 17.02,
+      "return1M": 0.6,
+      "return3M": 32.41,
+      "return1Y": 25.47,
       "baseScore": 100,
       "techScore": 100,
       "fundScore": 68,
@@ -160,6 +248,7 @@
       "fundDetails": "P/E 7.1 vs sector 12.44 +15 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "LONG"
     },
     {
@@ -190,6 +279,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-55.3",
       "realPower": 2.04,
+      "return1M": 7.4,
+      "return3M": 34.02,
+      "return1Y": 346.33,
       "baseScore": 100,
       "techScore": 100,
       "fundScore": 53,
@@ -237,6 +329,7 @@
       "fundDetails": "Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "MEDIUM"
     },
     {
@@ -267,6 +360,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "37",
       "realPower": 1.43,
+      "return1M": 4.62,
+      "return3M": 22.21,
+      "return1Y": 257.19,
       "baseScore": 100,
       "techScore": 100,
       "fundScore": 61,
@@ -314,6 +410,7 @@
       "fundDetails": "P/E 6.9 vs sector 11.14 +8 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -344,6 +441,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "61.3",
       "realPower": 1.12,
+      "return1M": 5.47,
+      "return3M": 51.12,
+      "return1Y": -3.11,
       "baseScore": 100,
       "techScore": 100,
       "fundScore": 55,
@@ -393,6 +493,7 @@
       "fundDetails": "Dividend decision +4 | Fresh monthly report +3 | Board change ≤30d -2",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -423,6 +524,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-7.6",
       "realPower": 1.71,
+      "return1M": 8.9,
+      "return3M": 35.71,
+      "return1Y": 102.24,
       "baseScore": 100,
       "techScore": 100,
       "fundScore": 61,
@@ -471,6 +575,7 @@
       "fundDetails": "P/E 9.9 vs sector 11.3 +8 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "MEDIUM"
     },
     {
@@ -501,6 +606,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-13.9",
       "realPower": 1.69,
+      "return1M": 9.23,
+      "return3M": 53.05,
+      "return1Y": 322.45,
       "baseScore": 100,
       "techScore": 100,
       "fundScore": 57,
@@ -548,6 +656,7 @@
       "fundDetails": "Dividend decision +4 | Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -578,6 +687,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-8.2",
       "realPower": 1.4,
+      "return1M": 5.17,
+      "return3M": 64.74,
+      "return1Y": 82.69,
       "baseScore": 96,
       "techScore": 96,
       "fundScore": 61,
@@ -626,6 +738,7 @@
       "fundDetails": "P/E 8.7 vs sector 11.3 +8 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -656,6 +769,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "25.5",
       "realPower": 1.08,
+      "return1M": 6.64,
+      "return3M": 37.76,
+      "return1Y": 512.05,
       "baseScore": 100,
       "techScore": 100,
       "fundScore": 53,
@@ -703,6 +819,7 @@
       "fundDetails": "Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -733,6 +850,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-46.7",
       "realPower": 6.62,
+      "return1M": 1.65,
+      "return3M": 20.15,
+      "return1Y": 1466.67,
       "baseScore": 96,
       "techScore": 96,
       "fundScore": 65,
@@ -782,6 +902,7 @@
       "fundDetails": "P/E 7.4 vs sector 11.14 +8 | Dividend decision +4 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "LONG"
     },
     {
@@ -812,6 +933,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-47.4",
       "realPower": 2.47,
+      "return1M": 6.67,
+      "return3M": 24.03,
+      "return1Y": -4.76,
       "baseScore": 96,
       "techScore": 96,
       "fundScore": 72,
@@ -860,6 +984,7 @@
       "fundDetails": "P/E 2.4 vs sector 4.49 +15 | Dividend decision +4 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "LONG"
     },
     {
@@ -890,6 +1015,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-53",
       "realPower": 1.53,
+      "return1M": 10.22,
+      "return3M": 34.87,
+      "return1Y": 4.59,
       "baseScore": 96,
       "techScore": 96,
       "fundScore": 60,
@@ -939,6 +1067,7 @@
       "fundDetails": "P/E 7.5 vs sector 12.16 +8 | Clarification notice ≤14d -5 | Dividend decision +4 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -969,6 +1098,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-1",
       "realPower": 1.42,
+      "return1M": 8.74,
+      "return3M": 8.24,
+      "return1Y": 212.07,
       "baseScore": 96,
       "techScore": 96,
       "fundScore": 66,
@@ -1018,6 +1150,7 @@
       "fundDetails": "P/E 4.3 vs sector 7.8 +15 | Fresh monthly report +3 | Board change ≤30d -2",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "LONG"
     },
     {
@@ -1048,6 +1181,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-13.4",
       "realPower": 1.89,
+      "return1M": 4.67,
+      "return3M": 49.07,
+      "return1Y": 103.12,
       "baseScore": 96,
       "techScore": 96,
       "fundScore": 68,
@@ -1096,6 +1232,7 @@
       "fundDetails": "P/E 5.5 vs sector 11.3 +15 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "LONG"
     },
     {
@@ -1126,6 +1263,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "5.3",
       "realPower": 4.59,
+      "return1M": 9.46,
+      "return3M": 4.93,
+      "return1Y": 77.13,
       "baseScore": 100,
       "techScore": 100,
       "fundScore": 56,
@@ -1174,6 +1314,7 @@
       "fundDetails": "P/E 9.3 vs sector 11.19 +8 | Clarification notice ≤14d -5 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -1204,6 +1345,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "1.4",
       "realPower": 10.97,
+      "return1M": 3.38,
+      "return3M": 10.4,
+      "return1Y": 76.24,
       "baseScore": 100,
       "techScore": 100,
       "fundScore": 59,
@@ -1252,6 +1396,7 @@
       "fundDetails": "P/E 9.6 vs sector 11.19 +8 | Fresh monthly report +3 | Board change ≤30d -2",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -1282,6 +1427,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "13.3",
       "realPower": 0.91,
+      "return1M": -2.49,
+      "return3M": 46.9,
+      "return1Y": 134.93,
       "baseScore": 100,
       "techScore": 100,
       "fundScore": 60,
@@ -1331,6 +1479,7 @@
       "fundDetails": "P/E 7.2 vs sector 8.16 +8 | Clarification notice ≤14d -5 | Dividend decision +4 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "MEDIUM"
     },
     {
@@ -1361,6 +1510,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "71.9",
       "realPower": 1.33,
+      "return1M": 16.94,
+      "return3M": 16.56,
+      "return1Y": 75.98,
       "baseScore": 98,
       "techScore": 98,
       "fundScore": 65,
@@ -1409,6 +1561,7 @@
       "fundDetails": "P/E 8.7 vs sector 11.19 +8 | Dividend decision +4 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "LONG"
     },
     {
@@ -1439,6 +1592,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "6.1",
       "realPower": 4.18,
+      "return1M": 17.37,
+      "return3M": -21.46,
+      "return1Y": null,
       "baseScore": 97,
       "techScore": 97,
       "fundScore": 65,
@@ -1488,6 +1644,7 @@
       "fundDetails": "P/E 20.5 vs sector 24.01 +8 | Dividend decision +4 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "LONG"
     },
     {
@@ -1518,6 +1675,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-38.1",
       "realPower": 2.97,
+      "return1M": 5.08,
+      "return3M": 27.25,
+      "return1Y": 356.62,
       "baseScore": 92,
       "techScore": 92,
       "fundScore": 70,
@@ -1568,6 +1728,7 @@
       "fundDetails": "P/E 6.2 vs sector 11.14 +15 | Dividend decision +4 | Fresh monthly report +3 | Board change ≤30d -2",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "LONG"
     },
     {
@@ -1598,6 +1759,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "4.7",
       "realPower": 1.53,
+      "return1M": 20.25,
+      "return3M": 89.05,
+      "return1Y": 169.5,
       "baseScore": 100,
       "techScore": 100,
       "fundScore": 47,
@@ -1646,7 +1810,89 @@
       "fundDetails": "P/E 14.9 vs sector 11.3 -5 | Clarification notice ≤14d -5 | Dividend decision +4 | Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "MEDIUM"
+    },
+    {
+      "symbol": "برکت",
+      "company": "گروه دارویی برکت",
+      "sector": "دارو / Pharma",
+      "insCode": "34557241988629814",
+      "price": 513,
+      "changePct": 2.80561122244489,
+      "value": 75,
+      "rsi": 62,
+      "macdHist": 0.86,
+      "ema20": 483,
+      "ema50": 472,
+      "ema200": 368,
+      "score": 99,
+      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | P>EMA200 +8 | GoldenX +7 | RSI62 +15 | MACD bull +15 | BBMidUp +10 | Liq>30B +10 | Mom1-4% +15 | Fundamentals -1",
+      "entry": 513,
+      "stopLoss": 488,
+      "target1": 547,
+      "target2": 564,
+      "target3": 581,
+      "riskReward": "1:1.1",
+      "resistance": 540,
+      "support": 434,
+      "atr": 17,
+      "maxHoldDays": 10,
+      "recommendation": "Strong Buy",
+      "smartMoneyFlow": "—",
+      "realPower": null,
+      "return1M": 11.52,
+      "return3M": 23.32,
+      "return1Y": 120.17,
+      "baseScore": 100,
+      "techScore": 100,
+      "fundScore": 47,
+      "fundFlags": [
+        "DIV",
+        "MON"
+      ],
+      "pe": null,
+      "fwdPE": 57,
+      "sectorPE": 11.14,
+      "epsGrowth": null,
+      "codalLetters": 20,
+      "fundRecent": [
+        {
+          "age": 20,
+          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/07/30",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=qUJtWjF0ICcrfSdamDqgrw%3d%3d&rt=2&let=8&ct=0&ft=-1"
+        },
+        {
+          "age": 20,
+          "title": "توضیحات در خصوص اطلاعات و صورت های مالی منتشر شده",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=coM3aaI4WI5ahOOOObOOOllJQu4g%3d%3d&rt=2&let=174&ct=0&ft=-1"
+        },
+        {
+          "age": 27,
+          "title": "اطلاعات و صورت های مالی میاندوره ای دوره 6 ماهه منتهی به 1405/06/31 (حسابرسی نشده)",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=pqJM0jIW6gyuUO7cxsdjIw%3d%3d&rt=2&let=6&ct=0&ft=-1"
+        },
+        {
+          "age": 31,
+          "title": "اطلاعات و صورت های مالی میاندوره ای دوره 6 ماهه منتهی به 1405/03/31 (حسابرسی شده) (شرکت شهرک صنعتی دارویی برکت)",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=J9Ie2xjEN1J7zQQQaQQQOZtVfgjA%3d%3d&rt=1&let=6&ct=0&ft=-1"
+        },
+        {
+          "age": 44,
+          "title": "اطلاعات و صورت های مالی میاندوره ای دوره 6 ماهه منتهی به 1405/03/31 (حسابرسی شده) (شرکت بیوسان فارمد)",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=Ou6XCoptAwJ45kQHun33yA%3d%3d&rt=0&let=6&ct=0&ft=-1"
+        },
+        {
+          "age": 56,
+          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/06/31",
+          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=kWh490KiCb4Y0ZQQQaQQQrEnvNzw%3d%3d&rt=2&let=8&ct=0&ft=-1"
+        }
+      ],
+      "fundDetails": "P/E 57 vs sector 11.14 -10 | Dividend decision +4 | Fresh monthly report +3",
+      "isUndervalued": false,
+      "earningsQuality": null,
+      "eps": null,
+      "horizon": "SHORT"
     },
     {
       "symbol": "همراه",
@@ -1676,6 +1922,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "15.3",
       "realPower": 1.28,
+      "return1M": 0.34,
+      "return3M": 36.78,
+      "return1Y": 148.72,
       "baseScore": 100,
       "techScore": 100,
       "fundScore": 48,
@@ -1723,6 +1972,7 @@
       "fundDetails": "Clarification notice ≤14d -5 | Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -1753,6 +2003,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "8.2",
       "realPower": 5.35,
+      "return1M": 4.66,
+      "return3M": 29.42,
+      "return1Y": 79.59,
       "baseScore": 100,
       "techScore": 100,
       "fundScore": 48,
@@ -1800,6 +2053,7 @@
       "fundDetails": "P/E 18.1 vs sector 12.21 -5 | Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -1830,6 +2084,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "0",
       "realPower": 0.84,
+      "return1M": -2.33,
+      "return3M": 48.04,
+      "return1Y": 89.22,
       "baseScore": 96,
       "techScore": 96,
       "fundScore": 57,
@@ -1878,6 +2135,7 @@
       "fundDetails": "Dividend decision +4 | Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "MEDIUM"
     },
     {
@@ -1908,6 +2166,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "29",
       "realPower": 0.57,
+      "return1M": 3.97,
+      "return3M": 32.87,
+      "return1Y": 157.64,
       "baseScore": 95,
       "techScore": 95,
       "fundScore": 59,
@@ -1919,7 +2180,7 @@
       ],
       "pe": null,
       "fwdPE": 3.1,
-      "sectorPE": 3.56,
+      "sectorPE": 3.63,
       "epsGrowth": null,
       "codalLetters": 20,
       "fundRecent": [
@@ -1954,9 +2215,10 @@
           "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=TIHOOObOOODKhxn7TwOfKFUIQpZw%3d%3d&rt=0&let=6&ct=0&ft=-1"
         }
       ],
-      "fundDetails": "P/E 3.1 vs sector 3.56 +8 | Fresh monthly report +3 | Board change ≤30d -2",
+      "fundDetails": "P/E 3.1 vs sector 3.63 +8 | Fresh monthly report +3 | Board change ≤30d -2",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -1987,6 +2249,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "16.7",
       "realPower": 0.75,
+      "return1M": 6.81,
+      "return3M": 22.63,
+      "return1Y": 74.27,
       "baseScore": 98,
       "techScore": 98,
       "fundScore": 53,
@@ -2033,6 +2298,7 @@
       "fundDetails": "Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -2063,6 +2329,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "19.7",
       "realPower": 0.83,
+      "return1M": 15.7,
+      "return3M": 33.84,
+      "return1Y": 640.97,
       "baseScore": 98,
       "techScore": 98,
       "fundScore": 53,
@@ -2110,6 +2379,7 @@
       "fundDetails": "Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -2140,6 +2410,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "30.9",
       "realPower": 1.89,
+      "return1M": 7.61,
+      "return3M": 17.18,
+      "return1Y": 58.24,
       "baseScore": 99,
       "techScore": 99,
       "fundScore": 51,
@@ -2187,84 +2460,8 @@
       "fundDetails": "Fresh monthly report +3 | Board change ≤30d -2",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
-    },
-    {
-      "symbol": "دقاضی",
-      "company": "داروسازی شهید قاضی",
-      "sector": "دارو / Pharma",
-      "insCode": "46801030346547943",
-      "price": 2528,
-      "changePct": 2.973523421588595,
-      "value": 71,
-      "rsi": 59,
-      "macdHist": 0.19,
-      "ema20": 2407,
-      "ema50": 2335,
-      "ema200": 1696,
-      "score": 98,
-      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | P>EMA200 +8 | GoldenX +7 | RSI59 +15 | MACD bull +15 | BBMidUp +10 | Liq>30B +10 | Mom1-4% +15 | InstFlow -17.2% -5 | Fundamentals +3",
-      "entry": 2528,
-      "stopLoss": 2288,
-      "target1": 2816,
-      "target2": 3009,
-      "target3": 3201,
-      "riskReward": "1:0.8",
-      "resistance": 2708,
-      "support": 2240,
-      "atr": 96,
-      "maxHoldDays": 30,
-      "recommendation": "Strong Buy",
-      "smartMoneyFlow": "-17.2",
-      "realPower": 0.83,
-      "baseScore": 95,
-      "techScore": 95,
-      "fundScore": 57,
-      "fundFlags": [
-        "DIV",
-        "MON"
-      ],
-      "pe": null,
-      "fwdPE": 6.9,
-      "sectorPE": 7.39,
-      "epsGrowth": null,
-      "codalLetters": 20,
-      "fundRecent": [
-        {
-          "age": 21,
-          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/07/30",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=eCpS3OCLhtqTM4pUDM4Eig%3d%3d&rt=0&let=58&ct=0&ft=-1"
-        },
-        {
-          "age": 22,
-          "title": "اطلاعات و صورت های مالی میاندوره ای دوره 6 ماهه منتهی به 1405/06/31 (حسابرسی نشده)(اصلاحیه)",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=waXQQQaQQQF6V8vcIOOObOOOTfqT2kbBIA%3d%3d&rt=0&let=6&ct=0&ft=-1"
-        },
-        {
-          "age": 26,
-          "title": "توضیحات در خصوص اطلاعات و صورت های مالی منتشر شده",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=C6kF1bEKK1kRgaNLJ7KsyA%3d%3d&rt=0&let=174&ct=0&ft=-1"
-        },
-        {
-          "age": 26,
-          "title": "اطلاعات و صورت های مالی میاندوره ای دوره 6 ماهه منتهی به 1405/06/31 (حسابرسی نشده)",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=McC77xn3IWSXeR66Nzza1g%3d%3d&rt=0&let=6&ct=0&ft=-1"
-        },
-        {
-          "age": 29,
-          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/06/31(اصلاحیه)",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=VrGNCBHEK3wnkEtUoy9I7g%3d%3d&rt=0&let=58&ct=0&ft=-1"
-        },
-        {
-          "age": 50,
-          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/06/31",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=k7XhL9vJFGSccDjrwsdXpg%3d%3d&rt=0&let=58&ct=0&ft=-1"
-        }
-      ],
-      "fundDetails": "Dividend decision +4 | Fresh monthly report +3",
-      "isUndervalued": false,
-      "earningsQuality": null,
-      "horizon": "MEDIUM"
     },
     {
       "symbol": "سامان",
@@ -2294,6 +2491,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "26.3",
       "realPower": 0.61,
+      "return1M": 6.15,
+      "return3M": 14.05,
+      "return1Y": 361.17,
       "baseScore": 100,
       "techScore": 100,
       "fundScore": 46,
@@ -2343,6 +2543,7 @@
       "fundDetails": "Clarification notice ≤14d -5 | Fresh monthly report +3 | Board change ≤30d -2",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "MEDIUM"
     },
     {
@@ -2373,6 +2574,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "1.3",
       "realPower": 0.75,
+      "return1M": 15.03,
+      "return3M": 44.97,
+      "return1Y": 17.56,
       "baseScore": 92,
       "techScore": 92,
       "fundScore": 65,
@@ -2421,6 +2625,7 @@
       "fundDetails": "P/E 7.7 vs sector 11.14 +8 | Dividend decision +4 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "LONG"
     },
     {
@@ -2451,6 +2656,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "40.5",
       "realPower": 2.87,
+      "return1M": 18.22,
+      "return3M": 38.79,
+      "return1Y": 30.06,
       "horizon": "SHORT"
     },
     {
@@ -2481,6 +2689,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "51.9",
       "realPower": 2.53,
+      "return1M": -1.48,
+      "return3M": 26.85,
+      "return1Y": null,
       "horizon": "SHORT"
     },
     {
@@ -2511,6 +2722,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-78.1",
       "realPower": 1.44,
+      "return1M": 3.22,
+      "return3M": 17.83,
+      "return1Y": 13.25,
       "baseScore": 91,
       "techScore": 91,
       "fundScore": 65,
@@ -2560,6 +2774,7 @@
       "fundDetails": "P/E 5.5 vs sector 7.16 +8 | Dividend decision +4 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "LONG"
     },
     {
@@ -2590,6 +2805,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-5.6",
       "realPower": 1.09,
+      "return1M": 5.47,
+      "return3M": 44.69,
+      "return1Y": 27.55,
       "baseScore": 93,
       "techScore": 93,
       "fundScore": 61,
@@ -2637,6 +2855,7 @@
       "fundDetails": "P/E 5.2 vs sector 6.3 +8 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -2667,6 +2886,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "6.9",
       "realPower": 1.43,
+      "return1M": 1.76,
+      "return3M": 51.31,
+      "return1Y": 265.82,
       "baseScore": 93,
       "techScore": 93,
       "fundScore": 61,
@@ -2714,6 +2936,7 @@
       "fundDetails": "P/E 7.8 vs sector 10.48 +8 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -2744,6 +2967,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "0",
       "realPower": 2.05,
+      "return1M": 0,
+      "return3M": 9.49,
+      "return1Y": 35.15,
       "baseScore": 98,
       "techScore": 98,
       "fundScore": 48,
@@ -2792,6 +3018,7 @@
       "fundDetails": "Clarification notice ≤14d -5 | Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "MEDIUM"
     },
     {
@@ -2822,6 +3049,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-61.5",
       "realPower": 11.69,
+      "return1M": 2.6,
+      "return3M": 45.36,
+      "return1Y": 119.16,
       "baseScore": 92,
       "techScore": 92,
       "fundScore": 63,
@@ -2871,6 +3101,7 @@
       "fundDetails": "P/E 5.8 vs sector 11.3 +15 | Clarification notice ≤14d -5 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "MEDIUM"
     },
     {
@@ -2901,6 +3132,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-28.1",
       "realPower": 1.26,
+      "return1M": 3.94,
+      "return3M": 58.65,
+      "return1Y": 122.11,
       "baseScore": 95,
       "techScore": 95,
       "fundScore": 53,
@@ -2947,6 +3181,7 @@
       "fundDetails": "Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "MEDIUM"
     },
     {
@@ -2977,6 +3212,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "5.7",
       "realPower": 1.2,
+      "return1M": 7.84,
+      "return3M": 57.64,
+      "return1Y": 111.16,
       "baseScore": 93,
       "techScore": 93,
       "fundScore": 57,
@@ -2987,7 +3225,7 @@
       ],
       "pe": null,
       "fwdPE": 14.2,
-      "sectorPE": 15.08,
+      "sectorPE": 15.19,
       "epsGrowth": null,
       "codalLetters": 20,
       "fundRecent": [
@@ -3025,6 +3263,7 @@
       "fundDetails": "Dividend decision +4 | Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -3055,6 +3294,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-5.4",
       "realPower": 1.07,
+      "return1M": 20.13,
+      "return3M": 29.46,
+      "return1Y": 307.3,
       "baseScore": 93,
       "techScore": 93,
       "fundScore": 57,
@@ -3103,6 +3345,7 @@
       "fundDetails": "Dividend decision +4 | Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -3133,6 +3376,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-94.5",
       "realPower": 3.77,
+      "return1M": 2.18,
+      "return3M": 89.11,
+      "return1Y": 665.63,
       "baseScore": 92,
       "techScore": 92,
       "fundScore": 59,
@@ -3182,6 +3428,7 @@
       "fundDetails": "P/E 7.1 vs sector 11.14 +8 | Fresh monthly report +3 | Board change ≤30d -2",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "MEDIUM"
     },
     {
@@ -3212,6 +3459,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "19",
       "realPower": 1.03,
+      "return1M": 15.82,
+      "return3M": 61.52,
+      "return1Y": 166.26,
       "baseScore": 96,
       "techScore": 96,
       "fundScore": 51,
@@ -3259,6 +3509,7 @@
       "fundDetails": "Fresh monthly report +3 | Board change ≤30d -2",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -3289,6 +3540,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "35.2",
       "realPower": 1.54,
+      "return1M": -5.33,
+      "return3M": 26.72,
+      "return1Y": 119.06,
       "horizon": "SHORT"
     },
     {
@@ -3319,6 +3573,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "13.7",
       "realPower": 2.33,
+      "return1M": -2.85,
+      "return3M": 31.2,
+      "return1Y": 6.6,
       "horizon": "SHORT"
     },
     {
@@ -3349,6 +3606,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "55.7",
       "realPower": 7.64,
+      "return1M": 6.86,
+      "return3M": 19.28,
+      "return1Y": 79.33,
       "horizon": "SHORT"
     },
     {
@@ -3379,6 +3639,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-24.5",
       "realPower": 6.65,
+      "return1M": 21.03,
+      "return3M": 25.95,
+      "return1Y": 861,
       "baseScore": 100,
       "techScore": 100,
       "fundScore": 38,
@@ -3428,6 +3691,7 @@
       "fundDetails": "P/E 10 vs sector 5.6 -10 | Clarification notice ≤14d -5 | Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "MEDIUM"
     },
     {
@@ -3458,6 +3722,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "5.8",
       "realPower": 1.34,
+      "return1M": 5.1,
+      "return3M": 16.08,
+      "return1Y": 146.17,
       "baseScore": 96,
       "techScore": 96,
       "fundScore": 47,
@@ -3505,6 +3772,7 @@
       "fundDetails": "P/E 39.8 vs sector 11.14 -10 | Capital increase from reserves +4 | Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -3535,6 +3803,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-81.3",
       "realPower": 5.65,
+      "return1M": 14.29,
+      "return3M": 13.66,
+      "return1Y": 108,
       "baseScore": 96,
       "techScore": 96,
       "fundScore": 47,
@@ -3582,6 +3853,7 @@
       "fundDetails": "P/E 19.4 vs sector 11.14 -10 | Dividend decision +4 | Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -3612,6 +3884,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-95",
       "realPower": 8.36,
+      "return1M": -4.42,
+      "return3M": 39.92,
+      "return1Y": 22.67,
       "baseScore": 96,
       "techScore": 96,
       "fundScore": 48,
@@ -3659,6 +3934,7 @@
       "fundDetails": "Clarification notice ≤14d -5 | Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -3689,6 +3965,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-100",
       "realPower": 1.43,
+      "return1M": 0.98,
+      "return3M": -4.02,
+      "return1Y": 39.55,
       "baseScore": 91,
       "techScore": 91,
       "fundScore": 61,
@@ -3736,6 +4015,7 @@
       "fundDetails": "P/E 7.5 vs sector 9.71 +8 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -3766,6 +4046,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-65.1",
       "realPower": 1.08,
+      "return1M": 7.18,
+      "return3M": -7.99,
+      "return1Y": 31.46,
       "baseScore": 88,
       "techScore": 88,
       "fundScore": 68,
@@ -3814,6 +4097,7 @@
       "fundDetails": "P/E 1 vs sector 4.52 +15 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "LONG"
     },
     {
@@ -3844,6 +4128,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-58",
       "realPower": 7.47,
+      "return1M": 8.23,
+      "return3M": 1.74,
+      "return1Y": 152.88,
       "baseScore": 91,
       "techScore": 91,
       "fundScore": 61,
@@ -3892,6 +4179,7 @@
       "fundDetails": "P/E 9.9 vs sector 11.14 +8 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -3922,6 +4210,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-100",
       "realPower": 2.16,
+      "return1M": 7.28,
+      "return3M": 5.64,
+      "return1Y": 75.88,
       "baseScore": 91,
       "techScore": 91,
       "fundScore": 60,
@@ -3972,6 +4263,7 @@
       "fundDetails": "P/E 8.5 vs sector 13.82 +8 | Clarification notice ≤14d -5 | Dividend decision +4 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "MEDIUM"
     },
     {
@@ -4002,6 +4294,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "51.2",
       "realPower": 0.82,
+      "return1M": 5.42,
+      "return3M": 34.14,
+      "return1Y": 87.02,
       "baseScore": 94,
       "techScore": 94,
       "fundScore": 53,
@@ -4048,6 +4343,7 @@
       "fundDetails": "Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -4078,83 +4374,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "12.4",
       "realPower": 1.54,
-      "horizon": "SHORT"
-    },
-    {
-      "symbol": "برکت",
-      "company": "گروه دارویی برکت",
-      "sector": "دارو / Pharma",
-      "insCode": "34557241988629814",
-      "price": 513,
-      "changePct": 2.80561122244489,
-      "value": 75,
-      "rsi": 62,
-      "macdHist": 0.86,
-      "ema20": 483,
-      "ema50": 472,
-      "ema200": 368,
-      "score": 94,
-      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | P>EMA200 +8 | GoldenX +7 | RSI62 +15 | MACD bull +15 | BBMidUp +10 | Liq>30B +10 | Mom1-4% +15 | InstFlow -81.4% -5 | Fundamentals -1",
-      "entry": 513,
-      "stopLoss": 488,
-      "target1": 547,
-      "target2": 564,
-      "target3": 581,
-      "riskReward": "1:1.1",
-      "resistance": 540,
-      "support": 434,
-      "atr": 17,
-      "maxHoldDays": 10,
-      "recommendation": "Strong Buy",
-      "smartMoneyFlow": "-81.4",
-      "realPower": 1.39,
-      "baseScore": 95,
-      "techScore": 95,
-      "fundScore": 47,
-      "fundFlags": [
-        "DIV",
-        "MON"
-      ],
-      "pe": null,
-      "fwdPE": 57,
-      "sectorPE": 11.14,
-      "epsGrowth": null,
-      "codalLetters": 20,
-      "fundRecent": [
-        {
-          "age": 20,
-          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/07/30",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=qUJtWjF0ICcrfSdamDqgrw%3d%3d&rt=2&let=8&ct=0&ft=-1"
-        },
-        {
-          "age": 20,
-          "title": "توضیحات در خصوص اطلاعات و صورت های مالی منتشر شده",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=coM3aaI4WI5ahOOOObOOOllJQu4g%3d%3d&rt=2&let=174&ct=0&ft=-1"
-        },
-        {
-          "age": 27,
-          "title": "اطلاعات و صورت های مالی میاندوره ای دوره 6 ماهه منتهی به 1405/06/31 (حسابرسی نشده)",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=pqJM0jIW6gyuUO7cxsdjIw%3d%3d&rt=2&let=6&ct=0&ft=-1"
-        },
-        {
-          "age": 31,
-          "title": "اطلاعات و صورت های مالی میاندوره ای دوره 6 ماهه منتهی به 1405/03/31 (حسابرسی شده) (شرکت شهرک صنعتی دارویی برکت)",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=J9Ie2xjEN1J7zQQQaQQQOZtVfgjA%3d%3d&rt=1&let=6&ct=0&ft=-1"
-        },
-        {
-          "age": 44,
-          "title": "اطلاعات و صورت های مالی میاندوره ای دوره 6 ماهه منتهی به 1405/03/31 (حسابرسی شده) (شرکت بیوسان فارمد)",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=Ou6XCoptAwJ45kQHun33yA%3d%3d&rt=0&let=6&ct=0&ft=-1"
-        },
-        {
-          "age": 56,
-          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/06/31",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=kWh490KiCb4Y0ZQQQaQQQrEnvNzw%3d%3d&rt=2&let=8&ct=0&ft=-1"
-        }
-      ],
-      "fundDetails": "P/E 57 vs sector 11.14 -10 | Dividend decision +4 | Fresh monthly report +3",
-      "isUndervalued": false,
-      "earningsQuality": null,
+      "return1M": 11.94,
+      "return3M": 20.08,
+      "return1Y": 85.63,
       "horizon": "SHORT"
     },
     {
@@ -4185,6 +4407,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-100",
       "realPower": 1.38,
+      "return1M": 4.28,
+      "return3M": 24.2,
+      "return1Y": -12.95,
       "baseScore": 91,
       "techScore": 91,
       "fundScore": 57,
@@ -4232,6 +4457,7 @@
       "fundDetails": "Dividend decision +4 | Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -4262,6 +4488,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "0.4",
       "realPower": 0.92,
+      "return1M": 5.57,
+      "return3M": 38.83,
+      "return1Y": 178.04,
       "baseScore": 95,
       "techScore": 95,
       "fundScore": 47,
@@ -4311,6 +4540,7 @@
       "fundDetails": "P/E 14.8 vs sector 10.48 -5 | Clarification notice ≤14d -5 | Dividend decision +4 | Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -4341,6 +4571,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-37.8",
       "realPower": 1.37,
+      "return1M": 3.43,
+      "return3M": 32.5,
+      "return1Y": 129.47,
       "baseScore": 88,
       "techScore": 88,
       "fundScore": 65,
@@ -4390,6 +4623,7 @@
       "fundDetails": "P/E 3 vs sector 3.63 +8 | Dividend decision +4 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "LONG"
     },
     {
@@ -4420,6 +4654,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "35.6",
       "realPower": 3.8,
+      "return1M": -5.38,
+      "return3M": 1253,
+      "return1Y": null,
       "horizon": "SHORT"
     },
     {
@@ -4450,6 +4687,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-41.5",
       "realPower": 0.71,
+      "return1M": 5.88,
+      "return3M": 30.91,
+      "return1Y": 20.5,
       "baseScore": 91,
       "techScore": 91,
       "fundScore": 56,
@@ -4498,6 +4738,7 @@
       "fundDetails": "P/E 5.5 vs sector 6.72 +8 | Clarification notice ≤14d -5 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "MEDIUM"
     },
     {
@@ -4528,6 +4769,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-100",
       "realPower": 2.02,
+      "return1M": 6.47,
+      "return3M": 36.49,
+      "return1Y": 143.81,
       "baseScore": 96,
       "techScore": 96,
       "fundScore": 43,
@@ -4574,6 +4818,7 @@
       "fundDetails": "P/E 9.2 vs sector 5.22 -10 | Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -4604,6 +4849,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "0",
       "realPower": 0.74,
+      "return1M": 4.2,
+      "return3M": 11.69,
+      "return1Y": -12.97,
       "baseScore": 96,
       "techScore": 96,
       "fundScore": 43,
@@ -4650,6 +4898,7 @@
       "fundDetails": "P/E 89.2 vs sector 6.3 -10 | Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "MEDIUM"
     },
     {
@@ -4680,6 +4929,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-33.3",
       "realPower": 6.01,
+      "return1M": 14.23,
+      "return3M": 48.73,
+      "return1Y": 486,
       "baseScore": 92,
       "techScore": 92,
       "fundScore": 53,
@@ -4726,6 +4978,7 @@
       "fundDetails": "Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "MEDIUM"
     },
     {
@@ -4756,6 +5009,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-20.4",
       "realPower": 1.04,
+      "return1M": 17.14,
+      "return3M": 28.42,
+      "return1Y": 521.91,
       "baseScore": 87,
       "techScore": 87,
       "fundScore": 65,
@@ -4804,6 +5060,7 @@
       "fundDetails": "P/E 7.3 vs sector 11.14 +8 | Dividend decision +4 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "LONG"
     },
     {
@@ -4834,6 +5091,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "5.7",
       "realPower": 1.08,
+      "return1M": 2.76,
+      "return3M": 79.62,
+      "return1Y": 209.41,
       "baseScore": 92,
       "techScore": 92,
       "fundScore": 52,
@@ -4882,6 +5142,7 @@
       "fundDetails": "Clarification notice ≤14d -5 | Dividend decision +4 | Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "MEDIUM"
     },
     {
@@ -4912,6 +5173,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-100",
       "realPower": 1.68,
+      "return1M": 15.95,
+      "return3M": 37.65,
+      "return1Y": 103.15,
       "baseScore": 89,
       "techScore": 89,
       "fundScore": 60,
@@ -4962,6 +5226,7 @@
       "fundDetails": "P/E 8.8 vs sector 11.35 +8 | Clarification notice ≤14d -5 | Dividend decision +4 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -4992,6 +5257,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "16.8",
       "realPower": 0.5,
+      "return1M": 13.16,
+      "return3M": -4.87,
+      "return1Y": 56.93,
       "baseScore": 89,
       "techScore": 89,
       "fundScore": 61,
@@ -5040,6 +5308,7 @@
       "fundDetails": "P/E 4.8 vs sector 6.72 +8 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -5070,6 +5339,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "19",
       "realPower": 1.1,
+      "return1M": 7.81,
+      "return3M": 57.71,
+      "return1Y": 157.94,
       "horizon": "SHORT"
     },
     {
@@ -5100,6 +5372,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "6.8",
       "realPower": 2.49,
+      "return1M": 13.54,
+      "return3M": 34.98,
+      "return1Y": 54.17,
       "horizon": "MEDIUM"
     },
     {
@@ -5130,6 +5405,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "43.1",
       "realPower": 1.27,
+      "return1M": -4.73,
+      "return3M": 94.69,
+      "return1Y": 338.54,
       "horizon": "SHORT"
     },
     {
@@ -5160,6 +5438,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-100",
       "realPower": 2.35,
+      "return1M": 10.58,
+      "return3M": 28.06,
+      "return1Y": 51.4,
       "baseScore": 96,
       "techScore": 96,
       "fundScore": 41,
@@ -5208,6 +5489,7 @@
       "fundDetails": "P/E 13.4 vs sector 8.16 -10 | Fresh monthly report +3 | Board change ≤30d -2",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "MEDIUM"
     },
     {
@@ -5238,6 +5520,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-75.1",
       "realPower": 1.47,
+      "return1M": -1.15,
+      "return3M": 12.23,
+      "return1Y": 70.2,
       "baseScore": 91,
       "techScore": 91,
       "fundScore": 53,
@@ -5284,6 +5569,7 @@
       "fundDetails": "Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "MEDIUM"
     },
     {
@@ -5314,6 +5600,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-51.5",
       "realPower": 0.95,
+      "return1M": -2.92,
+      "return3M": 19.7,
+      "return1Y": 28.66,
       "baseScore": 91,
       "techScore": 91,
       "fundScore": 52,
@@ -5361,6 +5650,7 @@
       "fundDetails": "P/E 29.6 vs sector 23.95 -5 | Dividend decision +4 | Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "MEDIUM"
     },
     {
@@ -5391,6 +5681,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-16.8",
       "realPower": 1.07,
+      "return1M": -1.27,
+      "return3M": 16.83,
+      "return1Y": 127.61,
       "baseScore": 91,
       "techScore": 91,
       "fundScore": 53,
@@ -5437,6 +5730,7 @@
       "fundDetails": "Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "MEDIUM"
     },
     {
@@ -5467,6 +5761,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-61.5",
       "realPower": 1.3,
+      "return1M": -1.66,
+      "return3M": 10.23,
+      "return1Y": 24.74,
       "baseScore": 88,
       "techScore": 88,
       "fundScore": 61,
@@ -5514,6 +5811,7 @@
       "fundDetails": "P/E 3.1 vs sector 4.52 +8 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -5544,6 +5842,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-97.7",
       "realPower": 0.88,
+      "return1M": 0,
+      "return3M": 29.83,
+      "return1Y": 28.42,
       "baseScore": 86,
       "techScore": 86,
       "fundScore": 65,
@@ -5592,6 +5893,7 @@
       "fundDetails": "P/E 9.2 vs sector 10.48 +8 | Dividend decision +4 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "LONG"
     },
     {
@@ -5622,6 +5924,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-100",
       "realPower": 2.34,
+      "return1M": 10.82,
+      "return3M": 28.57,
+      "return1Y": 12.93,
       "baseScore": 91,
       "techScore": 91,
       "fundScore": 53,
@@ -5668,6 +5973,7 @@
       "fundDetails": "Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -5698,6 +6004,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-100",
       "realPower": 0.87,
+      "return1M": 13.51,
+      "return3M": 19.28,
+      "return1Y": 81.38,
       "baseScore": 95,
       "techScore": 95,
       "fundScore": 41,
@@ -5745,6 +6054,7 @@
       "fundDetails": "P/E 18.7 vs sector 4.49 -10 | Fresh monthly report +3 | Board change ≤30d -2",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "MEDIUM"
     },
     {
@@ -5775,6 +6085,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "8.5",
       "realPower": 0.57,
+      "return1M": 6.41,
+      "return3M": 27.27,
+      "return1Y": 216.8,
       "baseScore": 88,
       "techScore": 88,
       "fundScore": 57,
@@ -5822,6 +6135,7 @@
       "fundDetails": "Dividend decision +4 | Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -5852,6 +6166,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-41.6",
       "realPower": 5.21,
+      "return1M": 20.9,
+      "return3M": 61.46,
+      "return1Y": 101.66,
       "baseScore": 92,
       "techScore": 92,
       "fundScore": 48,
@@ -5898,6 +6215,7 @@
       "fundDetails": "P/E 8.9 vs sector 6.82 -5 | Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "MEDIUM"
     },
     {
@@ -5928,6 +6246,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-3.7",
       "realPower": 1,
+      "return1M": -1.46,
+      "return3M": 19.66,
+      "return1Y": 169.66,
       "baseScore": 90,
       "techScore": 90,
       "fundScore": 53,
@@ -5975,6 +6296,7 @@
       "fundDetails": "Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -6005,6 +6327,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-35.5",
       "realPower": 1.11,
+      "return1M": -5.38,
+      "return3M": 48.1,
+      "return1Y": 444.68,
       "baseScore": 85,
       "techScore": 85,
       "fundScore": 65,
@@ -6053,84 +6378,8 @@
       "fundDetails": "P/E 8.9 vs sector 11.14 +8 | Dividend decision +4 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "LONG"
-    },
-    {
-      "symbol": "زفکا",
-      "company": "کشت و دامداری فکا",
-      "sector": "غذایی و کشاورزی / Food & Agri",
-      "insCode": "5427792638736934",
-      "price": 884,
-      "changePct": 2.910360884749709,
-      "value": 183,
-      "rsi": 66,
-      "macdHist": 1.08,
-      "ema20": 815,
-      "ema50": 805,
-      "ema200": 688,
-      "score": 91,
-      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | P>EMA200 +8 | GoldenX +7 | RSI66 +8 | MACD bull +15 | BBBreakout +5 | Liq>30B +10 | Mom1-4% +15 | InstFlow 13.2% +5 | RealPower 0.54 -5 | Fundamentals +3",
-      "entry": 884,
-      "stopLoss": 832,
-      "target1": 953,
-      "target2": 988,
-      "target3": 1023,
-      "riskReward": "1:0.7",
-      "resistance": 921,
-      "support": 745,
-      "atr": 35,
-      "maxHoldDays": 10,
-      "recommendation": "Strong Buy",
-      "smartMoneyFlow": "13.2",
-      "realPower": 0.54,
-      "baseScore": 88,
-      "techScore": 88,
-      "fundScore": 57,
-      "fundFlags": [
-        "DIV",
-        "MON"
-      ],
-      "pe": null,
-      "fwdPE": 7.3,
-      "sectorPE": 7.47,
-      "epsGrowth": null,
-      "codalLetters": 20,
-      "fundRecent": [
-        {
-          "age": 21,
-          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/07/30",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=QXnqVPEBOOObOOO0Vipnr15GyuoQ%3d%3d&rt=8&let=58&ct=0&ft=-1"
-        },
-        {
-          "age": 23,
-          "title": "توضیحات در خصوص اطلاعات و صورت های مالی منتشر شده",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=GdvoMJBcZga7ZONOOObOOOrEluYA%3d%3d&rt=8&let=174&ct=0&ft=-1"
-        },
-        {
-          "age": 26,
-          "title": "اطلاعات و صورت های مالی میاندوره ای دوره 6 ماهه منتهی به 1405/06/31 (حسابرسی نشده)",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=7ExVIkTKEs8vAL0cQRZKXQ%3d%3d&rt=8&let=6&ct=0&ft=-1"
-        },
-        {
-          "age": 34,
-          "title": "مشخصات کمیته ریسک",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=YSxWXXw3UG3baoP44vZToA%3d%3d&rt=8&let=260&ct=0&ft=-1"
-        },
-        {
-          "age": 34,
-          "title": "کمیته انتصابات",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=NUDrkqeWEOkDvgeCankthA%3d%3d&rt=8&let=248&ct=0&ft=-1"
-        },
-        {
-          "age": 38,
-          "title": "افشای اطلاعات بااهمیت - (افشای معاملات موضوع ماده 129 اصلاحیه قانون تجارت، یا سایر اشخاص وابسته - گروه ب) منتهی به سال مالی 1405/12/29",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=9SIkakHyJWR513EcfuKOOObOOOYg%3d%3d&rt=8&let=11&ct=0&ft=-1"
-        }
-      ],
-      "fundDetails": "Dividend decision +4 | Fresh monthly report +3",
-      "isUndervalued": false,
-      "earningsQuality": null,
-      "horizon": "SHORT"
     },
     {
       "symbol": "زمگسا",
@@ -6160,6 +6409,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "18.8",
       "realPower": 0.71,
+      "return1M": 2.4,
+      "return3M": 26.21,
+      "return1Y": 155.37,
       "horizon": "MEDIUM"
     },
     {
@@ -6190,6 +6442,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "29.5",
       "realPower": 1.65,
+      "return1M": 10.02,
+      "return3M": 31.84,
+      "return1Y": 372,
       "horizon": "SHORT"
     },
     {
@@ -6220,6 +6475,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "43",
       "realPower": 2.87,
+      "return1M": 0,
+      "return3M": 44.74,
+      "return1Y": 403.66,
       "horizon": "SHORT"
     },
     {
@@ -6250,6 +6508,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-44",
       "realPower": 1.26,
+      "return1M": 4.33,
+      "return3M": 24.36,
+      "return1Y": 8.23,
       "baseScore": 90,
       "techScore": 90,
       "fundScore": 51,
@@ -6299,6 +6560,7 @@
       "fundDetails": "Fresh monthly report +3 | Board change ≤30d -2",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -6329,6 +6591,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-100",
       "realPower": 3.06,
+      "return1M": 16.57,
+      "return3M": 31.05,
+      "return1Y": 158.71,
       "baseScore": 93,
       "techScore": 93,
       "fundScore": 43,
@@ -6377,6 +6642,7 @@
       "fundDetails": "P/E 68 vs sector 7.39 -10 | Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -6407,6 +6673,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-35.4",
       "realPower": 1.31,
+      "return1M": 4.2,
+      "return3M": 14.27,
+      "return1Y": 64.86,
       "baseScore": 88,
       "techScore": 88,
       "fundScore": 56,
@@ -6455,6 +6724,7 @@
       "fundDetails": "P/E 9.8 vs sector 11.19 +8 | Clarification notice ≤14d -5 | Fresh monthly report +3",
       "isUndervalued": true,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "MEDIUM"
     },
     {
@@ -6485,6 +6755,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "19.2",
       "realPower": 1.04,
+      "return1M": 1.98,
+      "return3M": 86.14,
+      "return1Y": 293.63,
       "baseScore": 97,
       "techScore": 97,
       "fundScore": 33,
@@ -6533,6 +6806,7 @@
       "fundDetails": "P/E 74.7 vs sector 13.82 -10 | Trading halt notice ≤30d -10 | Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "MEDIUM"
     },
     {
@@ -6563,6 +6837,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "-100",
       "realPower": 1.38,
+      "return1M": -0.76,
+      "return3M": 50,
+      "return1Y": 61.11,
       "baseScore": 87,
       "techScore": 87,
       "fundScore": 57,
@@ -6611,6 +6888,7 @@
       "fundDetails": "Dividend decision +4 | Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
+      "eps": null,
       "horizon": "MEDIUM"
     },
     {
@@ -6641,6 +6919,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "0",
       "realPower": 1.43,
+      "return1M": 0.42,
+      "return3M": 17.44,
+      "return1Y": 13.03,
       "baseScore": 91,
       "techScore": 91,
       "fundScore": 48,
@@ -6688,160 +6969,7 @@
       "fundDetails": "Clarification notice ≤14d -5 | Fresh monthly report +3",
       "isUndervalued": false,
       "earningsQuality": null,
-      "horizon": "SHORT"
-    },
-    {
-      "symbol": "کچاد",
-      "company": "معدنی وصنعتی چادرملو",
-      "sector": "معدن / Mining",
-      "insCode": "18027801615184692",
-      "price": 320,
-      "changePct": -0.9287925696594427,
-      "value": 296,
-      "rsi": 62,
-      "macdHist": 0.68,
-      "ema20": 311,
-      "ema50": 300,
-      "ema200": 269,
-      "score": 90,
-      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | P>EMA200 +8 | GoldenX +7 | RSI62 +15 | MACD bull +15 | BBMidUp +10 | Liq>30B +10 | MomFlat +3 | RealPower 0.5 -5 | Fundamentals +7",
-      "entry": 320,
-      "stopLoss": 272,
-      "target1": 392,
-      "target2": 439,
-      "target3": 499,
-      "riskReward": "1:0.4",
-      "resistance": 337,
-      "support": 286,
-      "atr": 12,
-      "maxHoldDays": 90,
-      "recommendation": "Strong Buy",
-      "smartMoneyFlow": "-9.5",
-      "realPower": 0.5,
-      "baseScore": 83,
-      "techScore": 83,
-      "fundScore": 68,
-      "fundFlags": [
-        "VALUE",
-        "CAP?",
-        "MON"
-      ],
-      "pe": null,
-      "fwdPE": 8.4,
-      "sectorPE": 15.19,
-      "epsGrowth": null,
-      "codalLetters": 20,
-      "fundRecent": [
-        {
-          "age": 20,
-          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/07/30",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=pkomRP23SvKthRak7jMOEQ%3d%3d&rt=0&let=58&ct=0&ft=-1"
-        },
-        {
-          "age": 21,
-          "title": "توضیحات در خصوص اطلاعات و صورت های مالی منتشر شده",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=nhYWpCQYqtg9DsLJHW2ndA%3d%3d&rt=0&let=174&ct=0&ft=-1"
-        },
-        {
-          "age": 26,
-          "title": "اطلاعات و صورت های مالی میاندوره ای دوره 9 ماهه منتهی به 1405/06/31 (حسابرسی نشده)",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=EL941m9oNk8J8jsDE93xvg%3d%3d&rt=0&let=6&ct=0&ft=-1"
-        },
-        {
-          "age": 26,
-          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/06/31(اصلاحیه)",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=hXulL30tWWN517eeNi0TcQ%3d%3d&rt=0&let=58&ct=0&ft=-1"
-        },
-        {
-          "age": 27,
-          "title": "آگهی ثبت افزایش سرمایه",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=OOObOOOyRQQQaQQQZ4mWeQQQaQQQFgzUahDUY3zA%3d%3d&rt=0&let=28&ct=0&ft=-1"
-        },
-        {
-          "age": 31,
-          "title": "صورت های مالی سال مالی منتهی به 1405/03/31 (حسابرسی شده) (شرکت ورزشی چادرملو اردکان)",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=wN1GQHSY3W6lpjrCBwM8Wg%3d%3d&rt=5&let=6&ct=0&ft=-1"
-        }
-      ],
-      "fundDetails": "P/E 8.4 vs sector 15.19 +15 | Fresh monthly report +3",
-      "isUndervalued": true,
-      "earningsQuality": null,
-      "horizon": "LONG"
-    },
-    {
-      "symbol": "کالا",
-      "company": "بورس کالای ایران",
-      "sector": "فعالیتهای کمکی به نهادهای مالی واسط",
-      "insCode": "44549439964296944",
-      "price": 1380,
-      "changePct": 2.3738872403560833,
-      "value": 90,
-      "rsi": 66,
-      "macdHist": 0.63,
-      "ema20": 1292,
-      "ema50": 1220,
-      "ema200": 1003,
-      "score": 90,
-      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | P>EMA200 +8 | GoldenX +7 | RSI66 +8 | MACD bull +15 | BBBreakout +5 | Liq>30B +10 | Mom1-4% +15 | InstFlow 26.1% +5 | Fundamentals -3",
-      "entry": 1380,
-      "stopLoss": 1310,
-      "target1": 1474,
-      "target2": 1521,
-      "target3": 1567,
-      "riskReward": "1:1.3",
-      "resistance": 1474,
-      "support": 1185,
-      "atr": 47,
-      "maxHoldDays": 10,
-      "recommendation": "Strong Buy",
-      "smartMoneyFlow": "26.1",
-      "realPower": 0.89,
-      "baseScore": 93,
-      "techScore": 93,
-      "fundScore": 43,
-      "fundFlags": [
-        "MON"
-      ],
-      "pe": null,
-      "fwdPE": 11.9,
-      "sectorPE": 5.92,
-      "epsGrowth": null,
-      "codalLetters": 20,
-      "fundRecent": [
-        {
-          "age": 21,
-          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/07/30",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=XVGYroThux25IGsZn3oDeQ%3d%3d&rt=5&let=58&ct=0&ft=-1"
-        },
-        {
-          "age": 28,
-          "title": "توضیحات در خصوص اطلاعات و صورت های مالی منتشر شده",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=jEE5c5rWGZG6XMY7mvdS7A%3d%3d&rt=5&let=174&ct=0&ft=-1"
-        },
-        {
-          "age": 28,
-          "title": "اطلاعات و صورت های مالی میاندوره ای دوره 6 ماهه منتهی به 1405/06/31 (حسابرسی نشده)",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=XWBd8vpu6CSxFH2vWrw5TA%3d%3d&rt=5&let=6&ct=0&ft=-1"
-        },
-        {
-          "age": 50,
-          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/06/31",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=EzxKE8gaNuHt7AychpoUBg%3d%3d&rt=5&let=58&ct=0&ft=-1"
-        },
-        {
-          "age": 83,
-          "title": "گزارش فعالیت ماهانه دوره 1 ماهه منتهی به 1405/05/31",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=LDEcOOObOOOByQKiVeNm3IfIQQQaQQQ4kQ%3d%3d&rt=5&let=58&ct=0&ft=-1"
-        },
-        {
-          "age": 99,
-          "title": "شفاف سازی در خصوص شایعه، خبر یا گزارش منتشر شده",
-          "url": "https://codal.ir/Reports/Decision.aspx?LetterSerial=MrVyKuOJY1soDiVpp9ssww%3d%3d&rt=5&let=128&ct=0&ft=-1"
-        }
-      ],
-      "fundDetails": "P/E 11.9 vs sector 5.92 -10 | Fresh monthly report +3",
-      "isUndervalued": false,
-      "earningsQuality": null,
+      "eps": null,
       "horizon": "SHORT"
     },
     {
@@ -6872,6 +7000,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "10.7",
       "realPower": 0.89,
+      "return1M": 8.99,
+      "return3M": 21.25,
+      "return1Y": 102.08,
       "horizon": "SHORT"
     },
     {
@@ -6902,6 +7033,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "63.9",
       "realPower": 0.73,
+      "return1M": -9.12,
+      "return3M": 63.37,
+      "return1Y": 367.59,
       "horizon": "MEDIUM"
     },
     {
@@ -6932,6 +7066,9 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "41.3",
       "realPower": 1.42,
+      "return1M": -1.78,
+      "return3M": 4.6,
+      "return1Y": -26.04,
       "horizon": "SHORT"
     },
     {
@@ -6962,6 +7099,108 @@
       "recommendation": "Strong Buy",
       "smartMoneyFlow": "23.2",
       "realPower": 0.99,
+      "return1M": 3.42,
+      "return3M": 42.07,
+      "return1Y": 19.8,
+      "horizon": "MEDIUM"
+    },
+    {
+      "symbol": "شاوان",
+      "company": "پالایش نفت لاوان",
+      "sector": "پالایشگاهی / Refinery",
+      "insCode": "60247433951600827",
+      "price": 5180,
+      "changePct": 0.602058652165469,
+      "value": 48,
+      "rsi": 57,
+      "macdHist": -0.07,
+      "ema20": 5125,
+      "ema50": 4854,
+      "ema200": 3555,
+      "score": 90,
+      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | P>EMA200 +8 | GoldenX +7 | RSI57 +15 | MACD+ +7 | BBMidUp +10 | Liq>30B +10 | Mom+% +8 | InstFlow 14.3% +5",
+      "entry": 5180,
+      "stopLoss": 4679,
+      "target1": 5782,
+      "target2": 6183,
+      "target3": 6584,
+      "riskReward": "1:0.8",
+      "resistance": 5559,
+      "support": 4730,
+      "atr": 201,
+      "maxHoldDays": 30,
+      "recommendation": "Strong Buy",
+      "smartMoneyFlow": "14.3",
+      "realPower": 0.78,
+      "return1M": -1.93,
+      "return3M": 88.83,
+      "return1Y": 128.23,
+      "horizon": "MEDIUM"
+    },
+    {
+      "symbol": "غپینو",
+      "company": "پارس مینو",
+      "sector": "سایر / Other",
+      "insCode": "18401147983387689",
+      "price": 227,
+      "changePct": 3.1818181818181817,
+      "value": 46,
+      "rsi": 65,
+      "macdHist": 0.88,
+      "ema20": 211,
+      "ema50": 203,
+      "ema200": 277,
+      "score": 90,
+      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | GoldenX +7 | RSI65 +8 | MACD bull +15 | BBMidUp +10 | Liq>30B +10 | Mom1-4% +15 | InstFlow 52.6% +5",
+      "entry": 227,
+      "stopLoss": 215,
+      "target1": 243,
+      "target2": 251,
+      "target3": 259,
+      "riskReward": "1:0.2",
+      "resistance": 229,
+      "support": 185,
+      "atr": 8,
+      "maxHoldDays": 10,
+      "recommendation": "Strong Buy",
+      "smartMoneyFlow": "52.6",
+      "realPower": 1.2,
+      "return1M": 12.94,
+      "return3M": 33.53,
+      "return1Y": -59.82,
+      "horizon": "SHORT"
+    },
+    {
+      "symbol": "ارفع",
+      "company": "شرکت آهن و فولاد ارفع",
+      "sector": "فلزات / Metals",
+      "insCode": "59266699437480384",
+      "price": 1472,
+      "changePct": 2.937062937062937,
+      "value": 40,
+      "rsi": 53,
+      "macdHist": -0.1,
+      "ema20": 1441,
+      "ema50": 1420,
+      "ema200": 1341,
+      "score": 90,
+      "scoreDetails": "P>EMA20 +10 | P>EMA50 +10 | P>EMA200 +8 | GoldenX +7 | RSI53 +15 | BBMidUp +10 | Liq>30B +10 | Mom1-4% +15 | InstFlow 12.6% +5",
+      "entry": 1472,
+      "stopLoss": 1321,
+      "target1": 1654,
+      "target2": 1775,
+      "target3": 1896,
+      "riskReward": "1:1.3",
+      "resistance": 1662,
+      "support": 1334,
+      "atr": 61,
+      "maxHoldDays": 30,
+      "recommendation": "Strong Buy",
+      "smartMoneyFlow": "12.6",
+      "realPower": 0.95,
+      "return1M": -0.61,
+      "return3M": 15.37,
+      "return1Y": 9.78,
       "horizon": "MEDIUM"
     }
   ]
