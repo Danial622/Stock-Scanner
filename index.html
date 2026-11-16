@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TSE Quant Engine v2.4</title>
+<title>TSE Quant Engine v2.4 (Value Hunter)</title>
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.0.0/Vazirmatn-font-face.css" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 <style>
@@ -62,7 +62,7 @@
       </div>
       <div>
         <h1 class="text-base font-bold text-white leading-tight">TSE Quant Engine <span class="text-xs text-blue-400 font-normal ml-1">v2.4</span></h1>
-        <p class="text-xs text-slate-500" id="hdr-sub">Daily Institutional Signals</p>
+        <p class="text-xs text-slate-500" id="hdr-sub">Value Hunter Edition</p>
       </div>
     </div>
 
@@ -168,22 +168,23 @@
       </div>
       <div class="space-y-6">
         <div>
-          <h3 class="text-sky-400 font-bold text-base mb-2 flex items-center gap-2"><span class="bg-sky-900/50 p-1 rounded">3</span> Fundamentals (Codal + TSETMC)</h3>
-          <p class="text-xs mb-2">A bonus/penalty of up to <b>±20 points</b> based on:</p>
+          <h3 class="text-sky-400 font-bold text-base mb-2 flex items-center gap-2"><span class="bg-sky-900/50 p-1 rounded">3</span> Fundamentals & Value Hunter</h3>
+          <p class="text-xs mb-2">A bonus/penalty based on:</p>
           <ul class="space-y-2 text-xs">
-            <li><b class="text-white">Valuation:</b> Forward P/E vs Sector P/E. Cheap = bonus. Expensive = penalty.</li>
-            <li><b class="text-white">Earnings:</b> Forecast EPS growth > 20% = bonus. Loss-making (EPS ≤ 0) = -25 points and capped at "Watchlist".</li>
-            <li><b class="text-white">Codal Events:</b> Dividends (+4), Capital increase from reserves (+4), Cash capital increase (-4).</li>
-            <li><b class="text-white">Red Flags:</b> Trading halt (-10), Qualified audit opinion (-20).</li>
+            <li><b class="text-white">Earnings Quality (OCF):</b> If OCF/Net Income < 0.5, profit is "paper" and vetoed.</li>
+            <li><b class="text-white">Valuation:</b> P/B < 1 or Price < Graham Number triggers the Value Hunter.</li>
+            <li><b class="text-white">Earnings:</b> Forecast EPS growth > 20% = bonus. Loss-making = -25 and vetoed.</li>
+            <li><b class="text-white">Codal Events:</b> Dividends, capital increases, audit opinions.</li>
+            <li class="text-amber-300 mt-2">🎯 <b>Value Hunter:</b> If undervalued AND institutional money is entering (+10% flow) AND RSI > 40, a special +15 bonus is applied.</li>
           </ul>
         </div>
         <div>
           <h3 class="text-amber-400 font-bold text-base mb-2 flex items-center gap-2"><span class="bg-amber-900/50 p-1 rounded">4</span> Trading Levels (ATR-Based)</h3>
           <ul class="space-y-2 text-xs">
-            <li><b class="text-white">Stop Loss:</b> Entry - 1.5 × ATR (Volatility adjusted).</li>
-            <li><b class="text-white">T1 (Safe):</b> Entry + 1.5 × risk. Sell 50% here.</li>
-            <li><b class="text-white">T2 (Main):</b> Entry + 2.5 × risk.</li>
-            <li><b class="text-white">T3 (Runner):</b> Entry + 4.0 × risk.</li>
+            <li><b class="text-white">Stop Loss:</b> Entry - 1.5 × ATR.</li>
+            <li><b class="text-white">T1:</b> Entry + 1.5 × risk. (Sell 50% here).</li>
+            <li><b class="text-white">T2:</b> Entry + 2.5 × risk.</li>
+            <li><b class="text-white">T3:</b> Entry + 4.0 × risk.</li>
           </ul>
         </div>
       </div>
@@ -201,7 +202,7 @@ let latestTimestamp = null;
 
 const T = {
   en: {
-    hdrSub: 'Daily Institutional Signals', scanBtn: 'Force Manual Scan', scanning: 'Scanning…', starting: 'Starting Scan...', running: 'Scan Running...', methodBtn: 'Methodology',
+    hdrSub: 'Value Hunter Edition', scanBtn: 'Force Manual Scan', scanning: 'Scanning…', starting: 'Starting Scan...', running: 'Scan Running...', methodBtn: 'Methodology',
     kpi1: 'Total Signals', kpi2: 'Scanned', kpi3: 'Last Scan', kpi4: 'Data Status', kpi5: 'Connection',
     fresh: 'Today ✓', stale: 'Yesterday', pending: 'Pending',
     thRank:'Rank', thSym:'Symbol', thPx:'Price (T)', thChg:'Chg%', thScore:'Score', thEntry:'Entry', thSl:'Stop', thT1:'T1', thRr:'R:R', thSig:'Signal',
@@ -212,7 +213,7 @@ const T = {
     codalWarn: 'Codal was unreachable from the server — fundamentals use TSETMC EPS / P-E only.'
   },
   fa: {
-    hdrSub: 'سیگنال‌های روزانه نهادی', scanBtn: 'اسکن دستی اجباری', scanning: 'در حال اسکن…', starting: 'شروع اسکن...', running: 'در حال اجرای اسکن...', methodBtn: 'روش‌شناسی',
+    hdrSub: 'نسخه شکارچی ارزش', scanBtn: 'اسکن دستی اجباری', scanning: 'در حال اسکن…', starting: 'شروع اسکن...', running: 'در حال اجرای اسکن...', methodBtn: 'روش‌شناسی',
     kpi1:'تعداد سیگنال', kpi2:'اسکن شده', kpi3:'زمان اسکن', kpi4:'وضعیت داده', kpi5:'اتصال',
     fresh:'امروز ✓', stale:'دیروز', pending:'در انتظار',
     thRank:'رتبه', thSym:'نماد', thPx:'قیمت (ت)', thChg:'تغییر%', thScore:'امتیاز', thEntry:'ورود', thSl:'حد ضرر', thT1:'هدف۱', thRr:'R:R', thSig:'سیگنال',
@@ -258,7 +259,6 @@ function toggleLang() {
 // Filter Logic
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', (e) => {
-    // Update UI
     document.querySelectorAll('.filter-btn').forEach(b => {
       b.classList.remove('bg-blue-600', 'text-white');
       b.classList.add('bg-slate-800', 'text-slate-300', 'hover:bg-slate-700');
@@ -303,8 +303,7 @@ function toggleExpand(index) {
   const chevron = $(`chevron-${index}`);
   if (row.classList.contains('hidden')) {
     row.classList.remove('hidden');
-    if (isFa) { chevron.style.transform = 'rotate(90deg)'; } 
-    else { chevron.style.transform = 'rotate(90deg)'; }
+    chevron.style.transform = 'rotate(90deg)';
   } else {
     row.classList.add('hidden');
     if (isFa) { chevron.style.transform = 'rotate(180deg)'; } 
@@ -328,12 +327,15 @@ function renderTable(data) {
     const smFlow  = parseFloat(s.smartMoneyFlow);
     const smCls   = isNaN(smFlow) ? 'text-slate-400' : smFlow > 5 ? 'text-emerald-400' : smFlow < -5 ? 'text-rose-400' : 'text-slate-400';
     
-    const FLAG = {'DIV':['g','Dividend'], 'CAP+':['g','Capital increase'], 'MON':['g','Monthly report'], 'LOSS':['r','Loss-making'], 'FWD-LOSS':['r','Forecast EPS ≤ 0'], 'AUDIT!':['r','Qualified audit'], 'HALT':['r','Trading-halt'], 'CLARIFY':['a','Clarification'], 'CAP$':['a','Cash capital increase'], 'BOARD':['a','Board change'], 'CAP?':['n','Capital increase announced'], 'EPS-F':['n','EPS forecast'], 'AGM':['n','AGM decisions'] };
+    const FLAG = {'DIV':['g','Dividend'], 'CAP+':['g','Capital increase'], 'MON':['g','Monthly report'], 'LOSS':['r','Loss-making'], 'FWD-LOSS':['r','Forecast EPS ≤ 0'], 'AUDIT!':['r','Qualified audit'], 'HALT':['r','Trading-halt'], 'CLARIFY':['a','Clarification'], 'CAP$':['a','Cash capital increase'], 'BOARD':['a','Board change'], 'CAP?':['n','Capital increase announced'], 'EPS-F':['n','EPS forecast'], 'AGM':['n','AGM decisions'], 'CASH-OK':['g','Cash backed profit'], 'PAPER-PROFIT':['r','Profit is not backed by cash'], 'VALUE':['g','Undervalued (Value)'] };
     const chips = (s.fundFlags||[]).map(f => { const m = FLAG[f]||['n',f]; return `<span class="chip chip-${m[0]}" title="${esc(m[1])}">${esc(f)}</span>`; }).join('') || '<span class="text-slate-600">None</span>';
     
     const pe = (s.fwdPE ?? s.pe), spe = s.sectorPE;
     const peCls = (pe && spe) ? (pe <= spe*0.9 ? 'text-emerald-400' : pe >= spe*1.2 ? 'text-rose-400' : 'text-slate-300') : 'text-slate-300';
     
+    // Value Hunter Icon
+    const valueHunterIcon = (s.isUndervalued && smFlow > 10) ? `<span class="ml-2 text-lg" title="Value Hunter: Undervalued + Institutional Money">🎯</span>` : '';
+
     // Main Row
     const mainRow = `
     <tr class="main-row ${i % 2 === 0 ? 'bg-slate-900/20' : ''}" onclick="toggleExpand(${i})">
@@ -342,7 +344,7 @@ function renderTable(data) {
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
         </svg>
       </td>
-      <td class="px-3 py-3 font-bold text-white font-sans text-sm">${s.symbol}</td>
+      <td class="px-3 py-3 font-bold text-white font-sans text-sm flex items-center">${s.symbol}${valueHunterIcon}</td>
       <td class="px-3 py-3 text-right tabular-nums text-slate-300">${fmt(s.price)}</td>
       <td class="px-3 py-3 text-right tabular-nums ${chgCls}">${s.changePct.toFixed(2)}%</td>
       <td class="px-3 py-3 text-center">
@@ -388,15 +390,20 @@ function renderTable(data) {
             <div class="space-y-1.5 font-mono">
               <p class="flex justify-between"><span class="text-slate-400">P/E Fwd:</span> <span class="${peCls}">${pe || '—'}</span></p>
               <p class="flex justify-between"><span class="text-slate-400">Sector P/E:</span> <span class="text-slate-300">${spe || '—'}</span></p>
+              <p class="flex justify-between"><span class="text-slate-400">P/B Ratio:</span> <span class="${s.pbRatio < 1 ? 'text-emerald-400 font-bold' : 'text-slate-300'}">${s.pbRatio ? s.pbRatio.toFixed(2) : '—'}</span></p>
               <p class="flex justify-between"><span class="text-slate-400">EPS Growth:</span> <span class="${s.epsGrowth >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${s.epsGrowth != null ? s.epsGrowth + '%' : '—'}</span></p>
             </div>
           </div>
 
-          <!-- 4. Fundamentals -->
+          <!-- 4. Fundamentals & Quality -->
           <div>
             <p class="text-slate-500 uppercase tracking-wider text-[10px] mb-2 font-bold">${t.dFund}</p>
             <div class="space-y-1.5">
               <p class="flex justify-between"><span class="text-slate-400">Score:</span> <span class="font-bold ${s.fundScore >= 65 ? 'text-emerald-400' : s.fundScore >= 45 ? 'text-slate-300' : 'text-rose-400'}">${s.fundScore || '—'}/100</span></p>
+              
+              <!-- NEW: Earnings Quality -->
+              <p class="flex justify-between"><span class="text-slate-400">Earn. Quality (OCF):</span> <span class="font-bold ${s.earningsQuality >= 1 ? 'text-emerald-400' : s.earningsQuality < 0.5 ? 'text-rose-400' : 'text-slate-300'}">${s.earningsQuality ? s.earningsQuality.toFixed(2) : '—'}</span></p>
+              
               <p class="text-slate-400 text-[10px] truncate" title="${s.fundDetails}">${s.fundDetails ? s.fundDetails.split('|')[0] : 'Neutral'}</p>
             </div>
           </div>
@@ -445,7 +452,7 @@ async function fetchSignals() {
     const cb = $('codal-banner');
     if (data.codalStatus === 'unreachable') { cb.textContent = isFa?T.fa.codalWarn:T.en.codalWarn; cb.classList.remove('hidden'); } else { cb.classList.add('hidden'); }
 
-    applyFilters(); // This calls renderTable internally
+    applyFilters();
     show('table-container');
     $('status-dot').className = 'w-2 h-2 rounded-full bg-green-500';
     $('status-txt').textContent = 'Live';
