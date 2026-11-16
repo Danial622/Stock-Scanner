@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TSE Quant Engine v2.4 (Value Hunter)</title>
+<title>TSE Quant Engine v2.4 (Forward EPS)</title>
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.0.0/Vazirmatn-font-face.css" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 <style>
@@ -14,7 +14,6 @@
   body.fa th, body.fa td { text-align: right !important; }
   body.fa th.tc, body.fa td.tc { text-align: center !important; }
   
-  /* Flip chevron in RTL */
   body.fa .chevron { transform: rotate(180deg); }
   body.fa .chevron.rotated { transform: rotate(90deg); }
 
@@ -25,20 +24,16 @@
 
   .num { direction: ltr; unicode-bidi: isolate; font-variant-numeric: tabular-nums; }
   
-  /* Status Dots */
   @keyframes spin { to { transform: rotate(360deg); } }
   .spin { animation: spin 1s linear infinite; }
 
-  /* Modals */
   .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100; align-items: center; justify-content: center; padding: 1rem; backdrop-filter: blur(4px); }
   .modal.active { display: flex; }
 
-  /* Row Animations */
   .main-row { transition: background-color 0.15s; cursor: pointer; }
   .main-row:hover { background-color: #1e293b !important; }
   .detail-row { background-color: #0f172a; border-bottom: 1px solid #334155; }
   
-  /* Badges */
   .sig-strong { background: rgba(6, 78, 59, 0.4); color: #34d399; border: 1px solid #047857; }
   .sig-buy    { background: rgba(2, 44, 34, 0.4); color: #86efac; border: 1px solid #065f46; }
   .sig-watch  { background: rgba(66, 32, 6, 0.4); color: #fcd34d; border: 1px solid #78350f; }
@@ -53,7 +48,6 @@
 </head>
 <body class="bg-slate-950 text-slate-200 antialiased min-h-screen flex flex-col">
 
-<!-- HEADER -->
 <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-40 shadow-xl">
   <div class="max-w-[1600px] mx-auto px-4 py-3 flex items-center justify-between gap-4">
     <div class="flex items-center gap-3">
@@ -62,7 +56,7 @@
       </div>
       <div>
         <h1 class="text-base font-bold text-white leading-tight">TSE Quant Engine <span class="text-xs text-blue-400 font-normal ml-1">v2.4</span></h1>
-        <p class="text-xs text-slate-500" id="hdr-sub">Value Hunter Edition</p>
+        <p class="text-xs text-slate-500" id="hdr-sub">Forward EPS Edition</p>
       </div>
     </div>
 
@@ -89,7 +83,6 @@
 <div id="codal-banner" class="hidden text-center text-xs text-sky-200 py-1.5 px-4 font-medium" style="background:linear-gradient(90deg,#0c4a6e,#075985)"></div>
 
 <main class="max-w-[1600px] mx-auto px-4 py-6 space-y-4 flex-1 w-full">
-  <!-- KPI ROW -->
   <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
     <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow"><p class="text-xs text-slate-500 mb-1" id="kpi-lbl-1">Total Signals</p><p class="text-2xl font-bold text-white num" id="kpi-count">—</p></div>
     <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow"><p class="text-xs text-slate-500 mb-1" id="kpi-lbl-2">Scanned</p><p class="text-2xl font-bold text-white num" id="kpi-scanned">—</p><p class="text-[10px] text-slate-500 mt-1" id="kpi-fund"></p></div>
@@ -98,7 +91,6 @@
     <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow"><p class="text-xs text-slate-500 mb-1" id="kpi-lbl-5">Connection</p><p class="text-sm font-mono text-blue-400 truncate num" id="kpi-proxy">—</p></div>
   </div>
 
-  <!-- CONTROLS (Filters & Search) -->
   <div class="flex flex-col sm:flex-row gap-3 items-center justify-between bg-slate-900 p-3 rounded-xl border border-slate-800">
     <div class="flex flex-wrap gap-2 w-full sm:w-auto" id="filter-pills">
       <button class="filter-btn px-4 py-1.5 text-xs font-medium rounded-full bg-blue-600 text-white transition" data-filter="all" id="filter-all">All</button>
@@ -111,13 +103,12 @@
     </div>
   </div>
 
-  <!-- PRIMARY TABLE -->
   <div id="table-container" class="hidden bg-slate-900 rounded-xl border border-slate-800 overflow-hidden shadow-2xl">
     <div class="overflow-x-auto">
       <table class="w-full border-collapse text-sm whitespace-nowrap">
         <thead class="bg-slate-950 text-slate-500 uppercase tracking-wider text-[10px] border-b border-slate-800">
           <tr>
-            <th class="px-2 py-3 w-8"></th> <!-- Chevron -->
+            <th class="px-2 py-3 w-8"></th>
             <th class="px-3 py-3 text-left" id="th-sym">Symbol</th>
             <th class="px-3 py-3 text-right" id="th-px">Price</th>
             <th class="px-3 py-3 text-right" id="th-chg">Chg%</th>
@@ -135,7 +126,6 @@
   </div>
 </main>
 
-<!-- METHODOLOGY MODAL -->
 <div id="methodology-modal" class="modal">
   <div class="bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
     <div class="sticky top-0 bg-slate-900 border-b border-slate-800 px-6 py-4 flex justify-between items-center z-10 rounded-t-2xl">
@@ -169,13 +159,12 @@
       <div class="space-y-6">
         <div>
           <h3 class="text-sky-400 font-bold text-base mb-2 flex items-center gap-2"><span class="bg-sky-900/50 p-1 rounded">3</span> Fundamentals & Value Hunter</h3>
-          <p class="text-xs mb-2">A bonus/penalty based on:</p>
+          <p class="text-xs mb-2">Based on the professor's insight, P/B is ignored due to lack of revaluation in Iran. The focus is on <b>Forward EPS</b> and <b>Earnings Quality</b>:</p>
           <ul class="space-y-2 text-xs">
             <li><b class="text-white">Earnings Quality (OCF):</b> If OCF/Net Income < 0.5, profit is "paper" and vetoed.</li>
-            <li><b class="text-white">Valuation:</b> P/B < 1 or Price < Graham Number triggers the Value Hunter.</li>
+            <li><b class="text-white">Valuation:</b> Forward P/E vs Sector P/E. Lower is better.</li>
             <li><b class="text-white">Earnings:</b> Forecast EPS growth > 20% = bonus. Loss-making = -25 and vetoed.</li>
-            <li><b class="text-white">Codal Events:</b> Dividends, capital increases, audit opinions.</li>
-            <li class="text-amber-300 mt-2">🎯 <b>Value Hunter:</b> If undervalued AND institutional money is entering (+10% flow) AND RSI > 40, a special +15 bonus is applied.</li>
+            <li class="text-amber-300 mt-2">🎯 <b>Value Hunter:</b> If Forward P/E < 0.8x Sector P/E AND EPS Growth > 20% AND Earnings Quality > 0.8 AND institutional money is entering (+10% flow) AND RSI > 40, a special +15 bonus is applied.</li>
           </ul>
         </div>
         <div>
@@ -202,7 +191,7 @@ let latestTimestamp = null;
 
 const T = {
   en: {
-    hdrSub: 'Value Hunter Edition', scanBtn: 'Force Manual Scan', scanning: 'Scanning…', starting: 'Starting Scan...', running: 'Scan Running...', methodBtn: 'Methodology',
+    hdrSub: 'Forward EPS Edition', scanBtn: 'Force Manual Scan', scanning: 'Scanning…', starting: 'Starting Scan...', running: 'Scan Running...', methodBtn: 'Methodology',
     kpi1: 'Total Signals', kpi2: 'Scanned', kpi3: 'Last Scan', kpi4: 'Data Status', kpi5: 'Connection',
     fresh: 'Today ✓', stale: 'Yesterday', pending: 'Pending',
     thRank:'Rank', thSym:'Symbol', thPx:'Price (T)', thChg:'Chg%', thScore:'Score', thEntry:'Entry', thSl:'Stop', thT1:'T1', thRr:'R:R', thSig:'Signal',
@@ -213,7 +202,7 @@ const T = {
     codalWarn: 'Codal was unreachable from the server — fundamentals use TSETMC EPS / P-E only.'
   },
   fa: {
-    hdrSub: 'نسخه شکارچی ارزش', scanBtn: 'اسکن دستی اجباری', scanning: 'در حال اسکن…', starting: 'شروع اسکن...', running: 'در حال اجرای اسکن...', methodBtn: 'روش‌شناسی',
+    hdrSub: 'نسخه سود برآوردی', scanBtn: 'اسکن دستی اجباری', scanning: 'در حال اسکن…', starting: 'شروع اسکن...', running: 'در حال اجرای اسکن...', methodBtn: 'روش‌شناسی',
     kpi1:'تعداد سیگنال', kpi2:'اسکن شده', kpi3:'زمان اسکن', kpi4:'وضعیت داده', kpi5:'اتصال',
     fresh:'امروز ✓', stale:'دیروز', pending:'در انتظار',
     thRank:'رتبه', thSym:'نماد', thPx:'قیمت (ت)', thChg:'تغییر%', thScore:'امتیاز', thEntry:'ورود', thSl:'حد ضرر', thT1:'هدف۱', thRr:'R:R', thSig:'سیگنال',
@@ -253,10 +242,9 @@ function toggleLang() {
   $('search-box').placeholder = t.search;
 
   if (!$('scan-btn').disabled) $('scan-btn-txt').textContent = t.scanBtn;
-  renderTable(filteredData); // Re-render to apply language to badges/details
+  renderTable(filteredData);
 }
 
-// Filter Logic
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', (e) => {
     document.querySelectorAll('.filter-btn').forEach(b => {
@@ -333,10 +321,8 @@ function renderTable(data) {
     const pe = (s.fwdPE ?? s.pe), spe = s.sectorPE;
     const peCls = (pe && spe) ? (pe <= spe*0.9 ? 'text-emerald-400' : pe >= spe*1.2 ? 'text-rose-400' : 'text-slate-300') : 'text-slate-300';
     
-    // Value Hunter Icon
     const valueHunterIcon = (s.isUndervalued && smFlow > 10) ? `<span class="ml-2 text-lg" title="Value Hunter: Undervalued + Institutional Money">🎯</span>` : '';
 
-    // Main Row
     const mainRow = `
     <tr class="main-row ${i % 2 === 0 ? 'bg-slate-900/20' : ''}" onclick="toggleExpand(${i})">
       <td class="px-2 py-3 text-center text-slate-600">
@@ -357,13 +343,11 @@ function renderTable(data) {
       <td class="px-3 py-3 text-center tabular-nums text-slate-400">${s.riskReward}</td>
     </tr>`;
 
-    // Detail Row
     const detailRow = `
     <tr id="detail-${i}" class="hidden detail-row">
       <td colspan="10" class="px-8 py-5">
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 text-xs font-sans">
           
-          <!-- 1. Technicals -->
           <div>
             <p class="text-slate-500 uppercase tracking-wider text-[10px] mb-2 font-bold">${t.dTech}</p>
             <div class="space-y-1.5 font-mono">
@@ -374,7 +358,6 @@ function renderTable(data) {
             </div>
           </div>
 
-          <!-- 2. Smart Money -->
           <div>
             <p class="text-slate-500 uppercase tracking-wider text-[10px] mb-2 font-bold">${t.dFlow}</p>
             <div class="space-y-1.5 font-mono">
@@ -384,31 +367,24 @@ function renderTable(data) {
             </div>
           </div>
 
-          <!-- 3. Valuation -->
           <div>
             <p class="text-slate-500 uppercase tracking-wider text-[10px] mb-2 font-bold">${t.dVal}</p>
             <div class="space-y-1.5 font-mono">
               <p class="flex justify-between"><span class="text-slate-400">P/E Fwd:</span> <span class="${peCls}">${pe || '—'}</span></p>
               <p class="flex justify-between"><span class="text-slate-400">Sector P/E:</span> <span class="text-slate-300">${spe || '—'}</span></p>
-              <p class="flex justify-between"><span class="text-slate-400">P/B Ratio:</span> <span class="${s.pbRatio < 1 ? 'text-emerald-400 font-bold' : 'text-slate-300'}">${s.pbRatio ? s.pbRatio.toFixed(2) : '—'}</span></p>
               <p class="flex justify-between"><span class="text-slate-400">EPS Growth:</span> <span class="${s.epsGrowth >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${s.epsGrowth != null ? s.epsGrowth + '%' : '—'}</span></p>
             </div>
           </div>
 
-          <!-- 4. Fundamentals & Quality -->
           <div>
             <p class="text-slate-500 uppercase tracking-wider text-[10px] mb-2 font-bold">${t.dFund}</p>
             <div class="space-y-1.5">
               <p class="flex justify-between"><span class="text-slate-400">Score:</span> <span class="font-bold ${s.fundScore >= 65 ? 'text-emerald-400' : s.fundScore >= 45 ? 'text-slate-300' : 'text-rose-400'}">${s.fundScore || '—'}/100</span></p>
-              
-              <!-- NEW: Earnings Quality -->
               <p class="flex justify-between"><span class="text-slate-400">Earn. Quality (OCF):</span> <span class="font-bold ${s.earningsQuality >= 1 ? 'text-emerald-400' : s.earningsQuality < 0.5 ? 'text-rose-400' : 'text-slate-300'}">${s.earningsQuality ? s.earningsQuality.toFixed(2) : '—'}</span></p>
-              
               <p class="text-slate-400 text-[10px] truncate" title="${s.fundDetails}">${s.fundDetails ? s.fundDetails.split('|')[0] : 'Neutral'}</p>
             </div>
           </div>
 
-          <!-- 5. Targets -->
           <div>
             <p class="text-slate-500 uppercase tracking-wider text-[10px] mb-2 font-bold">${t.dTargets}</p>
             <div class="space-y-1.5 font-mono">
@@ -418,7 +394,6 @@ function renderTable(data) {
             </div>
           </div>
 
-          <!-- 6. Codal Events -->
           <div>
             <p class="text-slate-500 uppercase tracking-wider text-[10px] mb-2 font-bold">${t.dEvents}</p>
             <div class="flex flex-wrap gap-1">${chips}</div>
