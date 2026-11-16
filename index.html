@@ -3,47 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TSE Quant Engine v2.4 (Forward EPS)</title>
+<title>TSE Quant Engine v2.8 (Horizon-Aware)</title>
 <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.0.0/Vazirmatn-font-face.css" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 <style>
-  :root { --accent: #3b82f6; }
-  body { font-family: system-ui, -apple-system, sans-serif; }
+  body { font-family: system-ui, sans-serif; }
   body.fa { font-family: 'Vazirmatn', system-ui, sans-serif; }
   body.fa table { direction: rtl; }
   body.fa th, body.fa td { text-align: right !important; }
   body.fa th.tc, body.fa td.tc { text-align: center !important; }
-  
   body.fa .chevron { transform: rotate(180deg); }
   body.fa .chevron.rotated { transform: rotate(90deg); }
-
   ::-webkit-scrollbar { width: 8px; height: 8px; }
-  ::-webkit-scrollbar-track { background: #0f172a; }
   ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-  ::-webkit-scrollbar-thumb:hover { background: #475569; }
-
   .num { direction: ltr; unicode-bidi: isolate; font-variant-numeric: tabular-nums; }
-  
   @keyframes spin { to { transform: rotate(360deg); } }
   .spin { animation: spin 1s linear infinite; }
-
   .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 100; align-items: center; justify-content: center; padding: 1rem; backdrop-filter: blur(4px); }
   .modal.active { display: flex; }
-
   .main-row { transition: background-color 0.15s; cursor: pointer; }
   .main-row:hover { background-color: #1e293b !important; }
   .detail-row { background-color: #0f172a; border-bottom: 1px solid #334155; }
-  
-  .sig-strong { background: rgba(6, 78, 59, 0.4); color: #34d399; border: 1px solid #047857; }
-  .sig-buy    { background: rgba(2, 44, 34, 0.4); color: #86efac; border: 1px solid #065f46; }
-  .sig-watch  { background: rgba(66, 32, 6, 0.4); color: #fcd34d; border: 1px solid #78350f; }
-  .sig-avoid  { background: rgba(69, 10, 10, 0.4); color: #fca5a5; border: 1px solid #7f1d1d; }
-
+  .sig-strong { background: rgba(6,78,59,0.4); color: #34d399; border: 1px solid #047857; }
+  .sig-buy    { background: rgba(2,44,34,0.4); color: #86efac; border: 1px solid #065f46; }
+  .sig-watch  { background: rgba(66,32,6,0.4); color: #fcd34d; border: 1px solid #78350f; }
+  .sig-avoid  { background: rgba(69,10,10,0.4); color: #fca5a5; border: 1px solid #7f1d1d; }
   .chip { display:inline-block; font-size:10px; padding:2px 6px; border-radius:6px; margin:2px; border:1px solid; font-family: system-ui, sans-serif; }
   .chip-g { background:#052e16; color:#86efac; border-color:#14532d; }
   .chip-r { background:#450a0a; color:#fca5a5; border-color:#7f1d1d; }
   .chip-a { background:#422006; color:#fcd34d; border-color:#78350f; }
   .chip-n { background:#1e293b; color:#94a3b8; border-color:#334155; }
+  .h-short  { background: rgba(234,88,12,0.2); color: #fb923c; border: 1px solid #9a3412; }
+  .h-medium { background: rgba(59,130,246,0.2); color: #60a5fa; border: 1px solid #1e40af; }
+  .h-long   { background: rgba(16,185,129,0.2); color: #34d399; border: 1px solid #047857; }
 </style>
 </head>
 <body class="bg-slate-950 text-slate-200 antialiased min-h-screen flex flex-col">
@@ -55,22 +47,19 @@
         <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
       </div>
       <div>
-        <h1 class="text-base font-bold text-white leading-tight">TSE Quant Engine <span class="text-xs text-blue-400 font-normal ml-1">v2.4</span></h1>
-        <p class="text-xs text-slate-500" id="hdr-sub">Forward EPS Edition</p>
+        <h1 class="text-base font-bold text-white leading-tight">TSE Quant Engine <span class="text-xs text-blue-400 font-normal ml-1">v2.8</span></h1>
+        <p class="text-xs text-slate-500" id="hdr-sub">Horizon-Aware Signals</p>
       </div>
     </div>
-
     <div class="flex items-center gap-3">
-      <button onclick="openModal()" class="hidden md:flex bg-slate-800 hover:bg-slate-700 border border-slate-700 text-sky-300 px-3 py-1.5 rounded-lg text-xs font-medium transition items-center gap-2">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-        <span id="method-btn-txt">Methodology</span>
+      <button onclick="openModal('methodology')" class="hidden md:flex bg-slate-800 hover:bg-slate-700 border border-slate-700 text-sky-300 px-3 py-1.5 rounded-lg text-xs font-medium transition items-center gap-2">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253"/></svg>
+        <span id="method-btn-txt">راهنما</span>
       </button>
-      
       <div class="flex items-center gap-2 text-xs hidden sm:flex">
         <span class="w-2 h-2 rounded-full bg-slate-600" id="status-dot"></span>
         <span class="text-slate-400" id="status-txt">Ready</span>
       </div>
-      
       <button onclick="toggleLang()" id="lang-btn" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 px-3 py-1.5 rounded-lg text-xs font-medium transition">FA / فارسی</button>
       <button onclick="triggerScan()" id="scan-btn" class="bg-blue-600 hover:bg-blue-500 text-white px-4 py-1.5 rounded-lg text-sm font-semibold shadow-lg transition flex items-center gap-2">
         <svg id="scan-icon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
@@ -91,15 +80,23 @@
     <div class="bg-slate-900 rounded-xl border border-slate-800 p-4 shadow"><p class="text-xs text-slate-500 mb-1" id="kpi-lbl-5">Connection</p><p class="text-sm font-mono text-blue-400 truncate num" id="kpi-proxy">—</p></div>
   </div>
 
-  <div class="flex flex-col sm:flex-row gap-3 items-center justify-between bg-slate-900 p-3 rounded-xl border border-slate-800">
-    <div class="flex flex-wrap gap-2 w-full sm:w-auto" id="filter-pills">
-      <button class="filter-btn px-4 py-1.5 text-xs font-medium rounded-full bg-blue-600 text-white transition" data-filter="all" id="filter-all">All</button>
-      <button class="filter-btn px-4 py-1.5 text-xs font-medium rounded-full bg-slate-800 text-slate-300 hover:bg-slate-700 transition" data-filter="Strong Buy" id="filter-strong">Strong Buy</button>
-      <button class="filter-btn px-4 py-1.5 text-xs font-medium rounded-full bg-slate-800 text-slate-300 hover:bg-slate-700 transition" data-filter="Buy" id="filter-buy">Buy</button>
-      <button class="filter-btn px-4 py-1.5 text-xs font-medium rounded-full bg-slate-800 text-slate-300 hover:bg-slate-700 transition" data-filter="Watchlist" id="filter-watch">Watchlist</button>
+  <div class="flex flex-col gap-3 bg-slate-900 p-3 rounded-xl border border-slate-800">
+    <div class="flex flex-wrap gap-2" id="filter-pills">
+      <span class="text-xs text-slate-500 py-1.5 px-2 font-bold">افق زمانی:</span>
+      <button class="filter-btn px-3 py-1.5 text-xs font-medium rounded-full bg-blue-600 text-white transition" data-filter-h="ALL" id="filter-h-all">همه</button>
+      <button class="filter-btn px-3 py-1.5 text-xs font-medium rounded-full bg-orange-900/50 text-orange-300 border border-orange-700 hover:bg-orange-900 transition" data-filter-h="SHORT" id="filter-h-short">⚡ کوتاه‌مدت</button>
+      <button class="filter-btn px-3 py-1.5 text-xs font-medium rounded-full bg-blue-900/50 text-blue-300 border border-blue-700 hover:bg-blue-900 transition" data-filter-h="MEDIUM" id="filter-h-medium">📊 میان‌مدت</button>
+      <button class="filter-btn px-3 py-1.5 text-xs font-medium rounded-full bg-emerald-900/50 text-emerald-300 border border-emerald-700 hover:bg-emerald-900 transition" data-filter-h="LONG" id="filter-h-long">💎 بلندمدت</button>
     </div>
-    <div class="w-full sm:w-64">
-      <input type="text" id="search-box" placeholder="Search symbol or company..." class="w-full px-4 py-1.5 text-xs bg-slate-950 border border-slate-700 rounded-lg text-slate-200 focus:outline-none focus:border-blue-500 transition" oninput="applyFilters()">
+    <div class="flex flex-wrap gap-2" id="filter-pills-sig">
+      <span class="text-xs text-slate-500 py-1.5 px-2 font-bold">سیگنال:</span>
+      <button class="filter-btn-sig px-3 py-1.5 text-xs font-medium rounded-full bg-blue-600 text-white transition" data-filter="all" id="filter-all">همه</button>
+      <button class="filter-btn-sig px-3 py-1.5 text-xs font-medium rounded-full bg-slate-800 text-slate-300 hover:bg-slate-700 transition" data-filter="Strong Buy" id="filter-strong">Strong Buy</button>
+      <button class="filter-btn-sig px-3 py-1.5 text-xs font-medium rounded-full bg-slate-800 text-slate-300 hover:bg-slate-700 transition" data-filter="Buy" id="filter-buy">Buy</button>
+      <button class="filter-btn-sig px-3 py-1.5 text-xs font-medium rounded-full bg-slate-800 text-slate-300 hover:bg-slate-700 transition" data-filter="Watchlist" id="filter-watch">Watchlist</button>
+      <div class="ml-auto w-full sm:w-64">
+        <input type="text" id="search-box" placeholder="جستجوی نماد یا شرکت..." class="w-full px-4 py-1.5 text-xs bg-slate-950 border border-slate-700 rounded-lg text-slate-200 focus:outline-none focus:border-blue-500 transition" oninput="applyFilters()">
+      </div>
     </div>
   </div>
 
@@ -110,6 +107,7 @@
           <tr>
             <th class="px-2 py-3 w-8"></th>
             <th class="px-3 py-3 text-left" id="th-sym">Symbol</th>
+            <th class="px-3 py-3 text-center" id="th-horizon">افق</th>
             <th class="px-3 py-3 text-right" id="th-px">Price</th>
             <th class="px-3 py-3 text-right" id="th-chg">Chg%</th>
             <th class="px-3 py-3 text-center" id="th-score">Score</th>
@@ -129,88 +127,109 @@
 <div id="methodology-modal" class="modal">
   <div class="bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
     <div class="sticky top-0 bg-slate-900 border-b border-slate-800 px-6 py-4 flex justify-between items-center z-10 rounded-t-2xl">
-      <h2 class="text-lg font-bold text-white flex items-center gap-2">
-        <svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-        Strategy & Scoring Methodology
-      </h2>
+      <h2 class="text-lg font-bold text-white">📘 راهنمای استفاده و افق‌های زمانی</h2>
       <button onclick="closeModal()" class="text-slate-400 hover:text-white bg-slate-800 hover:bg-slate-700 p-1.5 rounded-lg transition">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
     </div>
-    
-    <div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-8 text-sm text-slate-300 leading-relaxed">
-      <div class="space-y-6">
-        <div>
-          <h3 class="text-blue-400 font-bold text-base mb-2 flex items-center gap-2"><span class="bg-blue-900/50 p-1 rounded">1</span> Technical Score (0-100)</h3>
-          <ul class="space-y-2 text-xs">
-            <li><b class="text-white">Trend (35 pts):</b> Price > EMA20 (+10), Price > EMA50 (+10), Price > EMA200 (+8), Golden Cross (+7).</li>
-            <li><b class="text-white">RSI (15 pts):</b> 50–65 sweet spot (+15), 65–70 (+8), 40–50 (+5). Overbought >75 (-8).</li>
-            <li><b class="text-white">MACD (15 pts):</b> Bullish histogram & line above zero (+15).</li>
-            <li><b class="text-white">Bollinger (10 pts):</b> Price moving between mid and upper band (+10).</li>
-            <li><b class="text-white">Liquidity (10 pts):</b> Daily traded value ≥ 30B Toman (+10).</li>
-            <li><b class="text-white">Momentum (15 pts):</b> Daily change 1–4% (+15). Over-extended >12% above EMA20 (-10).</li>
+    <div class="p-6 space-y-6 text-sm text-slate-300 leading-relaxed">
+      <div class="bg-slate-800 p-4 rounded-lg border border-slate-700">
+        <p class="text-base font-bold text-white mb-2">🎯 هر سیگنال برای شما مشخص می‌کند که چند روز باید سهم را نگه دارید.</p>
+        <p class="text-xs text-slate-400">شما نیازی نیست هر روز معامله کنید. کافیست سیگنالی که با سبک معاملاتی شما هم‌خوانی دارد را انتخاب کنید و تا رسیدن به هدف یا حد ضرر صبور باشید.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-orange-950/30 border border-orange-800 rounded-lg p-4">
+          <h3 class="font-bold text-orange-400 mb-2 flex items-center gap-2">⚡ کوتاه‌مدت (Short-term)</h3>
+          <ul class="text-xs space-y-1">
+            <li><b>مدت نگهداری:</b> ۱ تا ۱۰ روز</li>
+            <li><b>حد ضرر:</b> ۱.۵ × ATR</li>
+            <li><b>هدف اول:</b> ۲.۰ × ATR</li>
+            <li><b>هدف نهایی:</b> ۴.۰ × ATR</li>
+            <li><b>بازدهی هدف:</b> ۵ تا ۱۵٪</li>
+            <li><b>ریسک:</b> بالا</li>
+            <li><b>مناسب:</b> معامله‌گران فعال با زمان روزانه</li>
           </ul>
+          <p class="text-[10px] text-orange-300/70 mt-2">بر اساس مومنتوم قوی، شکست مقاومت، جریان پول هوشمند بالا و نوسان زیاد.</p>
         </div>
-        <div>
-          <h3 class="text-emerald-400 font-bold text-base mb-2 flex items-center gap-2"><span class="bg-emerald-900/50 p-1 rounded">2</span> Smart Money Flow (±10 pts)</h3>
-          <p class="text-xs">Analyzes real (حقیقی) vs institutional (حقوقی) volumes. If institutions are net buyers, the score gets a bonus. If they are heavily selling, points are deducted.</p>
+        <div class="bg-blue-950/30 border border-blue-800 rounded-lg p-4">
+          <h3 class="font-bold text-blue-400 mb-2 flex items-center gap-2">📊 میان‌مدت (Medium-term)</h3>
+          <ul class="text-xs space-y-1">
+            <li><b>مدت نگهداری:</b> ۱۰ تا ۳۰ روز</li>
+            <li><b>حد ضرر:</b> ۲.۵ × ATR</li>
+            <li><b>هدف اول:</b> ۳.۰ × ATR</li>
+            <li><b>هدف نهایی:</b> ۷.۰ × ATR</li>
+            <li><b>بازدهی هدف:</b> ۱۵ تا ۳۰٪</li>
+            <li><b>ریسک:</b> متوسط</li>
+            <li><b>مناسب:</b> اکثر معامله‌گران</li>
+          </ul>
+          <p class="text-[10px] text-blue-300/70 mt-2">بر اساس روند صعودی، مومنتوم متعادل و بنیادی متوسط.</p>
+        </div>
+        <div class="bg-emerald-950/30 border border-emerald-800 rounded-lg p-4">
+          <h3 class="font-bold text-emerald-400 mb-2 flex items-center gap-2">💎 بلندمدت (Long-term)</h3>
+          <ul class="text-xs space-y-1">
+            <li><b>مدت نگهداری:</b> ۳۰ تا ۹۰ روز</li>
+            <li><b>حد ضرر:</b> ۴.۰ × ATR</li>
+            <li><b>هدف اول:</b> ۶.۰ × ATR</li>
+            <li><b>هدف نهایی:</b> ۱۵.۰ × ATR</li>
+            <li><b>بازدهی هدف:</b> ۳۰ تا ۱۰۰٪</li>
+            <li><b>ریسک:</b> پایین</li>
+            <li><b>مناسب:</b> سرمایه‌گذاران ارزشی</li>
+          </ul>
+          <p class="text-[10px] text-emerald-300/70 mt-2">بر اساس ارزش زیر ذاتی، بنیادی قوی، تقسیم سود و رشد پایدار.</p>
         </div>
       </div>
-      <div class="space-y-6">
-        <div>
-          <h3 class="text-sky-400 font-bold text-base mb-2 flex items-center gap-2"><span class="bg-sky-900/50 p-1 rounded">3</span> Fundamentals & Value Hunter</h3>
-          <p class="text-xs mb-2">Based on the professor's insight, P/B is ignored due to lack of revaluation in Iran. The focus is on <b>Forward EPS</b> and <b>Earnings Quality</b>:</p>
-          <ul class="space-y-2 text-xs">
-            <li><b class="text-white">Earnings Quality (OCF):</b> If OCF/Net Income < 0.5, profit is "paper" and vetoed.</li>
-            <li><b class="text-white">Valuation:</b> Forward P/E vs Sector P/E. Lower is better.</li>
-            <li><b class="text-white">Earnings:</b> Forecast EPS growth > 20% = bonus. Loss-making = -25 and vetoed.</li>
-            <li class="text-amber-300 mt-2">🎯 <b>Value Hunter:</b> If Forward P/E < 0.8x Sector P/E AND EPS Growth > 20% AND Earnings Quality > 0.8 AND institutional money is entering (+10% flow) AND RSI > 40, a special +15 bonus is applied.</li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="text-amber-400 font-bold text-base mb-2 flex items-center gap-2"><span class="bg-amber-900/50 p-1 rounded">4</span> Trading Levels (ATR-Based)</h3>
-          <ul class="space-y-2 text-xs">
-            <li><b class="text-white">Stop Loss:</b> Entry - 1.5 × ATR.</li>
-            <li><b class="text-white">T1:</b> Entry + 1.5 × risk. (Sell 50% here).</li>
-            <li><b class="text-white">T2:</b> Entry + 2.5 × risk.</li>
-            <li><b class="text-white">T3:</b> Entry + 4.0 × risk.</li>
-          </ul>
-        </div>
+
+      <div class="border-t border-slate-700 pt-4">
+        <h3 class="font-bold text-white mb-2">📋 اصول کلی معامله</h3>
+        <ul class="text-xs space-y-1 text-slate-400">
+          <li>✅ در هر روز حداکثر <b>یک سهم جدید</b> بخرید تا فرصت بررسی داشته باشید.</li>
+          <li>✅ هر سهم را <b>حداکثر ۲۰٪</b> از کل سرمایه در نظر بگیرید (حداکثر ۵ سهم همزمان).</li>
+          <li>✅ اگر سیگنال Strong Buy با امتیاز زیر ۸۲ دیدید، آن را جدی نگیرید.</li>
+          <li>✅ وقتی سهم به هدف اول رسید، حد ضرر را به نقطه ورود بیاورید (حداقل سود را قفل کنید).</li>
+          <li>✅ کارمزد ۰.۴٪ را در محاسبات خود لحاظ کنید.</li>
+          <li>✅ این سیستم <b>توصیه سرمایه‌گذاری نیست</b> و همه سیگنال‌ها باید با تحلیل شخصی شما تأیید شوند.</li>
+        </ul>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-let isFa = false;
+let isFa = true; // پیش‌فرض فارسی
 let scanData = [];
 let filteredData = [];
-let currentFilter = 'all';
+let currentHorizon = 'ALL';
+let currentSignal = 'all';
 let pollInterval = null;
 let latestTimestamp = null;
 
 const T = {
   en: {
-    hdrSub: 'Forward EPS Edition', scanBtn: 'Force Manual Scan', scanning: 'Scanning…', starting: 'Starting Scan...', running: 'Scan Running...', methodBtn: 'Methodology',
+    hdrSub: 'Horizon-Aware Signals',
     kpi1: 'Total Signals', kpi2: 'Scanned', kpi3: 'Last Scan', kpi4: 'Data Status', kpi5: 'Connection',
-    fresh: 'Today ✓', stale: 'Yesterday', pending: 'Pending',
-    thRank:'Rank', thSym:'Symbol', thPx:'Price (T)', thChg:'Chg%', thScore:'Score', thEntry:'Entry', thSl:'Stop', thT1:'T1', thRr:'R:R', thSig:'Signal',
+    fresh: 'Today ✓', stale: 'Yesterday',
+    thSym: 'Symbol', thHorizon: 'Horizon', thPx: 'Price', thChg: 'Chg%', thScore: 'Score', thSig: 'Signal', thEntry: 'Entry', thSl: 'Stop', thT1: 'T1', thRr: 'R:R',
     fAll: 'All', fStrong: 'Strong Buy', fBuy: 'Buy', fWatch: 'Watchlist',
     search: 'Search symbol or company...',
-    dTech: 'Technicals', dFlow: 'Smart Money', dVal: 'Valuation', dFund: 'Fundamentals', dTargets: 'Targets', dEvents: 'Codal Events',
+    hShort: '⚡ Short', hMedium: '📊 Medium', hLong: '💎 Long',
     sigStrong:'STRONG BUY', sigBuy:'BUY', sigWatch:'WATCH', sigAvoid:'AVOID',
-    codalWarn: 'Codal was unreachable from the server — fundamentals use TSETMC EPS / P-E only.'
+    codalWarn: 'Codal was unreachable — fundamentals use TSETMC only.',
+    methodBtn: 'Guide',
+    horizonLabel: 'Horizon:', signalLabel: 'Signal:'
   },
   fa: {
-    hdrSub: 'نسخه سود برآوردی', scanBtn: 'اسکن دستی اجباری', scanning: 'در حال اسکن…', starting: 'شروع اسکن...', running: 'در حال اجرای اسکن...', methodBtn: 'روش‌شناسی',
-    kpi1:'تعداد سیگنال', kpi2:'اسکن شده', kpi3:'زمان اسکن', kpi4:'وضعیت داده', kpi5:'اتصال',
-    fresh:'امروز ✓', stale:'دیروز', pending:'در انتظار',
-    thRank:'رتبه', thSym:'نماد', thPx:'قیمت (ت)', thChg:'تغییر%', thScore:'امتیاز', thEntry:'ورود', thSl:'حد ضرر', thT1:'هدف۱', thRr:'R:R', thSig:'سیگنال',
+    hdrSub: 'سیگنال‌های آگاه به افق زمانی',
+    kpi1: 'تعداد سیگنال', kpi2: 'اسکن شده', kpi3: 'زمان اسکن', kpi4: 'وضعیت داده', kpi5: 'اتصال',
+    fresh: 'امروز ✓', stale: 'دیروز',
+    thSym: 'نماد', thHorizon: 'افق', thPx: 'قیمت', thChg: 'تغییر%', thScore: 'امتیاز', thSig: 'سیگنال', thEntry: 'ورود', thSl: 'حد ضرر', thT1: 'هدف۱', thRr: 'R:R',
     fAll: 'همه', fStrong: 'خرید قوی', fBuy: 'خرید', fWatch: 'رصد',
     search: 'جستجوی نماد یا شرکت...',
-    dTech: 'تکنیکال', dFlow: 'پول هوشمند', dVal: 'ارزش‌گذاری', dFund: 'بنیادی', dTargets: 'اهداف', dEvents: 'رویدادهای کدال',
+    hShort: '⚡ کوتاه', hMedium: '📊 میان', hLong: '💎 بلند',
     sigStrong:'خرید قوی', sigBuy:'خرید', sigWatch:'رصد', sigAvoid:'اجتناب',
-    codalWarn: 'کدال از سرور در دسترس نبود — تحلیل بنیادی فقط با EPS و P/E بورس انجام شد.'
+    codalWarn: 'کدال از سرور در دسترس نبود.',
+    methodBtn: 'راهنما',
+    horizonLabel: 'افق زمانی:', signalLabel: 'سیگنال:'
   }
 };
 
@@ -220,62 +239,79 @@ const hide = id => $(id).classList.add('hidden');
 function fmt(n) { return `<span class="num">${Number(n).toLocaleString('en-US')}</span>`; }
 function esc(x) { return String(x==null?'':x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
-function openModal() { $('methodology-modal').classList.add('active'); }
-function closeModal() { $('methodology-modal').classList.remove('active'); }
-$('methodology-modal').addEventListener('click', e => { if(e.target === $('methodology-modal')) closeModal(); });
+function openModal(name) { $(`${name}-modal`).classList.add('active'); }
+function closeModal() { document.querySelectorAll('.modal').forEach(m => m.classList.remove('active')); }
+document.querySelectorAll('.modal').forEach(m => m.addEventListener('click', e => { if(e.target === m) closeModal(); }));
 
 function toggleLang() {
   isFa = !isFa;
   const t = isFa ? T.fa : T.en;
   document.body.classList.toggle('fa', isFa);
   document.documentElement.dir = isFa ? 'rtl' : 'ltr';
-  
   $('lang-btn').textContent = isFa ? 'EN / English' : 'FA / فارسی';
   $('hdr-sub').textContent = t.hdrSub;
   $('method-btn-txt').textContent = t.methodBtn;
   $('kpi-lbl-1').textContent = t.kpi1; $('kpi-lbl-2').textContent = t.kpi2; $('kpi-lbl-3').textContent = t.kpi3; $('kpi-lbl-4').textContent = t.kpi4; $('kpi-lbl-5').textContent = t.kpi5;
-  $('th-sym').textContent = t.thSym; $('th-px').textContent = t.thPx; $('th-chg').textContent = t.thChg;
+  $('th-sym').textContent = t.thSym; $('th-horizon').textContent = t.thHorizon; $('th-px').textContent = t.thPx; $('th-chg').textContent = t.thChg;
   $('th-score').textContent = t.thScore; $('th-sig').textContent = t.thSig; $('th-entry').textContent = t.thEntry;
   $('th-sl').textContent = t.thSl; $('th-t1').textContent = t.thT1; $('th-rr').textContent = t.thRr;
-  
   $('filter-all').textContent = t.fAll; $('filter-strong').textContent = t.fStrong; $('filter-buy').textContent = t.fBuy; $('filter-watch').textContent = t.fWatch;
+  $('filter-h-short').textContent = t.hShort; $('filter-h-medium').textContent = t.hMedium; $('filter-h-long').textContent = t.hLong;
   $('search-box').placeholder = t.search;
-
-  if (!$('scan-btn').disabled) $('scan-btn-txt').textContent = t.scanBtn;
+  if (!$('scan-btn').disabled) $('scan-btn-txt').textContent = isFa ? 'اسکن دستی اجباری' : 'Force Manual Scan';
   renderTable(filteredData);
 }
 
-document.querySelectorAll('.filter-btn').forEach(btn => {
+// فیلتر افق
+document.querySelectorAll('[data-filter-h]').forEach(btn => {
   btn.addEventListener('click', (e) => {
-    document.querySelectorAll('.filter-btn').forEach(b => {
+    document.querySelectorAll('[data-filter-h]').forEach(b => {
+      b.classList.remove('bg-blue-600', 'text-white');
+      b.classList.add('opacity-60');
+    });
+    e.target.classList.remove('opacity-60');
+    e.target.classList.add('bg-blue-600', 'text-white');
+    currentHorizon = e.target.dataset.filterH;
+    applyFilters();
+  });
+});
+
+// فیلتر سیگنال
+document.querySelectorAll('[data-filter]').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    document.querySelectorAll('[data-filter]').forEach(b => {
       b.classList.remove('bg-blue-600', 'text-white');
       b.classList.add('bg-slate-800', 'text-slate-300', 'hover:bg-slate-700');
     });
     e.target.classList.remove('bg-slate-800', 'text-slate-300', 'hover:bg-slate-700');
     e.target.classList.add('bg-blue-600', 'text-white');
-    
-    currentFilter = e.target.dataset.filter;
+    currentSignal = e.target.dataset.filter;
     applyFilters();
   });
 });
 
 function applyFilters() {
   const query = $('search-box').value.toLowerCase();
-  
   filteredData = scanData.filter(s => {
-    const matchesFilter = currentFilter === 'all' || s.recommendation === currentFilter;
+    const matchesSignal = currentSignal === 'all' || s.recommendation === currentSignal;
+    const matchesHorizon = currentHorizon === 'ALL' || s.horizon === currentHorizon;
     const matchesSearch = s.symbol.toLowerCase().includes(query) || s.company.toLowerCase().includes(query);
-    return matchesFilter && matchesSearch;
+    return matchesSignal && matchesHorizon && matchesSearch;
   });
-
   renderTable(filteredData);
 }
 
 function scoreStyle(score) {
-  if (score >= 85) return { bg: 'bg-green-900/50', text: 'text-green-400', fill: '#4ade80', border: 'border-green-700' };
-  if (score >= 65) return { bg: 'bg-emerald-900/50', text: 'text-emerald-400', fill: '#34d399', border: 'border-emerald-700' };
-  if (score >= 45) return { bg: 'bg-yellow-900/50', text: 'text-yellow-400', fill: '#fbbf24', border: 'border-yellow-700' };
-  return { bg: 'bg-red-900/50', text: 'text-red-400', fill: '#f87171', border: 'border-red-700' };
+  if (score >= 85) return { bg: 'bg-green-900/50', text: 'text-green-400', border: 'border-green-700' };
+  if (score >= 65) return { bg: 'bg-emerald-900/50', text: 'text-emerald-400', border: 'border-emerald-700' };
+  if (score >= 45) return { bg: 'bg-yellow-900/50', text: 'text-yellow-400', border: 'border-yellow-700' };
+  return { bg: 'bg-red-900/50', text: 'text-red-400', border: 'border-red-700' };
+}
+
+function horizonBadge(h) {
+  if (h === 'SHORT') return '<span class="inline-block px-1.5 py-0.5 rounded text-[10px] font-bold h-short" title="کوتاه‌مدت (۱-۱۰ روز)">⚡</span>';
+  if (h === 'LONG') return '<span class="inline-block px-1.5 py-0.5 rounded text-[10px] font-bold h-long" title="بلندمدت (۳۰-۹۰ روز)">💎</span>';
+  return '<span class="inline-block px-1.5 py-0.5 rounded text-[10px] font-bold h-medium" title="میان‌مدت (۱۰-۳۰ روز)">📊</span>';
 }
 
 function recBadge(rec) {
@@ -294,48 +330,53 @@ function toggleExpand(index) {
     chevron.style.transform = 'rotate(90deg)';
   } else {
     row.classList.add('hidden');
-    if (isFa) { chevron.style.transform = 'rotate(180deg)'; } 
-    else { chevron.style.transform = 'rotate(0deg)'; }
+    if (isFa) chevron.style.transform = 'rotate(180deg)';
+    else chevron.style.transform = 'rotate(0deg)';
   }
 }
 
+const FLAG = {'DIV':['g','تقسیم سود'], 'CAP+':['g','افزایش سرمایه'], 'MON':['g','گزارش ماهانه'], 'LOSS':['r','زیان‌ده'], 'FWD-LOSS':['r','پیش‌بینی زیان'], 'AUDIT!':['r','اظهارنظر مشروط'], 'HALT':['r','توقف نماد'], 'CLARIFY':['a','شفاف‌سازی'], 'CAP$':['a','افزایش سرمایه نقدی'], 'BOARD':['a','تغییر هیئت مدیره'], 'CAP?':['n','افزایش سرمایه'], 'EPS-F':['n','پیش‌بینی EPS'], 'AGM':['n','مجامع'], 'CASH-OK':['g','سود نقدی'], 'PAPER-PROFIT':['r','سود کاغذی'], 'VALUE':['g','زیر ارزش']};
+
 function renderTable(data) {
-  const t = isFa ? T.fa : T.en;
   const tbody = $('tbody');
   tbody.innerHTML = '';
-  
   if (!data || data.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="10" class="text-center py-10 text-slate-500 font-sans">No signals match your criteria.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="11" class="text-center py-10 text-slate-500 font-sans">هیچ سیگنالی با این فیلتر پیدا نشد.</td></tr>`;
     return;
   }
+  
+  const HORIZON_INFO = {
+    SHORT: { label: '⚡ کوتاه‌مدت', days: '۱-۱۰ روز', sl: '۱.۵ ATR', tp: '۲-۴ ATR', risk: 'بالا' },
+    MEDIUM: { label: '📊 میان‌مدت', days: '۱۰-۳۰ روز', sl: '۲.۵ ATR', tp: '۳-۷ ATR', risk: 'متوسط' },
+    LONG: { label: '💎 بلندمدت', days: '۳۰-۹۰ روز', sl: '۴.۰ ATR', tp: '۶-۱۵ ATR', risk: 'پایین' }
+  };
 
   data.forEach((s, i) => {
-    const chgCls  = s.changePct >= 0 ? 'text-emerald-400' : 'text-rose-400';
-    const sc      = scoreStyle(s.score);
-    const smFlow  = parseFloat(s.smartMoneyFlow);
-    const smCls   = isNaN(smFlow) ? 'text-slate-400' : smFlow > 5 ? 'text-emerald-400' : smFlow < -5 ? 'text-rose-400' : 'text-slate-400';
-    
-    const FLAG = {'DIV':['g','Dividend'], 'CAP+':['g','Capital increase'], 'MON':['g','Monthly report'], 'LOSS':['r','Loss-making'], 'FWD-LOSS':['r','Forecast EPS ≤ 0'], 'AUDIT!':['r','Qualified audit'], 'HALT':['r','Trading-halt'], 'CLARIFY':['a','Clarification'], 'CAP$':['a','Cash capital increase'], 'BOARD':['a','Board change'], 'CAP?':['n','Capital increase announced'], 'EPS-F':['n','EPS forecast'], 'AGM':['n','AGM decisions'], 'CASH-OK':['g','Cash backed profit'], 'PAPER-PROFIT':['r','Profit is not backed by cash'], 'VALUE':['g','Undervalued (Value)'] };
-    const chips = (s.fundFlags||[]).map(f => { const m = FLAG[f]||['n',f]; return `<span class="chip chip-${m[0]}" title="${esc(m[1])}">${esc(f)}</span>`; }).join('') || '<span class="text-slate-600">None</span>';
-    
+    const chgCls = s.changePct >= 0 ? 'text-emerald-400' : 'text-rose-400';
+    const sc = scoreStyle(s.score);
+    const smFlow = parseFloat(s.smartMoneyFlow);
+    const smCls = isNaN(smFlow) ? 'text-slate-400' : smFlow > 5 ? 'text-emerald-400' : smFlow < -5 ? 'text-rose-400' : 'text-slate-400';
     const pe = (s.fwdPE ?? s.pe), spe = s.sectorPE;
-    const peCls = (pe && spe) ? (pe <= spe*0.9 ? 'text-emerald-400' : pe >= spe*1.2 ? 'text-rose-400' : 'text-slate-300') : 'text-slate-300';
+    const hInfo = HORIZON_INFO[s.horizon] || HORIZON_INFO.MEDIUM;
+
+    const chips = (s.fundFlags||[]).map(f => { const m = FLAG[f]||['n',f]; return `<span class="chip chip-${m[0]}" title="${esc(m[1])}">${esc(f)}</span>`; }).join('') || '<span class="text-slate-600">—</span>';
     
-    const valueHunterIcon = (s.isUndervalued && smFlow > 10) ? `<span class="ml-2 text-lg" title="Value Hunter: Undervalued + Institutional Money">🎯</span>` : '';
+    let fundCell = '<span class="text-slate-700">—</span>';
+    if (s.fundScore != null) {
+      const fc = s.fundScore >= 65 ? 'text-green-400 bg-green-900/30' : s.fundScore >= 45 ? 'text-slate-300 bg-slate-800' : 'text-red-400 bg-red-900/30';
+      fundCell = `<span class="inline-block min-w-[30px] px-2 py-0.5 rounded text-[11px] font-bold border border-slate-700 ${fc}">${s.fundScore}</span>`;
+    }
 
     const mainRow = `
     <tr class="main-row ${i % 2 === 0 ? 'bg-slate-900/20' : ''}" onclick="toggleExpand(${i})">
       <td class="px-2 py-3 text-center text-slate-600">
-        <svg id="chevron-${i}" class="chevron w-4 h-4 mx-auto transition-transform duration-200" style="transform: rotate(${isFa?'180':'0'}deg);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-        </svg>
+        <svg id="chevron-${i}" class="chevron w-4 h-4 mx-auto transition-transform duration-200" style="transform: rotate(${isFa?'180':'0'}deg);" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
       </td>
-      <td class="px-3 py-3 font-bold text-white font-sans text-sm flex items-center">${s.symbol}${valueHunterIcon}</td>
+      <td class="px-3 py-3 font-bold text-white font-sans text-sm">${s.symbol}</td>
+      <td class="px-3 py-3 text-center">${horizonBadge(s.horizon)}</td>
       <td class="px-3 py-3 text-right tabular-nums text-slate-300">${fmt(s.price)}</td>
       <td class="px-3 py-3 text-right tabular-nums ${chgCls}">${s.changePct.toFixed(2)}%</td>
-      <td class="px-3 py-3 text-center">
-        <span class="inline-flex items-center justify-center w-8 h-8 rounded-full font-bold text-xs border ${sc.bg} ${sc.text} ${sc.border} shadow-sm">${s.score}</span>
-      </td>
+      <td class="px-3 py-3 text-center"><span class="inline-flex items-center justify-center w-8 h-8 rounded-full font-bold text-xs border ${sc.bg} ${sc.text} ${sc.border}">${s.score}</span></td>
       <td class="px-3 py-3 text-center">${recBadge(s.recommendation)}</td>
       <td class="px-3 py-3 text-right tabular-nums text-sky-300 font-bold">${fmt(s.entry)}</td>
       <td class="px-3 py-3 text-right tabular-nums text-rose-300">${fmt(s.stopLoss)}</td>
@@ -345,63 +386,57 @@ function renderTable(data) {
 
     const detailRow = `
     <tr id="detail-${i}" class="hidden detail-row">
-      <td colspan="10" class="px-8 py-5">
+      <td colspan="11" class="px-8 py-5">
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 text-xs font-sans">
-          
+          <div class="col-span-2 md:col-span-3 lg:col-span-6 bg-slate-800/50 rounded-lg p-3 mb-2 border border-slate-700">
+            <p class="text-sm font-bold text-white mb-1">${hInfo.label}</p>
+            <p class="text-xs text-slate-400">مدت نگهداری: <b class="text-white">${hInfo.days}</b> · حد ضرر: <b class="text-rose-400">${hInfo.sl}</b> · هدف: <b class="text-emerald-400">${hInfo.tp}</b> · ریسک: <b class="text-amber-400">${hInfo.risk}</b></p>
+          </div>
           <div>
-            <p class="text-slate-500 uppercase tracking-wider text-[10px] mb-2 font-bold">${t.dTech}</p>
+            <p class="text-slate-500 uppercase text-[10px] mb-2 font-bold">تکنیکال</p>
             <div class="space-y-1.5 font-mono">
-              <p class="flex justify-between"><span class="text-slate-400">RSI (14):</span> <span class="font-bold ${s.rsi > 70 ? 'text-rose-400' : s.rsi > 50 ? 'text-emerald-400' : 'text-amber-400'}">${s.rsi}</span></p>
-              <p class="flex justify-between"><span class="text-slate-400">MACD:</span> <span class="font-bold ${s.macdHist > 0 ? 'text-emerald-400' : 'text-rose-400'}">${s.macdHist > 0 ? '+' : ''}${s.macdHist}%</span></p>
+              <p class="flex justify-between"><span class="text-slate-400">RSI:</span> <span class="font-bold ${s.rsi > 70 ? 'text-rose-400' : s.rsi > 50 ? 'text-emerald-400' : 'text-amber-400'}">${s.rsi}</span></p>
+              <p class="flex justify-between"><span class="text-slate-400">MACD:</span> <span class="${s.macdHist > 0 ? 'text-emerald-400' : 'text-rose-400'}">${s.macdHist > 0 ? '+' : ''}${s.macdHist}%</span></p>
               <p class="flex justify-between"><span class="text-slate-400">ATR:</span> <span class="text-slate-300">${s.atr || '—'}</span></p>
-              <p class="flex justify-between"><span class="text-slate-400">EMA20/50:</span> <span class="text-slate-300">${s.ema20} / ${s.ema50}</span></p>
             </div>
           </div>
-
           <div>
-            <p class="text-slate-500 uppercase tracking-wider text-[10px] mb-2 font-bold">${t.dFlow}</p>
+            <p class="text-slate-500 uppercase text-[10px] mb-2 font-bold">پول هوشمند</p>
             <div class="space-y-1.5 font-mono">
-              <p class="flex justify-between"><span class="text-slate-400">Inst. Net:</span> <span class="font-bold ${smCls}">${isNaN(smFlow) ? '—' : s.smartMoneyFlow + '%'}</span></p>
+              <p class="flex justify-between"><span class="text-slate-400">Inst. Net:</span> <span class="${smCls}">${isNaN(smFlow) ? '—' : s.smartMoneyFlow + '%'}</span></p>
               <p class="flex justify-between"><span class="text-slate-400">Real Power:</span> <span class="text-slate-300">${s.realPower || '—'}</span></p>
-              <p class="flex justify-between"><span class="text-slate-400">Volume:</span> <span class="text-slate-300">${s.value}B</span></p>
             </div>
           </div>
-
           <div>
-            <p class="text-slate-500 uppercase tracking-wider text-[10px] mb-2 font-bold">${t.dVal}</p>
+            <p class="text-slate-500 uppercase text-[10px] mb-2 font-bold">ارزش‌گذاری</p>
             <div class="space-y-1.5 font-mono">
-              <p class="flex justify-between"><span class="text-slate-400">P/E Fwd:</span> <span class="${peCls}">${pe || '—'}</span></p>
+              <p class="flex justify-between"><span class="text-slate-400">P/E Fwd:</span> <span class="text-slate-300">${pe || '—'}</span></p>
               <p class="flex justify-between"><span class="text-slate-400">Sector P/E:</span> <span class="text-slate-300">${spe || '—'}</span></p>
               <p class="flex justify-between"><span class="text-slate-400">EPS Growth:</span> <span class="${s.epsGrowth >= 0 ? 'text-emerald-400' : 'text-rose-400'}">${s.epsGrowth != null ? s.epsGrowth + '%' : '—'}</span></p>
             </div>
           </div>
-
           <div>
-            <p class="text-slate-500 uppercase tracking-wider text-[10px] mb-2 font-bold">${t.dFund}</p>
+            <p class="text-slate-500 uppercase text-[10px] mb-2 font-bold">بنیادی</p>
             <div class="space-y-1.5">
-              <p class="flex justify-between"><span class="text-slate-400">Score:</span> <span class="font-bold ${s.fundScore >= 65 ? 'text-emerald-400' : s.fundScore >= 45 ? 'text-slate-300' : 'text-rose-400'}">${s.fundScore || '—'}/100</span></p>
-              <p class="flex justify-between"><span class="text-slate-400">Earn. Quality (OCF):</span> <span class="font-bold ${s.earningsQuality >= 1 ? 'text-emerald-400' : s.earningsQuality < 0.5 ? 'text-rose-400' : 'text-slate-300'}">${s.earningsQuality ? s.earningsQuality.toFixed(2) : '—'}</span></p>
-              <p class="text-slate-400 text-[10px] truncate" title="${s.fundDetails}">${s.fundDetails ? s.fundDetails.split('|')[0] : 'Neutral'}</p>
+              <p class="flex justify-between"><span class="text-slate-400">Score:</span> ${fundCell}</p>
+              <p class="flex justify-between"><span class="text-slate-400">Earn. Quality:</span> <span class="${s.earningsQuality >= 1 ? 'text-emerald-400' : s.earningsQuality < 0.5 ? 'text-rose-400' : 'text-slate-300'}">${s.earningsQuality ? s.earningsQuality.toFixed(2) : '—'}</span></p>
             </div>
           </div>
-
           <div>
-            <p class="text-slate-500 uppercase tracking-wider text-[10px] mb-2 font-bold">${t.dTargets}</p>
+            <p class="text-slate-500 uppercase text-[10px] mb-2 font-bold">اهداف</p>
             <div class="space-y-1.5 font-mono">
-              <p class="flex justify-between"><span class="text-slate-400">T2:</span> <span class="text-emerald-400 font-bold">${fmt(s.target2)}</span></p>
+              <p class="flex justify-between"><span class="text-slate-400">T2:</span> <span class="text-emerald-400">${fmt(s.target2)}</span></p>
               <p class="flex justify-between"><span class="text-slate-400">T3:</span> <span class="text-teal-400">${s.target3 ? fmt(s.target3) : '—'}</span></p>
-              <p class="flex justify-between"><span class="text-slate-400">Sector:</span> <span class="text-slate-300 text-[10px]">${s.sector}</span></p>
             </div>
           </div>
-
-          <div>
-            <p class="text-slate-500 uppercase tracking-wider text-[10px] mb-2 font-bold">${t.dEvents}</p>
+          <div class="col-span-2 md:col-span-3 lg:col-span-6">
+            <p class="text-slate-500 uppercase text-[10px] mb-2 font-bold">رویدادهای کدال</p>
             <div class="flex flex-wrap gap-1">${chips}</div>
           </div>
         </div>
       </td>
     </tr>`;
-
+    
     tbody.innerHTML += mainRow + detailRow;
   });
 }
@@ -411,91 +446,63 @@ async function fetchSignals() {
     const res = await fetch('signals.json?t=' + Date.now());
     if (!res.ok) throw new Error("File not found");
     const data = await res.json();
-    
     if (!data || !data.data || data.data.length === 0) { show('table-container'); return; }
-
     scanData = data.data;
     latestTimestamp = data.updatedAt;
-
     $('kpi-count').textContent = data.data.length;
     $('kpi-scanned').textContent = data.totalScanned ? (data.totalScanned + ' / ' + data.poolSize) : '—';
     $('kpi-time').textContent = data.updatedAt ? new Date(data.updatedAt).toLocaleTimeString() : '—';
     $('kpi-status').textContent = data.stale ? (isFa?T.fa.stale:T.en.stale) : (isFa?T.fa.fresh:T.en.fresh);
     $('kpi-proxy').textContent = data.proxy || 'Direct';
     if(data.fundCoverage) $('kpi-fund').textContent = `Fund: ${data.fundCoverage} · Codal: ${data.codalStatus}`;
-    
     const cb = $('codal-banner');
     if (data.codalStatus === 'unreachable') { cb.textContent = isFa?T.fa.codalWarn:T.en.codalWarn; cb.classList.remove('hidden'); } else { cb.classList.add('hidden'); }
-
     applyFilters();
     show('table-container');
     $('status-dot').className = 'w-2 h-2 rounded-full bg-green-500';
     $('status-txt').textContent = 'Live';
-  } catch (e) {
-    console.error(e);
-  }
+  } catch (e) { console.error(e); }
 }
 
 async function triggerScan() {
   if ($('scan-btn').disabled) return;
-  const t = isFa ? T.fa : T.en;
-
   $('scan-btn').disabled = true;
   $('scan-btn').classList.add('opacity-50', 'cursor-not-allowed');
-  $('scan-btn-txt').textContent = t.starting;
+  $('scan-btn-txt').textContent = 'در حال شروع...';
   $('scan-icon').classList.add('spin');
   $('status-dot').className = 'w-2 h-2 rounded-full bg-yellow-500';
-  $('status-txt').textContent = t.scanning;
-
+  $('status-txt').textContent = 'Scanning';
   try {
     const res = await fetch('/api/trigger-scan', { method: 'POST' });
     const data = await res.json();
-    
     if (data.ok) {
-      $('scan-btn-txt').textContent = t.running;
+      $('scan-btn-txt').textContent = 'در حال اجرا...';
       pollInterval = setInterval(async () => {
         const jsonRes = await fetch('signals.json?t=' + Date.now());
         const json = await jsonRes.json();
-        
         if (json.updatedAt !== latestTimestamp) {
           clearInterval(pollInterval);
           $('scan-btn').disabled = false;
           $('scan-btn').classList.remove('opacity-50', 'cursor-not-allowed');
-          $('scan-btn-txt').textContent = t.scanBtn;
+          $('scan-btn-txt').textContent = isFa ? 'اسکن دستی اجباری' : 'Force Manual Scan';
           $('scan-icon').classList.remove('spin');
-          fetchSignals(); 
+          fetchSignals();
         }
       }, 15000);
-      
-      setTimeout(() => {
-        if(pollInterval) {
-          clearInterval(pollInterval);
-          $('scan-btn').disabled = false;
-          $('scan-btn').classList.remove('opacity-50', 'cursor-not-allowed');
-          $('scan-btn-txt').textContent = t.scanBtn;
-          $('scan-icon').classList.remove('spin');
-          $('status-txt').textContent = 'Timeout';
-        }
-      }, 300000);
-
-    } else {
-      throw new Error(data.error || 'Failed to trigger');
-    }
+      setTimeout(() => { if(pollInterval) { clearInterval(pollInterval); $('scan-btn').disabled = false; $('scan-btn').classList.remove('opacity-50', 'cursor-not-allowed'); $('scan-btn-txt').textContent = isFa ? 'اسکن دستی اجباری' : 'Force Manual Scan'; $('scan-icon').classList.remove('spin'); } }, 300000);
+    } else { throw new Error(data.error || 'Failed'); }
   } catch (error) {
-    alert('Error starting scan: ' + error.message);
+    alert('Error: ' + error.message);
     $('scan-btn').disabled = false;
     $('scan-btn').classList.remove('opacity-50', 'cursor-not-allowed');
-    $('scan-btn-txt').textContent = t.scanBtn;
+    $('scan-btn-txt').textContent = isFa ? 'اسکن دستی اجباری' : 'Force Manual Scan';
     $('scan-icon').classList.remove('spin');
   }
 }
 
 window.addEventListener('load', () => {
-  setInterval(() => {
-    const el = $('tehran-clock');
-    if (el) el.textContent = new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Tehran', hour12: false }) + ' IRN';
-  }, 1000);
-  
+  document.body.classList.add('fa');
+  document.documentElement.dir = 'rtl';
   fetchSignals();
 });
 </script>
